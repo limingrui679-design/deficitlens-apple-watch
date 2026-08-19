@@ -1,0 +1,613 @@
+[
+  {
+    "affine_intercept": 1.2068343159387915,
+    "affine_slope": 0.669580242226034,
+    "calibration_participants": [
+      "P02",
+      "P03",
+      "P06",
+      "P13"
+    ],
+    "calibration_windows": 205,
+    "cluster_conformal_global_radius": 6.130391901965598,
+    "cluster_conformal_group_radii": {
+      "cycling": 2.500140955319429,
+      "rest": 0.9331814406273345,
+      "running": 6.130391901965598
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.6412555610976236,
+    "conformal_group_radii": {
+      "cycling": 2.108423198993804,
+      "rest": 0.6793610328317581,
+      "running": 4.097086493724493
+    },
+    "development_participants": 12,
+    "development_windows": 548,
+    "held_out_participant": "P01",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.3850574337111625,
+    "outer_fold": 0,
+    "test_windows": 58,
+    "weights": {
+      "extra_trees": 0.36410264349596666,
+      "histogram_gradient_boosting": 1.0260999531755924e-18,
+      "ridge": 0.6358973565040333
+    }
+  },
+  {
+    "affine_intercept": 1.1062255971771784,
+    "affine_slope": 0.5562752269741278,
+    "calibration_participants": [
+      "P06",
+      "P09",
+      "P11",
+      "P14"
+    ],
+    "calibration_windows": 168,
+    "cluster_conformal_global_radius": 5.583489785455432,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.847170994024509,
+      "rest": 0.3981647239857844,
+      "running": 5.583489785455432
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.501621153041559,
+    "conformal_group_radii": {
+      "cycling": 2.889246492742476,
+      "rest": 0.14953162350921417,
+      "running": 5.109457345225853
+    },
+    "development_participants": 12,
+    "development_windows": 591,
+    "held_out_participant": "P02",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.5297162875433745,
+    "outer_fold": 1,
+    "test_windows": 52,
+    "weights": {
+      "extra_trees": 0.9295872260450988,
+      "histogram_gradient_boosting": 4.0146160667995056e-17,
+      "ridge": 0.07041277395490118
+    }
+  },
+  {
+    "affine_intercept": 0.9388340945745685,
+    "affine_slope": 0.5959582034568888,
+    "calibration_participants": [
+      "P04",
+      "P09",
+      "P11",
+      "P16"
+    ],
+    "calibration_windows": 182,
+    "cluster_conformal_global_radius": 4.2295731111163235,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.2295731111163235,
+      "rest": 1.1198911619566436,
+      "running": 3.8055715907996106
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.296896760597266,
+    "conformal_group_radii": {
+      "cycling": 3.4266607694031355,
+      "rest": 0.40100972992533573,
+      "running": 2.427525426280477
+    },
+    "development_participants": 12,
+    "development_windows": 585,
+    "held_out_participant": "P03",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.5902108867466032,
+    "outer_fold": 2,
+    "test_windows": 44,
+    "weights": {
+      "extra_trees": 0.8796671704908371,
+      "histogram_gradient_boosting": 0.0,
+      "ridge": 0.1203328295091629
+    }
+  },
+  {
+    "affine_intercept": 1.1003061938758758,
+    "affine_slope": 0.5545150801990841,
+    "calibration_participants": [
+      "P02",
+      "P03",
+      "P11",
+      "P14"
+    ],
+    "calibration_windows": 164,
+    "cluster_conformal_global_radius": 5.102030129952053,
+    "cluster_conformal_group_radii": {
+      "cycling": 3.1793828116439555,
+      "rest": 0.9604119133214077,
+      "running": 5.102030129952053
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.877290073463759,
+    "conformal_group_radii": {
+      "cycling": 2.3603310582953556,
+      "rest": 0.8863987021366253,
+      "running": 4.708814925713159
+    },
+    "development_participants": 12,
+    "development_windows": 596,
+    "held_out_participant": "P04",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.4845477337334811,
+    "outer_fold": 3,
+    "test_windows": 51,
+    "weights": {
+      "extra_trees": 0.2259489408297559,
+      "histogram_gradient_boosting": 0.2050556098303968,
+      "ridge": 0.5689954493398474
+    }
+  },
+  {
+    "affine_intercept": 1.057830387797793,
+    "affine_slope": 0.5554368485750215,
+    "calibration_participants": [
+      "P03",
+      "P13",
+      "P15",
+      "P17"
+    ],
+    "calibration_windows": 193,
+    "cluster_conformal_global_radius": 4.809842052607658,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.809842052607658,
+      "rest": 0.8380499570743608,
+      "running": 4.639164939130435
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.5522288167700546,
+    "conformal_group_radii": {
+      "cycling": 2.497141760798479,
+      "rest": 0.7093580221621263,
+      "running": 3.688203177016205
+    },
+    "development_participants": 12,
+    "development_windows": 564,
+    "held_out_participant": "P05",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.5166789330618764,
+    "outer_fold": 4,
+    "test_windows": 54,
+    "weights": {
+      "extra_trees": 0.6548481496135804,
+      "histogram_gradient_boosting": 1.832015958065589e-17,
+      "ridge": 0.34515185038641966
+    }
+  },
+  {
+    "affine_intercept": 1.3286928074020807,
+    "affine_slope": 0.6942005800077445,
+    "calibration_participants": [
+      "P01",
+      "P03",
+      "P10",
+      "P12"
+    ],
+    "calibration_windows": 193,
+    "cluster_conformal_global_radius": 4.560619092048654,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.181112252029085,
+      "rest": 0.8369602004906135,
+      "running": 4.560619092048654
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 3.303884308494665,
+    "conformal_group_radii": {
+      "cycling": 3.420168397103901,
+      "rest": 0.7248067589112085,
+      "running": 3.43142511550699
+    },
+    "development_participants": 12,
+    "development_windows": 564,
+    "held_out_participant": "P06",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.4611528303493826,
+    "outer_fold": 5,
+    "test_windows": 54,
+    "weights": {
+      "extra_trees": 0.757880224120566,
+      "histogram_gradient_boosting": 1.0260999531755924e-18,
+      "ridge": 0.24211977587943395
+    }
+  },
+  {
+    "affine_intercept": 1.2075969807559557,
+    "affine_slope": 0.5540003312191248,
+    "calibration_participants": [
+      "P05",
+      "P06",
+      "P10",
+      "P14"
+    ],
+    "calibration_windows": 163,
+    "cluster_conformal_global_radius": 5.829961792782419,
+    "cluster_conformal_group_radii": {
+      "cycling": 2.1758582885041715,
+      "rest": 1.0552095923193323,
+      "running": 5.829961792782419
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.523199739530599,
+    "conformal_group_radii": {
+      "cycling": 1.3172380203530498,
+      "rest": 0.20983395694483292,
+      "running": 5.239218907608032
+    },
+    "development_participants": 12,
+    "development_windows": 597,
+    "held_out_participant": "P07",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.561885174293297,
+    "outer_fold": 6,
+    "test_windows": 51,
+    "weights": {
+      "extra_trees": 0.6768762018623424,
+      "histogram_gradient_boosting": 0.1938975099788846,
+      "ridge": 0.1292262881587731
+    }
+  },
+  {
+    "affine_intercept": 1.050964586311024,
+    "affine_slope": 0.5128056312359475,
+    "calibration_participants": [
+      "P02",
+      "P09",
+      "P14",
+      "P16"
+    ],
+    "calibration_windows": 155,
+    "cluster_conformal_global_radius": 5.628296213273059,
+    "cluster_conformal_group_radii": {
+      "cycling": 5.0920577742777295,
+      "rest": 0.4980273105541701,
+      "running": 5.628296213273059
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 3.3371469752321983,
+    "conformal_group_radii": {
+      "cycling": 4.529277221550994,
+      "rest": 0.37770063130229115
+    },
+    "development_participants": 12,
+    "development_windows": 600,
+    "held_out_participant": "P08",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.4127477331879925,
+    "outer_fold": 7,
+    "test_windows": 56,
+    "weights": {
+      "extra_trees": 0.17669872146986165,
+      "histogram_gradient_boosting": 0.5432211270608158,
+      "ridge": 0.28008015146932247
+    }
+  },
+  {
+    "affine_intercept": 1.0533507570860416,
+    "affine_slope": 0.5594843689486262,
+    "calibration_participants": [
+      "P05",
+      "P06",
+      "P07",
+      "P16"
+    ],
+    "calibration_windows": 196,
+    "cluster_conformal_global_radius": 5.567269727526616,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.460839257341602,
+      "rest": 1.106084134539359,
+      "running": 5.567269727526616
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.604104256265639,
+    "conformal_group_radii": {
+      "cycling": 2.094621338314345,
+      "rest": 0.3145969006583496,
+      "running": 4.7414952442632
+    },
+    "development_participants": 12,
+    "development_windows": 569,
+    "held_out_participant": "P09",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.8243773203655234,
+    "outer_fold": 8,
+    "test_windows": 46,
+    "weights": {
+      "extra_trees": 0.0,
+      "histogram_gradient_boosting": 0.7632574368578842,
+      "ridge": 0.2367425631421157
+    }
+  },
+  {
+    "affine_intercept": 0.9747442811879953,
+    "affine_slope": 0.5303761241208258,
+    "calibration_participants": [
+      "P07",
+      "P09",
+      "P16",
+      "P17"
+    ],
+    "calibration_windows": 185,
+    "cluster_conformal_global_radius": 4.862279161122414,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.862279161122414,
+      "rest": 0.45748239321311074,
+      "running": 3.402123582527703
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.655626757450535,
+    "conformal_group_radii": {
+      "cycling": 4.124444475609581,
+      "rest": 0.23461561696981012,
+      "running": 2.825685259627398
+    },
+    "development_participants": 12,
+    "development_windows": 591,
+    "held_out_participant": "P10",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.5521963708949116,
+    "outer_fold": 9,
+    "test_windows": 35,
+    "weights": {
+      "extra_trees": 0.0,
+      "histogram_gradient_boosting": 0.8926854838549876,
+      "ridge": 0.10731451614501249
+    }
+  },
+  {
+    "affine_intercept": 1.1403288562598557,
+    "affine_slope": 0.5671806061868063,
+    "calibration_participants": [
+      "P06",
+      "P07",
+      "P08",
+      "P09"
+    ],
+    "calibration_windows": 207,
+    "cluster_conformal_global_radius": 5.1485051627962415,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.213482459384927,
+      "rest": 0.452998073593854,
+      "running": 5.1485051627962415
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.501460608967953,
+    "conformal_group_radii": {
+      "cycling": 2.563575926317581,
+      "rest": 0.3196496094750989,
+      "running": 4.183255954158214
+    },
+    "development_participants": 12,
+    "development_windows": 556,
+    "held_out_participant": "P11",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.572464833211355,
+    "outer_fold": 10,
+    "test_windows": 48,
+    "weights": {
+      "extra_trees": 0.3279186532778063,
+      "histogram_gradient_boosting": 0.5526970129105919,
+      "ridge": 0.11938433381160193
+    }
+  },
+  {
+    "affine_intercept": 1.04797377593078,
+    "affine_slope": 0.5764384261465147,
+    "calibration_participants": [
+      "P04",
+      "P09",
+      "P11",
+      "P14"
+    ],
+    "calibration_windows": 165,
+    "cluster_conformal_global_radius": 4.219137310384827,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.219137310384827,
+      "rest": 1.1839217792926156,
+      "running": 2.0473547489752333
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 1.8183448466615206,
+    "conformal_group_radii": {
+      "cycling": 2.341430643718161,
+      "rest": 0.19826515139774714,
+      "running": 2.013051557714168
+    },
+    "development_participants": 12,
+    "development_windows": 590,
+    "held_out_participant": "P12",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.6127730873703545,
+    "outer_fold": 11,
+    "test_windows": 56,
+    "weights": {
+      "extra_trees": 0.9072069797400873,
+      "histogram_gradient_boosting": 0.0,
+      "ridge": 0.09279302025991262
+    }
+  },
+  {
+    "affine_intercept": 1.1764832810452446,
+    "affine_slope": 0.6630184324167467,
+    "calibration_participants": [
+      "P01",
+      "P05",
+      "P06",
+      "P10"
+    ],
+    "calibration_windows": 201,
+    "cluster_conformal_global_radius": 6.43223078058572,
+    "cluster_conformal_group_radii": {
+      "cycling": 3.29454394295694,
+      "rest": 1.0152064344198328,
+      "running": 6.43223078058572
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 3.089808831198709,
+    "conformal_group_radii": {
+      "cycling": 2.757093417659191,
+      "rest": 0.27841516935136673,
+      "running": 4.010194791939515
+    },
+    "development_participants": 12,
+    "development_windows": 555,
+    "held_out_participant": "P13",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.3801389506421713,
+    "outer_fold": 12,
+    "test_windows": 55,
+    "weights": {
+      "extra_trees": 0.9342984344642831,
+      "histogram_gradient_boosting": 0.0,
+      "ridge": 0.06570156553571682
+    }
+  },
+  {
+    "affine_intercept": 1.1015687425704126,
+    "affine_slope": 0.5522554333545507,
+    "calibration_participants": [
+      "P09",
+      "P12",
+      "P13",
+      "P17"
+    ],
+    "calibration_windows": 208,
+    "cluster_conformal_global_radius": 4.519333064564203,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.519333064564203,
+      "rest": 0.9113050201288969,
+      "running": 3.3327428877223593
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.9821370442286934,
+    "conformal_group_radii": {
+      "cycling": 3.484821281010735,
+      "rest": 0.663821626887897,
+      "running": 2.765187113647075
+    },
+    "development_participants": 12,
+    "development_windows": 583,
+    "held_out_participant": "P14",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.5254814796615843,
+    "outer_fold": 13,
+    "test_windows": 20,
+    "weights": {
+      "extra_trees": 0.6953033845164185,
+      "histogram_gradient_boosting": 0.08299835340533207,
+      "ridge": 0.22169826207824944
+    }
+  },
+  {
+    "affine_intercept": 0.8237023393555869,
+    "affine_slope": 0.5868493171179352,
+    "calibration_participants": [
+      "P04",
+      "P09",
+      "P11",
+      "P16"
+    ],
+    "calibration_windows": 182,
+    "cluster_conformal_global_radius": 4.4381107645919045,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.4381107645919045,
+      "rest": 1.121869856557618,
+      "running": 2.4717779458549254
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.1511366624478754,
+    "conformal_group_radii": {
+      "cycling": 3.642919929594494,
+      "rest": 0.22822350567362062,
+      "running": 2.1511366624478754
+    },
+    "development_participants": 12,
+    "development_windows": 586,
+    "held_out_participant": "P15",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.592339374710367,
+    "outer_fold": 14,
+    "test_windows": 43,
+    "weights": {
+      "extra_trees": 0.6819983672255191,
+      "histogram_gradient_boosting": 0.2113759921290035,
+      "ridge": 0.10662564064547747
+    }
+  },
+  {
+    "affine_intercept": 1.0642873176515122,
+    "affine_slope": 0.6359668867724769,
+    "calibration_participants": [
+      "P01",
+      "P03",
+      "P09",
+      "P10"
+    ],
+    "calibration_windows": 183,
+    "cluster_conformal_global_radius": 4.336119061365396,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.336119061365396,
+      "rest": 0.830814712190463,
+      "running": 4.082814623839159
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.8923136686661284,
+    "conformal_group_radii": {
+      "cycling": 3.8438358471429144,
+      "rest": 0.20447447563631913,
+      "running": 3.4532330128031683
+    },
+    "development_participants": 12,
+    "development_windows": 591,
+    "held_out_participant": "P16",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.59125664843238,
+    "outer_fold": 15,
+    "test_windows": 37,
+    "weights": {
+      "extra_trees": 0.7507428201489863,
+      "histogram_gradient_boosting": 0.1423369090361281,
+      "ridge": 0.1069202708148855
+    }
+  },
+  {
+    "affine_intercept": 1.1072990754711842,
+    "affine_slope": 0.5853380809641617,
+    "calibration_participants": [
+      "P01",
+      "P03",
+      "P05",
+      "P09"
+    ],
+    "calibration_windows": 202,
+    "cluster_conformal_global_radius": 4.440225112785887,
+    "cluster_conformal_group_radii": {
+      "cycling": 4.440225112785887,
+      "rest": 1.125070277777778,
+      "running": 4.252614905265645
+    },
+    "conformal_calibration_clusters": 4,
+    "conformal_global_radius": 2.632058446119219,
+    "conformal_group_radii": {
+      "cycling": 2.357665988118778,
+      "rest": 0.3686697777777776,
+      "running": 3.563027506779532
+    },
+    "development_participants": 12,
+    "development_windows": 558,
+    "held_out_participant": "P17",
+    "inner_group_folds": 4,
+    "oof_rmse": 1.4939144740996466,
+    "outer_fold": 16,
+    "test_windows": 51,
+    "weights": {
+      "extra_trees": 0.5090571236135858,
+      "histogram_gradient_boosting": 0.0,
+      "ridge": 0.49094287638641415
+    }
+  }
+]

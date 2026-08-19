@@ -1,0 +1,37 @@
+.DS_Store
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.egg-info/
+build/
+dist/
+htmlcov/
+
+# Private or redistributable-by-source data are never committed.
+data/raw/
+data/processed/
+data/private/
+*.xml
+export.xml
+*.zip
+*.xlsx
+*.xls
+!examples/apple_health_sample.xml
+!src/deficitlens/resources/apple_health_sample.xml
+
+# Reproducible generated outputs.
+artifacts/*
+!artifacts/README.md
+!artifacts/quality-score.json
+!artifacts/quality-history.jsonl
+!artifacts/verified/
+!artifacts/verified/**
+!artifacts/verification/
+artifacts/verification/*
+!artifacts/verification/verification.json
+!artifacts/verification/coverage.json
+!artifacts/verification/logs/
+!artifacts/verification/logs/*.log

@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use DeficitLens, cite this software and each dataset listed in data/registry.yml."
+title: "DeficitLens for Apple Watch"
+type: software
+authors:
+  - family-names: Li
+    given-names: Mingrui
+version: 1.0.0
+date-released: 2026-08-20
+license: Apache-2.0
+repository-code: "https://github.com/limingrui679-design/deficitlens"
+keywords:
+  - Apple Watch
+  - energy expenditure
+  - wearable validation
+  - conformal prediction
+  - fat-loss analytics
+preferred-citation:
+  type: software
+  title: "DeficitLens for Apple Watch"
+  authors:
+    - family-names: Li
+      given-names: Mingrui
+  year: 2026
+  version: 1.0.0

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HealthData>
+<HealthData locale="en_US">
+  <ExportDate value="2026-08-20 10:00:00 +0800"/>
+  <Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="Apple Watch" sourceVersion="26.0" unit="kcal" creationDate="2026-08-18 08:00:00 +0800" startDate="2026-08-18 07:59:30 +0800" endDate="2026-08-18 08:00:00 +0800" value="3.20" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="Apple Watch" sourceVersion="26.0" unit="kJ" creationDate="2026-08-18 08:01:00 +0800" startDate="2026-08-18 08:00:30 +0800" endDate="2026-08-18 08:01:00 +0800" value="16.736" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierBasalEnergyBurned" sourceName="Apple Watch" sourceVersion="26.0" unit="kcal" creationDate="2026-08-18 08:01:00 +0800" startDate="2026-08-18 08:00:00 +0800" endDate="2026-08-18 08:01:00 +0800" value="1.10" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Apple Watch" sourceVersion="26.0" unit="count/min" creationDate="2026-08-18 08:00:00 +0800" startDate="2026-08-18 08:00:00 +0800" endDate="2026-08-18 08:00:00 +0800" value="118" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Apple Watch" sourceVersion="26.0" unit="count/min" creationDate="2026-08-18 08:01:00 +0800" startDate="2026-08-18 08:01:00 +0800" endDate="2026-08-18 08:01:00 +0800" value="126" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Apple Watch" sourceVersion="26.0" unit="count" creationDate="2026-08-18 08:01:00 +0800" startDate="2026-08-18 08:00:00 +0800" endDate="2026-08-18 08:01:00 +0800" value="124" device="Apple Watch"/>
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Chest Strap" sourceVersion="1" unit="count/min" creationDate="2026-08-18 08:01:00 +0800" startDate="2026-08-18 08:01:00 +0800" endDate="2026-08-18 08:01:00 +0800" value="125" device="Chest Strap"/>
+  <Workout workoutActivityType="HKWorkoutActivityTypeRunning" duration="30" durationUnit="min" totalEnergyBurned="240" totalEnergyBurnedUnit="kcal" sourceName="Apple Watch" sourceVersion="26.0" creationDate="2026-08-18 08:30:00 +0800" startDate="2026-08-18 08:00:00 +0800" endDate="2026-08-18 08:30:00 +0800" device="Apple Watch">
+    <WorkoutStatistics type="HKQuantityTypeIdentifierHeartRate" startDate="2026-08-18 08:00:00 +0800" endDate="2026-08-18 08:30:00 +0800" average="142" minimum="98" maximum="174" unit="count/min"/>
+  </Workout>
+</HealthData>

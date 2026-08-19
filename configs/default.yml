@@ -1,0 +1,33 @@
+seed: 20260820
+data:
+  window_seconds: 30
+  stride_seconds: 30
+  apple_hr_tolerance_seconds: 15
+  minimum_window_coverage: 0.70
+  oxygen_caloric_equivalent_kcal_per_liter: 5.0
+  apple_active_energy_unit: kJ
+model:
+  outer_split: leave_one_subject_out
+  inner_group_folds: 4
+  calibration_group_fraction: 0.20
+  conformal_alpha: 0.10
+  mondrian_column: activity_family
+  minimum_mondrian_samples: 25
+  minimum_mondrian_clusters: 3
+  ensemble_models:
+    - ridge
+    - extra_trees
+    - histogram_gradient_boosting
+evaluation:
+  bootstrap_repetitions: 1000
+  subgroup_columns:
+    - sex
+    - body_fat_band
+    - bmi_band
+    - activity
+  decision_horizons_weeks: [4, 8, 12]
+  kcal_per_kg_scenario: 7700
+privacy:
+  redact_source_names: true
+  hash_salt_environment_variable: DEFICITLENS_HASH_SALT
+  retain_raw_rows: false

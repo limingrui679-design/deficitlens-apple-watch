@@ -1,0 +1,47 @@
+schema_version: 1
+datasets:
+  weee:
+    title: WEEE - Multi-Device and Multi-Modal Wearable Energy Expenditure
+    version: "2022-04-07"
+    record_url: https://doi.org/10.5281/zenodo.6420886
+    download_url: https://zenodo.org/api/records/6420886/files/dataset.zip/content
+    file_name: dataset.zip
+    size_bytes: 651557047
+    checksum: md5:23e411c566f1c734e74e23fa76bd1ab0
+    license: CC-BY-4.0
+    role: second-level model development and Apple Watch Series 6 audit
+    participants: 17
+    committed: false
+  apple_watch_paee_2026:
+    title: Body fat, skin tone, and smartwatch caloric expenditure estimates
+    version: "2026-07-29"
+    record_url: https://osf.io/e745u/overview
+    article_url: https://doi.org/10.1371/journal.pone.0353261
+    files:
+      - name: All Subject Level Data one place.xlsx
+        download_url: https://osf.io/download/tkf2v/
+        checksum: sha256:7a9efa3df497f49d2fbace434f0e2a4987b61208933465de03560f255970a717
+      - name: Clean Calories Run.R
+        download_url: https://osf.io/download/h9wde/
+        checksum: sha256:b86f9101cd6e16f43ed46688cedf4a1b13783ef6c4b4978b3e250e4a887bf1a5
+    license: CC-BY-4.0
+    role: Apple Watch Series 8 external and body-composition fairness audit
+    participants: 58
+    committed: false
+  bigideaslab_step:
+    title: Smartwatch heart-rate measurements across skin tones
+    version: "1.0"
+    record_url: https://physionet.org/content/bigideaslab-step-hr-smartwatch/1.0/
+    license: PhysioNet-Restricted-Health-Data-License-1.5.0
+    access: restricted; account and signed data-use agreement required
+    role: optional heart-rate measurement fairness validation
+    participants: 53
+    committed: false
+  apple_health_export:
+    title: User-provided Apple Health export
+    version: local
+    record_url: https://support.apple.com/guide/iphone/share-your-health-data-iph5ede58c3d/ios
+    license: private user data
+    access: private local input; never downloaded or uploaded
+    role: local-only personal audit
+    committed: false

@@ -1,0 +1,111 @@
+{
+  "all_passed": true,
+  "checks": {
+    "build": {
+      "command": [
+        "python",
+        "-m",
+        "build",
+        "--outdir",
+        "./artifacts/verification/dist"
+      ],
+      "elapsed_seconds": 4.145202125015203,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/build.log",
+      "passed": true
+    },
+    "cli_demo": {
+      "command": [
+        "python",
+        "-m",
+        "deficitlens",
+        "demo",
+        "--output",
+        "./artifacts/verification/demo"
+      ],
+      "elapsed_seconds": 2.578640833031386,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/cli_demo.log",
+      "passed": true
+    },
+    "format": {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "elapsed_seconds": 0.051598292018752545,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/format.log",
+      "passed": true
+    },
+    "lint": {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "elapsed_seconds": 0.052397207997273654,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/lint.log",
+      "passed": true
+    },
+    "resource_sync": {
+      "command": [
+        "python",
+        "scripts/check_resources.py"
+      ],
+      "elapsed_seconds": 0.03318649996072054,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/resource_sync.log",
+      "passed": true
+    },
+    "tests": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--cov=deficitlens",
+        "--cov-branch",
+        "--cov-report=term-missing",
+        "--cov-report=json:./artifacts/verification/coverage.json"
+      ],
+      "elapsed_seconds": 15.989243374962825,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/tests.log",
+      "passed": true
+    },
+    "typecheck": {
+      "command": [
+        "python",
+        "-m",
+        "mypy",
+        "src",
+        "scripts"
+      ],
+      "elapsed_seconds": 0.3152293750317767,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/typecheck.log",
+      "passed": true
+    },
+    "wheel_smoke": {
+      "command": [
+        "python",
+        "scripts/smoke_wheel.py",
+        "./artifacts/verification/dist/deficitlens-1.0.0-py3-none-any.whl"
+      ],
+      "elapsed_seconds": 5.342171291005798,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/wheel_smoke.log",
+      "passed": true
+    }
+  },
+  "generated_at": "2026-08-19T20:15:42.008988+00:00",
+  "python": "3.12.13 (main, Aug  7 2026, 02:15:23) [Clang 22.1.3 ]",
+  "schema_version": 1
+}

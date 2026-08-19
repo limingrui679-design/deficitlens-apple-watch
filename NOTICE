@@ -1,0 +1,13 @@
+DeficitLens for Apple Watch
+Copyright 2026 Mingrui Li
+
+This product can process or derive results from third-party datasets that are not distributed in
+the source repository. Their licenses and required citations remain independent:
+
+- WEEE, Zenodo 6420886, CC BY 4.0. Cite the corresponding Scientific Data article.
+- Apple Watch PAEE 2026, OSF e745u and PLOS ONE 10.1371/journal.pone.0353261, CC BY 4.0.
+- BigIdeasLab_STEP is not distributed or used; access is governed by the PhysioNet Restricted
+  Health Data License 1.5.0 and a signed data-use agreement.
+
+Apple, Apple Watch, HealthKit, and watchOS are trademarks of Apple Inc. This project is independent
+and is not endorsed by Apple Inc.

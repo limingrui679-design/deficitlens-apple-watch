@@ -1,0 +1,86 @@
+{
+  "claims_boundary": [
+    "WEEE predictions are outer-fold estimates for unseen participants.",
+    "The 2026 cohort audits raw Apple Watch totals; it is not a transfer test of the WEEE model.",
+    "Projected mass differences are fixed-assumption sensitivity scenarios, not forecasts.",
+    "No medical diagnosis or treatment recommendation is produced."
+  ],
+  "compact_interval": {
+    "above_interval": 0.040690505548705305,
+    "below_interval": 0.11344019728729964,
+    "coverage": 0.8458692971639951,
+    "mean_width": 3.925654561045263,
+    "n": 811
+  },
+  "data_evidence": {
+    "apple_watch_paee_2026": {
+      "activities": [
+        "recumbent_cycle_mixed_intensity"
+      ],
+      "checksum": "sha256:7a9efa3df497f49d2fbace434f0e2a4987b61208933465de03560f255970a717",
+      "dataset_id": "apple_watch_paee_2026",
+      "notes": [
+        "Primary analysis excludes participant OSF058 across devices, per paper code."
+      ],
+      "participants": 53,
+      "rows": 53,
+      "source_file": "All Subject Level Data one place.xlsx"
+    },
+    "weee": {
+      "activities": [
+        "cycle_high",
+        "cycle_low",
+        "run_high",
+        "run_low",
+        "sit",
+        "stand"
+      ],
+      "checksum": "md5:23e411c566f1c734e74e23fa76bd1ab0",
+      "dataset_id": "weee",
+      "notes": [
+        "P14:cycle_low:non_monotonic_start"
+      ],
+      "participants": 17,
+      "rows": 811,
+      "source_file": "dataset.zip"
+    }
+  },
+  "elapsed_seconds": 156.1105559170246,
+  "external_primary_participants": 52,
+  "generated_at": "2026-08-19T20:05:09.350404+00:00",
+  "high_resolution_overlapping_windows": 4544,
+  "interval": {
+    "above_interval": 0.004932182490752158,
+    "below_interval": 0.030826140567200986,
+    "coverage": 0.9642416769420469,
+    "mean_width": 5.193524188435736,
+    "n": 811
+  },
+  "outer_test_participants": 17,
+  "outputs": {
+    "figures/coverage_by_activity.png": "sha256:7927da310f476f324bbc08beb37aa90edce9ae5c27db1928ac5198e0625dda38",
+    "figures/external_agreement.png": "sha256:4f25f5d9f54d58da9aa2bca2370c4c9f353853872c01a2f66a0e81b7660cfc3c",
+    "figures/model_error.png": "sha256:cac81017e77f47dc446f8478a702603ade7fe7356edea3aa1f9ca49e9d9e6a31",
+    "figures/observed_predicted.png": "sha256:07859f145edde9c7b5f3438ef07df101d270dfaaf91a513d238cbb79b8fbe495",
+    "report.html": "sha256:cf7554739cff2388db731f8a43b2bde9fc0fbec66840e60231cd1a530d71ac6d",
+    "tables/cluster_bootstrap.csv": "sha256:95080b7c16435284f8bf3549b83110d89f8c7c7097c63f7acd2e3e4cfbf5310c",
+    "tables/decision_impact_scenarios.csv": "sha256:e78477814e93367b32d896a17d46e7d134c632c02ea5c5d01ff288d83f1deeee",
+    "tables/external_subgroup_audit.csv": "sha256:9a69cbefb8fd117a820ae7dce2fe5ce5930c7fc3100f67729dd5f4cd3af2ad9f",
+    "tables/fold_diagnostics.json": "sha256:dfeb632be60064feae6341c5bb3e914ebfa5ca19d0595a20ee9ca8266edff4e9",
+    "tables/loso_predictions.csv": "sha256:e5fa5c9014cd59eed859a47b63cd9a856a617f5ae8060f47a60c5cdfcece9cd1",
+    "tables/model_metrics.csv": "sha256:106fe0ebe6cdcf3ce3d7dc0951624238a587098a4867e8dd2811916c8f66f0e7",
+    "tables/subgroup_audit.csv": "sha256:6e7f28b975d2469313bc8d876a5e6b56152d0cbe477cf187e1dfe92505b32823",
+    "tables/subgroup_disparities.csv": "sha256:2778e7ab53159217cf82af9919e6cd351a031ef087bdc2f2b9b93538f672c0e3"
+  },
+  "primary_non_overlapping_windows": 811,
+  "project_version": "1.0.0",
+  "runtime": {
+    "numpy": "2.5.2",
+    "pandas": "2.3.3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "scikit_learn": "1.9.0"
+  },
+  "schema_version": 1,
+  "seed": 20260820
+}

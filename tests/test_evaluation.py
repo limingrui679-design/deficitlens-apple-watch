@@ -9,6 +9,7 @@ from deficitlens.evaluation.decision import projected_mass_error_scenarios
 from deficitlens.evaluation.external import audit_paee2026
 from deficitlens.evaluation.fairness import disparity_summary, subgroup_audit
 from deficitlens.evaluation.metrics import agreement_metrics, interval_metrics, regression_metrics
+from deficitlens.evaluation.transportability import build_transferability_gate
 
 
 def test_metrics_bootstrap_and_decisions() -> None:
@@ -33,7 +34,25 @@ def test_metrics_bootstrap_and_decisions() -> None:
         kcal_per_kg=7700,
         active_minutes_per_day=(30,),
     )
-    assert scenarios.shape == (1, 6)
+    assert scenarios.shape == (1, 9)
+    assert scenarios.loc[0, "active_days_per_week"] == 7
+    assert scenarios.loc[0, "kcal_per_kg_assumption"] == 7700
+    expanded = projected_mass_error_scenarios(
+        prediction - target,
+        groups,
+        horizons_weeks=[4],
+        kcal_per_kg_values=(7000, 9000),
+        active_minutes_per_day=(30,),
+        active_days_per_week=(3, 5),
+    )
+    assert len(expanded) == 4
+    with pytest.raises(ValueError):
+        projected_mass_error_scenarios(
+            prediction - target,
+            groups,
+            horizons_weeks=[4],
+            kcal_per_kg_values=(),
+        )
     with pytest.raises(ValueError):
         clustered_bootstrap_interval(
             target, prediction, np.array(["A"] * 6), mae, repetitions=100, seed=1
@@ -73,11 +92,17 @@ def test_subgroup_and_external_audits() -> None:
             "bmi_band": ["<25"] * 3 + [">=30"] * 3,
         }
     )
-    summary, slices = audit_paee2026(external)
-    assert summary["participants"] == 6
-    assert set(slices["subgroup_variable"]) == {
+    result = audit_paee2026(external, repetitions=100, seed=4)
+    assert result.summary["participants"] == 6
+    assert set(result.bootstrap["metric"]) == {"mae", "mean_bias"}
+    assert set(result.subgroups["subgroup_variable"]) == {
         "sex",
         "fitzpatrick_skin_type",
         "body_fat_band",
         "bmi_band",
     }
+
+    transfer = build_transferability_gate(external.columns)
+    assert transfer["status"] == "blocked_model_transfer"
+    assert transfer["passed"] is False
+    assert "apple_hr_mean" in transfer["missing_required_features"]

@@ -1,0 +1,16 @@
+{
+  "as_of": "2026-08-20",
+  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
+  "documented_real_users": 0,
+  "independent_method_reviews": 0,
+  "independent_reproductions": 0,
+  "observed_public_stars": null,
+  "organizational_adoptions": 0,
+  "production_deployments": 0,
+  "public_repository_verified": false,
+  "publication_status": "local_release_candidate",
+  "real_world_impact_evaluations": 0,
+  "schema_version": 1,
+  "structured_accessibility_reviews": 0,
+  "structured_usability_participants": 0
+}

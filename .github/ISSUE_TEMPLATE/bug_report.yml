@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible defect using synthetic or public data only
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Never upload Apple Health exports, credentials, or identifying timestamps.
+  - type: input
+    id: version
+    attributes:
+      label: DeficitLens version
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Include command, expected result, actual result, OS, and Python version.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed private health data, identifiers, routes, and credentials.
+          required: true

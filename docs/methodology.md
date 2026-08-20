@@ -113,14 +113,20 @@ The 2026 dataset supplies Apple Watch Series 8 and COSMED K5 session totals for 
 recumbent-cycle protocol. It lacks the WEEE feature grid, so it is used to audit raw Watch error,
 not to claim model transfer. The primary analysis mirrors the paper code's participant-wide ID 58
 exclusion. An all-paired sensitivity analysis restores that participant and reports the change.
+MAE and mean-bias intervals use 1,000 participant bootstrap replicates. A machine-readable
+transportability gate compares required model inputs, endpoint granularity, and protocol. Because
+the external workbook lacks the WEEE heart-rate/window feature contract, the gate returns
+`blocked_model_transfer` while still allowing the raw-device agreement audit.
 
 ## Decision-impact scenarios
 
 Participant mean rate error across cycling/running windows (never sit/stand windows) is multiplied
-by 30, 45, or 60 exercise minutes per day, 7 days per week, and 4/8/12 weeks. Division by the
-configured 7,700 kcal/kg produces a mass-equivalent arithmetic scenario. It intentionally omits
-intake error, thermic effect, adaptive thermogenesis, water/glycogen, and behavior. Therefore it
-is not a weight forecast.
+by 30, 45, or 60 exercise minutes per active day, 3, 5, or 7 active days per week, and 4/8/12
+weeks. Division by 7,000, 7,700, or 9,000 kcal/kg produces a sensitivity grid instead of
+privileging one conversion constant. The table preserves participant count and median/10th/90th
+percentiles for each model and assumption cell. It intentionally omits intake error, thermic
+effect, adaptive thermogenesis, water/glycogen, adherence, and behavior. Therefore it is not a
+weight forecast.
 
 ## Optional adaptive personalization
 

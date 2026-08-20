@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+from typing import Any
+
 import pandas as pd
 
 
@@ -70,3 +73,37 @@ def energy_uncertainty_scenario(
             }
         )
     return pd.DataFrame(rows)
+
+
+def daily_workout_summary(workouts: Iterable[dict[str, Any]]) -> pd.DataFrame:
+    """Aggregate workouts without writing exact timestamps, sources, or device identifiers."""
+
+    frame = pd.DataFrame(workouts)
+    columns = [
+        "date",
+        "activity_type",
+        "workout_count",
+        "duration_minutes",
+        "total_energy_kcal",
+        "energy_kcal_per_minute",
+    ]
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    required = {"activity_type", "start_time", "duration_minutes", "total_energy_kcal"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"Apple Health workouts missing columns: {sorted(missing)}")
+    frame["date"] = frame["start_time"].map(lambda value: pd.Timestamp(value).date())
+    grouped = (
+        frame.groupby(["date", "activity_type"], observed=True, dropna=False)
+        .agg(
+            workout_count=("activity_type", "size"),
+            duration_minutes=("duration_minutes", "sum"),
+            total_energy_kcal=("total_energy_kcal", "sum"),
+        )
+        .reset_index()
+    )
+    grouped["energy_kcal_per_minute"] = grouped["total_energy_kcal"].div(
+        grouped["duration_minutes"].where(grouped["duration_minutes"] > 0)
+    )
+    return grouped[columns]

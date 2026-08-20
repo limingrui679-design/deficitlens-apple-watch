@@ -1,28 +1,28 @@
 {
   "categories": {
     "algorithms": {
-      "earned": 25,
-      "maximum": 25
+      "earned": 24,
+      "maximum": 24
     },
     "data_evidence": {
-      "earned": 20,
-      "maximum": 20
+      "earned": 18,
+      "maximum": 18
     },
-    "privacy": {
-      "earned": 10,
-      "maximum": 10
+    "privacy_security": {
+      "earned": 12,
+      "maximum": 12
     },
     "project_docs": {
-      "earned": 5,
-      "maximum": 5
+      "earned": 7,
+      "maximum": 7
     },
-    "software": {
-      "earned": 20,
-      "maximum": 20
+    "software_release": {
+      "earned": 17,
+      "maximum": 17
     },
     "validation": {
-      "earned": 20,
-      "maximum": 20
+      "earned": 22,
+      "maximum": 22
     }
   },
   "checks": [
@@ -31,40 +31,47 @@
       "check_id": "registry",
       "evidence": "versioned source registry",
       "passed": true,
-      "points": 4
+      "points": 3
     },
     {
       "category": "data_evidence",
       "check_id": "data_cards",
-      "evidence": "licenses, access, roles, limits",
+      "evidence": "licenses, access, roles, and limits",
       "passed": true,
-      "points": 3
+      "points": 2
     },
     {
       "category": "data_evidence",
       "check_id": "two_public_datasets",
       "evidence": "manifest participant counts",
       "passed": true,
-      "points": 5
+      "points": 4
     },
     {
       "category": "data_evidence",
       "check_id": "artifact_hashes",
-      "evidence": "all committed evidence hashes and deployable feature snapshot rechecked",
+      "evidence": "every committed derived artifact is rehashed",
       "passed": true,
       "points": 4
     },
     {
       "category": "data_evidence",
       "check_id": "data_density",
-      "evidence": "primary and high-resolution window counts",
+      "evidence": "primary and explicitly sensitivity-only window counts",
       "passed": true,
-      "points": 4
+      "points": 2
+    },
+    {
+      "category": "data_evidence",
+      "check_id": "case_catalog",
+      "evidence": "four validated, complementary evidence paths",
+      "passed": true,
+      "points": 3
     },
     {
       "category": "algorithms",
       "check_id": "nested_loso",
-      "evidence": "three-way participant separation and deployable activity context",
+      "evidence": "three-way participant separation and deployable context",
       "passed": true,
       "points": 6
     },
@@ -87,7 +94,7 @@
       "check_id": "adaptive_calibration",
       "evidence": "criterion-gated Bayesian bias update",
       "passed": true,
-      "points": 3
+      "points": 2
     },
     {
       "category": "algorithms",
@@ -99,16 +106,30 @@
     {
       "category": "algorithms",
       "check_id": "deterministic_config",
-      "evidence": "validated fixed seed/config",
+      "evidence": "validated fixed seed and configuration",
       "passed": true,
       "points": 3
     },
     {
       "category": "validation",
       "check_id": "external_audit",
-      "evidence": "Series 8 versus COSMED K5",
+      "evidence": "independent Series 8 raw-device agreement audit",
       "passed": true,
-      "points": 5
+      "points": 3
+    },
+    {
+      "category": "validation",
+      "check_id": "external_bootstrap",
+      "evidence": "participant-bootstrap uncertainty for external MAE and bias",
+      "passed": true,
+      "points": 2
+    },
+    {
+      "category": "validation",
+      "check_id": "transferability_gate",
+      "evidence": "machine-readable refusal of unsupported model transfer",
+      "passed": true,
+      "points": 2
     },
     {
       "category": "validation",
@@ -122,103 +143,138 @@
       "check_id": "subgroup_audit",
       "evidence": "support-aware subgroup errors and disparities",
       "passed": true,
-      "points": 4
-    },
-    {
-      "category": "validation",
-      "check_id": "decision_impact",
-      "evidence": "bounded fat-loss sensitivity analysis",
-      "passed": true,
       "points": 3
     },
     {
       "category": "validation",
+      "check_id": "decision_impact",
+      "evidence": "multi-assumption fat-loss sensitivity analysis",
+      "passed": true,
+      "points": 4
+    },
+    {
+      "category": "validation",
       "check_id": "interval_coverage",
-      "evidence": "primary cluster interval empirical coverage >= target",
+      "evidence": "primary cluster interval empirical coverage meets target",
       "passed": true,
       "points": 2
     },
     {
       "category": "validation",
       "check_id": "model_card",
-      "evidence": "intended use, exclusions, failure modes",
+      "evidence": "intended use, exclusions, and failure modes",
       "passed": true,
       "points": 2
     },
     {
-      "category": "privacy",
+      "category": "privacy_security",
       "check_id": "apple_health_privacy",
-      "evidence": "streaming filtered normalized parser",
+      "evidence": "hardened streaming filtered parser",
       "passed": true,
-      "points": 4
+      "points": 3
     },
     {
-      "category": "privacy",
+      "category": "privacy_security",
       "check_id": "privacy_documentation",
       "evidence": "threat model and ignore rules",
       "passed": true,
-      "points": 3
+      "points": 2
     },
     {
-      "category": "privacy",
+      "category": "privacy_security",
       "check_id": "no_private_raw",
       "evidence": "no raw archives, databases, or Health exports",
       "passed": true,
-      "points": 3
+      "points": 2
     },
     {
-      "category": "software",
+      "category": "privacy_security",
+      "check_id": "explicit_sensitive_export",
+      "evidence": "row-level output acknowledgement and per-run hashing salt",
+      "passed": true,
+      "points": 1
+    },
+    {
+      "category": "privacy_security",
+      "check_id": "repository_safety",
+      "evidence": "tracked/unignored private-file, secret, and local-path scan",
+      "passed": true,
+      "points": 2
+    },
+    {
+      "category": "privacy_security",
+      "check_id": "dependency_audit",
+      "evidence": "known-vulnerability audit of the verified dependency snapshot",
+      "passed": true,
+      "points": 2
+    },
+    {
+      "category": "software_release",
       "check_id": "lint",
       "evidence": "Ruff lint",
       "passed": true,
-      "points": 3
+      "points": 2
     },
     {
-      "category": "software",
+      "category": "software_release",
       "check_id": "format",
       "evidence": "Ruff format",
       "passed": true,
+      "points": 1
+    },
+    {
+      "category": "software_release",
+      "check_id": "typecheck",
+      "evidence": "strict Mypy",
+      "passed": true,
       "points": 2
     },
     {
-      "category": "software",
-      "check_id": "typecheck",
-      "evidence": "Mypy",
+      "category": "software_release",
+      "check_id": "tests",
+      "evidence": "Pytest suite",
       "passed": true,
       "points": 3
     },
     {
-      "category": "software",
-      "check_id": "tests",
-      "evidence": "Pytest suite",
-      "passed": true,
-      "points": 4
-    },
-    {
-      "category": "software",
+      "category": "software_release",
       "check_id": "coverage",
       "evidence": "branch coverage >= 85%",
       "passed": true,
-      "points": 4
+      "points": 3
     },
     {
-      "category": "software",
-      "check_id": "build",
-      "evidence": "wheel/sdist build and isolated installed-wheel smoke test",
+      "category": "software_release",
+      "check_id": "distribution",
+      "evidence": "wheel/sdist build, resource, and archive safety checks",
       "passed": true,
       "points": 2
     },
     {
-      "category": "software",
-      "check_id": "cli",
-      "evidence": "installed CLI demo",
+      "category": "software_release",
+      "check_id": "wheel_smoke",
+      "evidence": "isolated installed-wheel CLI and resource smoke test",
       "passed": true,
       "points": 2
+    },
+    {
+      "category": "software_release",
+      "check_id": "cli_demo",
+      "evidence": "offline synthetic CLI report",
+      "passed": true,
+      "points": 1
+    },
+    {
+      "category": "software_release",
+      "check_id": "resource_sync",
+      "evidence": "checkout/wheel resources and release-version surfaces match",
+      "passed": true,
+      "points": 1
     },
     {
       "category": "project_docs",
       "check_id": "readme",
-      "evidence": "README",
+      "evidence": "decision-centered README",
       "passed": true,
       "points": 1
     },
@@ -231,30 +287,44 @@
     },
     {
       "category": "project_docs",
-      "check_id": "ci",
-      "evidence": "CI workflow",
+      "check_id": "ci_security",
+      "evidence": "compatibility CI and scheduled security workflow",
       "passed": true,
       "points": 1
     },
     {
       "category": "project_docs",
       "check_id": "governance",
-      "evidence": "contribution and security guidance",
+      "evidence": "contribution, conduct, security, and support contracts",
       "passed": true,
       "points": 1
     },
     {
       "category": "project_docs",
       "check_id": "verified_report",
-      "evidence": "human report and reproduction protocol",
+      "evidence": "portable accessible report and reproduction protocol",
+      "passed": true,
+      "points": 1
+    },
+    {
+      "category": "project_docs",
+      "check_id": "docs_links",
+      "evidence": "local documentation links resolve",
+      "passed": true,
+      "points": 1
+    },
+    {
+      "category": "project_docs",
+      "check_id": "external_evidence_ledger",
+      "evidence": "external review, reproduction, adoption, and impact remain explicit",
       "passed": true,
       "points": 1
     }
   ],
-  "evaluated_at": "2026-08-19T20:15:42.119700+00:00",
-  "label": "iteration 7: deployable-context final release",
+  "evaluated_at": "2026-08-20T02:57:11.688545+00:00",
+  "label": "v1.1.0 final documented rubric-v3 audit",
   "maximum": 100,
-  "rubric_version": 2,
+  "rubric_version": 3,
   "score": 100,
   "status": "release-ready"
 }

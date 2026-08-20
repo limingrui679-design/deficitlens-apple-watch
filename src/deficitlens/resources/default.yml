@@ -26,7 +26,9 @@ evaluation:
     - bmi_band
     - activity
   decision_horizons_weeks: [4, 8, 12]
-  kcal_per_kg_scenario: 7700
+  decision_active_minutes_per_day: [30, 45, 60]
+  decision_active_days_per_week: [3, 5, 7]
+  kcal_per_kg_scenarios: [7000, 7700, 9000]
 privacy:
   redact_source_names: true
   hash_salt_environment_variable: DEFICITLENS_HASH_SALT

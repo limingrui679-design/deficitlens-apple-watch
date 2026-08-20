@@ -2,9 +2,9 @@
 
 ## Intended use
 
-Research, portfolio demonstration, wearable-measurement auditing, and hypothesis generation about
-Apple Watch active-energy error during structured activity. The model may help decide whether a
-raw wearable field is precise enough for an aggregate planning use case.
+Research, reproducible-method demonstration, wearable-measurement auditing, and hypothesis
+generation about Apple Watch active-energy error during structured activity. The model may help
+decide whether a raw wearable field is precise enough for an aggregate planning use case.
 
 ## Out-of-scope use
 
@@ -26,7 +26,9 @@ interval targeting 90% coverage for held-out-participant windows. A narrower row
 interval is diagnostic only because repeated windows are not independent.
 
 The low/high experimental intensity label, protocol MET, and protocol speed are not model inputs.
-The external 2026 audit does not receive model predictions.
+The external 2026 audit does not receive model predictions. Its machine-readable transportability
+gate fails because the required feature and endpoint contract is incomplete; this failure is an
+intended safety behavior, not missing report text.
 
 ## Training and evaluation
 
@@ -64,4 +66,5 @@ this is a limitation of the equation and source data, not a claim about gender i
 Any downstream deployment should log device/OS versions, missingness, activity mix, interval
 coverage when criterion sessions are available, and subgroup support. Revalidate after major
 watchOS/device changes. Retire the model if participant-clustered MAE or interval coverage crosses
-predeclared thresholds; this repository does not set clinical thresholds.
+predeclared thresholds; this repository does not set clinical thresholds. No production
+deployment is currently documented.

@@ -1,4 +1,4 @@
-"""Evidence-backed project quality rubric; 100 means all release gates passed."""
+"""Evidence-backed release rubric; 100 means controllable release gates passed."""
 
 from __future__ import annotations
 
@@ -101,20 +101,20 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
 
     data_evidence = manifest.get("data_evidence", {})
     checks = [
-        QualityCheck("registry", "data_evidence", 4, registry_valid, "versioned source registry"),
+        QualityCheck("registry", "data_evidence", 3, registry_valid, "versioned source registry"),
         QualityCheck(
             "data_cards",
             "data_evidence",
-            3,
+            2,
             _contains(
                 project / "docs/data-cards.md", "WEEE", "Apple Watch PAEE 2026", "restricted"
             ),
-            "licenses, access, roles, limits",
+            "licenses, access, roles, and limits",
         ),
         QualityCheck(
             "two_public_datasets",
             "data_evidence",
-            5,
+            4,
             data_evidence.get("weee", {}).get("participants") == 17
             and data_evidence.get("apple_watch_paee_2026", {}).get("participants") == 53,
             "manifest participant counts",
@@ -127,15 +127,24 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
             and _contains(
                 project / "artifacts/verified/tables/loso_predictions.csv", "activity_family"
             ),
-            "all committed evidence hashes and deployable feature snapshot rechecked",
+            "every committed derived artifact is rehashed",
         ),
         QualityCheck(
             "data_density",
             "data_evidence",
-            4,
+            2,
             manifest.get("primary_non_overlapping_windows", 0) >= 800
             and manifest.get("high_resolution_overlapping_windows", 0) >= 4000,
-            "primary and high-resolution window counts",
+            "primary and explicitly sensitivity-only window counts",
+        ),
+        QualityCheck(
+            "case_catalog",
+            "data_evidence",
+            3,
+            manifest.get("case_catalog", {}).get("case_count") == 4
+            and manifest.get("case_catalog", {}).get("capability_count", 0) >= 8
+            and _verification_passed(verification, "case_catalog"),
+            "four validated, complementary evidence paths",
         ),
         QualityCheck(
             "nested_loso",
@@ -151,7 +160,7 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
                 project / "src/deficitlens/schemas.py",
                 'CATEGORICAL_FEATURES = ["sex", "activity_family"]',
             ),
-            "three-way participant separation and deployable activity context",
+            "three-way participant separation and deployable context",
         ),
         QualityCheck(
             "convex_stack",
@@ -177,7 +186,7 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
         QualityCheck(
             "adaptive_calibration",
             "algorithms",
-            3,
+            2,
             _contains(
                 project / "src/deficitlens/models/adaptive.py", "KalmanBiasCalibrator", "gain"
             ),
@@ -196,15 +205,34 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
             "algorithms",
             3,
             _contains(project / "configs/default.yml", "seed: 20260820", "inner_group_folds"),
-            "validated fixed seed/config",
+            "validated fixed seed and configuration",
         ),
         QualityCheck(
             "external_audit",
             "validation",
-            5,
+            3,
             manifest.get("external_primary_participants") == 52
             and (project / "artifacts/verified/tables/external_subgroup_audit.csv").exists(),
-            "Series 8 versus COSMED K5",
+            "independent Series 8 raw-device agreement audit",
+        ),
+        QualityCheck(
+            "external_bootstrap",
+            "validation",
+            2,
+            (project / "artifacts/verified/tables/external_bootstrap.csv").exists()
+            and _contains(
+                project / "src/deficitlens/evaluation/external.py", "clustered_bootstrap"
+            ),
+            "participant-bootstrap uncertainty for external MAE and bias",
+        ),
+        QualityCheck(
+            "transferability_gate",
+            "validation",
+            2,
+            manifest.get("external_transferability", {}).get("status") == "blocked_model_transfer"
+            and manifest.get("external_transferability", {}).get("passed") is False
+            and (project / "artifacts/verified/tables/transferability_gate.json").exists(),
+            "machine-readable refusal of unsupported model transfer",
         ),
         QualityCheck(
             "cluster_bootstrap",
@@ -217,7 +245,7 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
         QualityCheck(
             "subgroup_audit",
             "validation",
-            4,
+            3,
             (project / "artifacts/verified/tables/subgroup_audit.csv").exists()
             and (project / "artifacts/verified/tables/subgroup_disparities.csv").exists(),
             "support-aware subgroup errors and disparities",
@@ -225,89 +253,151 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
         QualityCheck(
             "decision_impact",
             "validation",
-            3,
+            4,
             (project / "artifacts/verified/tables/decision_impact_scenarios.csv").exists()
-            and _contains(project / "docs/methodology.md", "not a weight forecast")
-            and _contains(project / "src/deficitlens/pipeline.py", "exercise_predictions"),
-            "bounded fat-loss sensitivity analysis",
+            and _contains(project / "docs/methodology.md", "weight forecast", "3, 5, or 7")
+            and _contains(
+                project / "src/deficitlens/evaluation/decision.py",
+                "active_days_per_week",
+                "kcal_per_kg_values",
+            ),
+            "multi-assumption fat-loss sensitivity analysis",
         ),
         QualityCheck(
             "interval_coverage",
             "validation",
             2,
             float(manifest.get("interval", {}).get("coverage", 0.0)) >= 0.90,
-            "primary cluster interval empirical coverage >= target",
+            "primary cluster interval empirical coverage meets target",
         ),
         QualityCheck(
             "model_card",
             "validation",
             2,
             _contains(project / "docs/model-card.md", "Out-of-scope use", "Failure modes"),
-            "intended use, exclusions, failure modes",
+            "intended use, exclusions, and failure modes",
         ),
         QualityCheck(
             "apple_health_privacy",
-            "privacy",
-            4,
+            "privacy_security",
+            3,
             _contains(
                 project / "src/deficitlens/data/apple_health.py",
+                "defusedxml",
                 "iterparse",
                 "redact_source_names",
                 "apple_watch_only",
             ),
-            "streaming filtered normalized parser",
+            "hardened streaming filtered parser",
         ),
         QualityCheck(
             "privacy_documentation",
-            "privacy",
-            3,
+            "privacy_security",
+            2,
             (project / "docs/privacy.md").exists()
             and _contains(project / ".gitignore", "export.xml", "data/raw"),
             "threat model and ignore rules",
         ),
         QualityCheck(
             "no_private_raw",
-            "privacy",
-            3,
+            "privacy_security",
+            2,
             _no_private_raw_files(project),
             "no raw archives, databases, or Health exports",
         ),
         QualityCheck(
-            "lint", "software", 3, _verification_passed(verification, "lint"), "Ruff lint"
+            "explicit_sensitive_export",
+            "privacy_security",
+            1,
+            _contains(
+                project / "src/deficitlens/data/apple_health.py",
+                "acknowledge_sensitive_output",
+                "PermissionError",
+                "token_hex",
+            ),
+            "row-level output acknowledgement and per-run hashing salt",
         ),
         QualityCheck(
-            "format", "software", 2, _verification_passed(verification, "format"), "Ruff format"
+            "repository_safety",
+            "privacy_security",
+            2,
+            _verification_passed(verification, "repo_safety"),
+            "tracked/unignored private-file, secret, and local-path scan",
         ),
         QualityCheck(
-            "typecheck", "software", 3, _verification_passed(verification, "typecheck"), "Mypy"
+            "dependency_audit",
+            "privacy_security",
+            2,
+            _verification_passed(verification, "dependency_audit"),
+            "known-vulnerability audit of the verified dependency snapshot",
         ),
         QualityCheck(
-            "tests", "software", 4, _verification_passed(verification, "tests"), "Pytest suite"
+            "lint", "software_release", 2, _verification_passed(verification, "lint"), "Ruff lint"
+        ),
+        QualityCheck(
+            "format",
+            "software_release",
+            1,
+            _verification_passed(verification, "format"),
+            "Ruff format",
+        ),
+        QualityCheck(
+            "typecheck",
+            "software_release",
+            2,
+            _verification_passed(verification, "typecheck"),
+            "strict Mypy",
+        ),
+        QualityCheck(
+            "tests",
+            "software_release",
+            3,
+            _verification_passed(verification, "tests"),
+            "Pytest suite",
         ),
         QualityCheck(
             "coverage",
-            "software",
-            4,
+            "software_release",
+            3,
             float(coverage.get("totals", {}).get("percent_covered", 0.0)) >= 85.0,
             "branch coverage >= 85%",
         ),
         QualityCheck(
-            "build",
-            "software",
+            "distribution",
+            "software_release",
             2,
             _verification_passed(verification, "build")
-            and _verification_passed(verification, "wheel_smoke"),
-            "wheel/sdist build and isolated installed-wheel smoke test",
+            and _verification_passed(verification, "distribution"),
+            "wheel/sdist build, resource, and archive safety checks",
         ),
         QualityCheck(
-            "cli",
-            "software",
+            "wheel_smoke",
+            "software_release",
             2,
-            _verification_passed(verification, "cli_demo"),
-            "installed CLI demo",
+            _verification_passed(verification, "wheel_smoke"),
+            "isolated installed-wheel CLI and resource smoke test",
         ),
         QualityCheck(
-            "readme", "project_docs", 1, _contains(project / "README.md", "Quick start"), "README"
+            "cli_demo",
+            "software_release",
+            1,
+            _verification_passed(verification, "cli_demo"),
+            "offline synthetic CLI report",
+        ),
+        QualityCheck(
+            "resource_sync",
+            "software_release",
+            1,
+            _verification_passed(verification, "resource_sync")
+            and _verification_passed(verification, "version_consistency"),
+            "checkout/wheel resources and release-version surfaces match",
+        ),
+        QualityCheck(
+            "readme",
+            "project_docs",
+            1,
+            _contains(project / "README.md", "Quick start", "Case paths", "External evidence"),
+            "decision-centered README",
         ),
         QualityCheck(
             "license_citation",
@@ -317,22 +407,46 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
             "license and citation metadata",
         ),
         QualityCheck(
-            "ci", "project_docs", 1, (project / ".github/workflows/ci.yml").exists(), "CI workflow"
+            "ci_security",
+            "project_docs",
+            1,
+            (project / ".github/workflows/ci.yml").exists()
+            and (project / ".github/workflows/security.yml").exists(),
+            "compatibility CI and scheduled security workflow",
         ),
         QualityCheck(
             "governance",
             "project_docs",
             1,
-            (project / "CONTRIBUTING.md").exists() and (project / "SECURITY.md").exists(),
-            "contribution and security guidance",
+            all(
+                (project / name).exists()
+                for name in ("CONTRIBUTING.md", "SECURITY.md", "SUPPORT.md", "CODE_OF_CONDUCT.md")
+            ),
+            "contribution, conduct, security, and support contracts",
         ),
         QualityCheck(
             "verified_report",
             "project_docs",
             1,
             (project / "artifacts/verified/report.html").exists()
-            and (project / "docs/reproducibility.md").exists(),
-            "human report and reproduction protocol",
+            and (project / "docs/reproducibility.md").exists()
+            and _verification_passed(verification, "html_audit"),
+            "portable accessible report and reproduction protocol",
+        ),
+        QualityCheck(
+            "docs_links",
+            "project_docs",
+            1,
+            _verification_passed(verification, "docs_links"),
+            "local documentation links resolve",
+        ),
+        QualityCheck(
+            "external_evidence_ledger",
+            "project_docs",
+            1,
+            _verification_passed(verification, "evidence_ledger")
+            and (project / "evidence/external-evidence.json").exists(),
+            "external review, reproduction, adoption, and impact remain explicit",
         ),
     ]
     maximum = sum(check.points for check in checks)
@@ -346,7 +460,7 @@ def evaluate_quality(root: str | Path) -> dict[str, Any]:
         if check.passed:
             category["earned"] += check.points
     return {
-        "rubric_version": 2,
+        "rubric_version": 3,
         "score": score,
         "maximum": maximum,
         "status": "release-ready" if score == maximum else "iteration-required",

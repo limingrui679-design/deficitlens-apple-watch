@@ -46,6 +46,6 @@
 - **Role:** local descriptive audit only.
 - **Ownership:** private user health data.
 - **Committed:** never by default; `export.xml`, `.zip`, and raw normalized rows are gitignored.
-- **Default output:** daily aggregates and sensitivity scenarios without exact timestamps, record
-  IDs, source strings, or device identifiers.
+- **Default output:** daily/workout aggregates, sensitivity scenarios, and a self-contained local
+  report without exact timestamps, record IDs, source strings, or device identifiers.
 - **Deletion:** the user controls input and output paths; DeficitLens does not upload them.

@@ -5,13 +5,14 @@ from __future__ import annotations
 import csv
 import hashlib
 import os
-import xml.etree.ElementTree as ET
+import secrets
 from collections.abc import Iterator
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from defusedxml import ElementTree as ET
 
 from deficitlens.physiology import apple_energy_to_kcal
 
@@ -89,7 +90,7 @@ def iter_apple_health_records(
 ) -> Iterator[dict[str, Any]]:
     """Stream selected records from a potentially multi-gigabyte Apple Health export."""
 
-    source_salt = salt or os.environ.get("DEFICITLENS_HASH_SALT", "local-only")
+    source_salt = salt or os.environ.get("DEFICITLENS_HASH_SALT") or secrets.token_hex(16)
     seen: set[str] = set()
     for _, element in ET.iterparse(Path(xml_path), events=("end",)):
         if element.tag != "Record":
@@ -141,11 +142,15 @@ def parse_apple_health_records(xml_path: str | Path, **kwargs: Any) -> pd.DataFr
 
 
 def iter_apple_health_workouts(
-    xml_path: str | Path, *, redact_source_names: bool = True, salt: str | None = None
+    xml_path: str | Path,
+    *,
+    apple_watch_only: bool = True,
+    redact_source_names: bool = True,
+    salt: str | None = None,
 ) -> Iterator[dict[str, Any]]:
     """Stream workout summaries and nested statistics."""
 
-    source_salt = salt or os.environ.get("DEFICITLENS_HASH_SALT", "local-only")
+    source_salt = salt or os.environ.get("DEFICITLENS_HASH_SALT") or secrets.token_hex(16)
     current_statistics: dict[str, float] | None = None
     for event, element in ET.iterparse(Path(xml_path), events=("start", "end")):
         if event == "start" and element.tag == "Workout":
@@ -165,6 +170,10 @@ def iter_apple_health_workouts(
             element.clear()
             continue
         attrs = dict(element.attrib)
+        if apple_watch_only and not is_apple_watch_source(attrs):
+            current_statistics = None
+            element.clear()
+            continue
         source_name = attrs.get("sourceName", "")
         energy = attrs.get("totalEnergyBurned")
         energy_unit = attrs.get("totalEnergyBurnedUnit", "kcal")
@@ -194,8 +203,24 @@ def iter_apple_health_workouts(
         element.clear()
 
 
-def write_normalized_records_csv(xml_path: str | Path, output_path: str | Path) -> int:
-    """Stream normalized records directly to CSV and return the row count."""
+def write_normalized_records_csv(
+    xml_path: str | Path,
+    output_path: str | Path,
+    *,
+    acknowledge_sensitive_output: bool = False,
+) -> int:
+    """Write row-level records only after an explicit privacy-risk acknowledgement.
+
+    This expert API retains exact timestamps and stable record hashes. The public CLI never
+    calls it. Requiring a keyword acknowledgement prevents an accidental helper call from
+    violating the aggregate-only default.
+    """
+
+    if not acknowledge_sensitive_output:
+        raise PermissionError(
+            "Row-level output contains sensitive timestamps; set "
+            "acknowledge_sensitive_output=True only for a protected local destination"
+        )
 
     target = Path(output_path)
     target.parent.mkdir(parents=True, exist_ok=True)

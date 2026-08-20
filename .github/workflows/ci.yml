@@ -7,12 +7,17 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       matrix:
-        python-version: ["3.10", "3.12"]
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,6 +29,16 @@ jobs:
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m mypy src scripts
-      - run: python -m pytest --cov=deficitlens --cov-report=term-missing
+      - run: python -m pytest --cov=deficitlens --cov-branch --cov-report=term-missing
       - run: python -m deficitlens demo --output artifacts/ci-demo
-      - run: python -m build
+      - run: python scripts/check_html.py artifacts/ci-demo/index.html artifacts/verified/report.html
+      - run: python scripts/check_repository_safety.py
+      - run: python scripts/check_docs.py
+      - run: python scripts/check_external_evidence.py
+      - run: python scripts/check_resources.py
+      - run: python scripts/check_cases.py
+      - run: python scripts/check_version_consistency.py
+      - run: python -m pip_audit --requirement requirements/verified-py312.txt --disable-pip --no-deps
+      - run: python -m build --outdir artifacts/ci-dist
+      - run: python scripts/check_distribution.py artifacts/ci-dist/*
+      - run: python scripts/smoke_wheel.py artifacts/ci-dist/*.whl

@@ -1,0 +1,82 @@
+{
+  "allowed_claim": "Independent raw-device agreement audit against COSMED K5.",
+  "available_external_columns": [
+    "absolute_error_kcal",
+    "absolute_percentage_error",
+    "age_years",
+    "analysis_code_global_exclusion",
+    "apple_kcal",
+    "bias_kcal",
+    "bmi",
+    "bmi_band",
+    "body_fat_band",
+    "body_fat_pct",
+    "criterion_kcal",
+    "fitzpatrick_skin_type",
+    "height_cm",
+    "implausible_device_value",
+    "participant_id",
+    "sex",
+    "weight_kg",
+    "wrist_circumference_cm"
+  ],
+  "checks": [
+    {
+      "check_id": "independent_participants",
+      "evidence": "The Series 8 participants are independent of the WEEE cohort.",
+      "passed": true
+    },
+    {
+      "check_id": "feature_contract_complete",
+      "evidence": "10 required model features are unavailable.",
+      "passed": false
+    },
+    {
+      "check_id": "endpoint_granularity_aligned",
+      "evidence": "External data contain session totals; the model predicts 30-second rates.",
+      "passed": false
+    },
+    {
+      "check_id": "protocol_domain_aligned",
+      "evidence": "External testing is mixed-intensity recumbent cycling, not the full WEEE protocol.",
+      "passed": false
+    }
+  ],
+  "missing_required_features": [
+    "activity_family",
+    "apple_active_kcal_min",
+    "apple_energy_observed_fraction",
+    "apple_hr_mean",
+    "apple_hr_mean_fraction_hrmax",
+    "apple_hr_missing_fraction",
+    "apple_hr_range",
+    "apple_hr_sd",
+    "apple_hr_slope",
+    "mifflin_rmr_kcal_day"
+  ],
+  "next_evidence_required": "An independent cohort with the full time-aligned Watch feature contract, criterion active-energy rate, protocol metadata, and participant-level evaluation.",
+  "passed": false,
+  "prohibited_claim": "External validation or deployment calibration of the WEEE-trained ensemble.",
+  "required_feature_contract": [
+    "apple_active_kcal_min",
+    "apple_energy_observed_fraction",
+    "apple_hr_mean",
+    "apple_hr_sd",
+    "apple_hr_range",
+    "apple_hr_slope",
+    "apple_hr_mean_fraction_hrmax",
+    "apple_hr_missing_fraction",
+    "weight_kg",
+    "height_cm",
+    "age_years",
+    "bmi",
+    "body_fat_pct",
+    "mifflin_rmr_kcal_day",
+    "sex",
+    "activity_family"
+  ],
+  "schema_version": 1,
+  "source_model_cohort": "weee_series6",
+  "status": "blocked_model_transfer",
+  "target_audit_cohort": "apple_watch_paee_2026_series8"
+}

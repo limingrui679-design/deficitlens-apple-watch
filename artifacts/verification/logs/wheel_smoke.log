@@ -1,6 +1,149 @@
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-u0aexc0t/installed/deficitlens/__init__.py
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-y9dnwbrj/installed/deficitlens/__init__.py
 weee                     public                                               second-level model development and Apple Watch Series 6 audit
 apple_watch_paee_2026    public                                               Apple Watch Series 8 external and body-composition fairness audit
 bigideaslab_step         restricted; account and signed data-use agreement required optional heart-rate measurement fairness validation
 apple_health_export      private local input; never downloaded or uploaded    local-only personal audit
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-u0aexc0t/demo
+{
+  "capabilities": {
+    "ai-model-validation": "Test models on unseen people and reject leakage or unsupported transfer.",
+    "analytics-to-action": "Translate measurement uncertainty into bounded, reviewable choices.",
+    "data-systems-governance": "Preserve data meaning, provenance, access boundaries, and failure states.",
+    "population-health-informatics": "Separate individual-device records from population-level evidence.",
+    "privacy-engineering": "Minimize sensitive outputs and keep personal Health exports local by default.",
+    "reproducible-research": "Bind inputs, configurations, outputs, and claims to machine-checkable evidence.",
+    "risk-decision-analysis": "Compare actions under uncertainty without turning scenarios into forecasts.",
+    "statistical-research": "Define estimands, preserve participant dependence, and report uncertainty."
+  },
+  "cases": [
+    {
+      "capabilities": [
+        "statistical-research",
+        "ai-model-validation",
+        "reproducible-research"
+      ],
+      "claim_boundary": "Controlled Series 6 activities and 17 participants support a benchmark, not a universal calorie correction or clinical claim.",
+      "datasets": [
+        "weee"
+      ],
+      "decision_question": "How much does an Apple Watch-informed estimator miss criterion active energy for a person absent from all fitting and calibration?",
+      "decision_status": "participant_held_out_evidence",
+      "evidence_state": "observed_benchmark",
+      "id": "series6-criterion-benchmark",
+      "methods": [
+        "oxygen-uptake criterion alignment",
+        "nested participant-group cross-fitting",
+        "non-negative convex stacking",
+        "participant-cluster conformal prediction",
+        "participant-cluster bootstrap"
+      ],
+      "outputs": [
+        "artifacts/verified/tables/loso_predictions.csv",
+        "artifacts/verified/tables/model_metrics.csv",
+        "artifacts/verified/tables/cluster_bootstrap.csv"
+      ],
+      "title": "Series 6 criterion benchmark",
+      "user_task": "Reproduce the nested benchmark, inspect errors and intervals, and decide whether a correction is supported for the registered protocol."
+    },
+    {
+      "capabilities": [
+        "statistical-research",
+        "population-health-informatics",
+        "ai-model-validation"
+      ],
+      "claim_boundary": "This cohort audits raw Watch totals; the WEEE correction model is not externally validated because its required feature contract is unavailable.",
+      "datasets": [
+        "apple_watch_paee_2026"
+      ],
+      "decision_question": "Does raw Series 8 session energy agree with COSMED K5 in an independent mixed-intensity cycling cohort?",
+      "decision_status": "raw_device_audit_only",
+      "evidence_state": "observed_external_audit",
+      "id": "series8-device-agreement",
+      "methods": [
+        "Bland-Altman agreement",
+        "participant bootstrap intervals",
+        "support-aware subgroup audit",
+        "explicit all-paired sensitivity analysis"
+      ],
+      "outputs": [
+        "artifacts/verified/tables/external_bootstrap.csv",
+        "artifacts/verified/tables/external_subgroup_audit.csv",
+        "artifacts/verified/tables/transferability_gate.json"
+      ],
+      "title": "Series 8 independent device-agreement audit",
+      "user_task": "Inspect agreement, uncertainty, exclusions, and supported subgroup slices before making any device-validity claim."
+    },
+    {
+      "capabilities": [
+        "data-systems-governance",
+        "privacy-engineering",
+        "analytics-to-action"
+      ],
+      "claim_boundary": "Personal output is descriptive and scenario-based; it is not a learned correction, diagnosis, diet prescription, or proof of true energy balance.",
+      "datasets": [
+        "apple_health_export"
+      ],
+      "decision_question": "What can a user safely learn from an Apple Health export without uploading it or writing row-level health records by default?",
+      "decision_status": "descriptive_only",
+      "evidence_state": "private_local_workflow",
+      "id": "local-apple-health-audit",
+      "methods": [
+        "streaming XML parsing",
+        "unit normalization and de-duplication",
+        "local-calendar-day aggregation",
+        "source redaction and output minimization"
+      ],
+      "outputs": [
+        "daily_summary.csv",
+        "workout_summary.csv",
+        "energy_uncertainty_scenarios.csv",
+        "index.html"
+      ],
+      "title": "Local Apple Health privacy audit",
+      "user_task": "Generate daily and workout aggregates, inspect data-quality counts, and explore labeled measurement-error sensitivity scenarios."
+    },
+    {
+      "capabilities": [
+        "risk-decision-analysis",
+        "analytics-to-action",
+        "reproducible-research"
+      ],
+      "claim_boundary": "Mass-equivalent values are arithmetic sensitivity outputs, not weight forecasts; intake, adaptation, water, adherence, and causal behavior effects remain outside scope.",
+      "datasets": [
+        "weee"
+      ],
+      "decision_question": "Under which exercise schedules and arithmetic energy-density assumptions could persistent measurement error become decision-relevant?",
+      "decision_status": "scenario_only",
+      "evidence_state": "modeled_scenario",
+      "id": "fat-loss-error-sensitivity",
+      "methods": [
+        "participant-level error aggregation",
+        "multi-assumption scenario grid",
+        "quantile-based heterogeneity summary",
+        "explicit decision and physiology exclusions"
+      ],
+      "outputs": [
+        "artifacts/verified/tables/decision_impact_scenarios.csv"
+      ],
+      "title": "Exercise-energy decision sensitivity",
+      "user_task": "Compare raw, affine, and ensemble measurement-error propagation across time, exercise frequency, and kcal-per-kg assumptions."
+    }
+  ],
+  "schema_version": 1
+}
+{
+  "as_of": "2026-08-20",
+  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
+  "documented_real_users": 0,
+  "independent_method_reviews": 0,
+  "independent_reproductions": 0,
+  "observed_public_stars": null,
+  "organizational_adoptions": 0,
+  "production_deployments": 0,
+  "public_repository_verified": false,
+  "publication_status": "local_release_candidate",
+  "real_world_impact_evaluations": 0,
+  "schema_version": 1,
+  "structured_accessibility_reviews": 0,
+  "structured_usability_participants": 0
+}
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-y9dnwbrj/demo

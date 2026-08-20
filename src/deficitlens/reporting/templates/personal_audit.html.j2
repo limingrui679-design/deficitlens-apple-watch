@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102a43'/%3E%3Cpath d='M18 18h18a10 10 0 010 20H18z' fill='none' stroke='%2382d8c8' stroke-width='6'/%3E%3C/svg%3E">
+  <title>DeficitLens local Apple Health audit</title>
+  <style>
+    :root { color-scheme:light; --ink:#17212b; --muted:#526170; --navy:#102a43; --blue:#286a9f; --teal:#16817a; --amber:#a45f00; --paper:#fff; --wash:#eef4f7; --line:#d5e0e7; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--wash); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .skip { position:absolute; left:-9999px; }
+    .skip:focus { left:16px; top:12px; z-index:10; background:white; padding:8px 12px; }
+    header { color:white; background:linear-gradient(135deg,var(--navy),#174f70); padding:54px max(22px,calc((100vw - 1080px)/2)); }
+    header h1 { margin:8px 0; font-size:clamp(2rem,6vw,3.2rem); line-height:1.05; }
+    header p { max-width:760px; color:#e6f1f7; }
+    .badge { display:inline-block; padding:4px 9px; border:1px solid #b9dbea; border-radius:999px; font-size:.78rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; }
+    main { max-width:1080px; margin:0 auto; padding:26px 20px 64px; }
+    section { margin:18px 0; padding:24px; background:var(--paper); border:1px solid var(--line); border-radius:16px; box-shadow:0 8px 24px #17324a0b; }
+    h2 { margin-top:0; line-height:1.2; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+    .card { padding:17px; border:1px solid var(--line); border-radius:12px; }
+    .number { display:block; color:var(--blue); font-size:1.8rem; font-weight:800; }
+    .label { color:var(--muted); }
+    .callout { border-left:5px solid var(--amber); background:#fff8ea; padding:14px 16px; }
+    .calculator { display:grid; gap:12px; grid-template-columns:minmax(220px,1fr) minmax(220px,1fr); align-items:center; }
+    input[type="range"] { width:100%; accent-color:var(--teal); }
+    output { display:block; padding:18px; color:white; background:var(--navy); border-radius:12px; font-size:1.15rem; }
+    .table-wrap { overflow:auto; margin-top:14px; }
+    .data-table { width:100%; border-collapse:collapse; font-size:.86rem; }
+    .data-table th,.data-table td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; }
+    .data-table th { color:var(--navy); background:#f3f7fa; }
+    .data-table th:first-child,.data-table td:first-child { text-align:left; }
+    footer { color:var(--muted); text-align:center; padding:24px; }
+    @media (max-width:700px) { .calculator { grid-template-columns:1fr; } section { padding:19px; } }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to report</a>
+<header>
+  <span class="badge">{% if summary.synthetic_fixture %}synthetic fixture{% else %}private local output{% endif %}</span>
+  <h1>DeficitLens local audit</h1>
+  <p>Privacy-minimized Apple Health summaries and transparent measurement-error scenarios. No row-level health records were written, and no data were uploaded.</p>
+</header>
+<main id="main">
+  <section aria-labelledby="overview-heading">
+    <h2 id="overview-heading">Audit overview</h2>
+    <div class="cards">
+      <div class="card"><span class="number">{{ summary.records_read }}</span><span class="label">eligible records read</span></div>
+      <div class="card"><span class="number">{{ summary.days }}</span><span class="label">local calendar days</span></div>
+      <div class="card"><span class="number">{{ summary.workouts }}</span><span class="label">Apple Watch workouts</span></div>
+      <div class="card"><span class="number">{{ "%.1f"|format(observed_energy) }}</span><span class="label">observed active kcal in this export slice</span></div>
+    </div>
+    <p class="callout"><strong>Boundary:</strong> these outputs are descriptive. The calculator below changes an assumption; it does not infer the Watch's true error, energy balance, or expected weight change.</p>
+  </section>
+
+  <section aria-labelledby="calculator-heading">
+    <h2 id="calculator-heading">Explore an explicit measurement-error assumption</h2>
+    <div class="calculator">
+      <div>
+        <label for="error-rate">Assumed Apple relative error: <strong><span id="rate-label">0</span>%</strong></label>
+        <input id="error-rate" type="range" min="-30" max="30" step="1" value="0">
+        <p>Positive means Apple overestimates active energy; negative means it underestimates.</p>
+      </div>
+      <output id="calculator-output" aria-live="polite">Scenario corrected total: {{ "%.1f"|format(observed_energy) }} kcal</output>
+    </div>
+    <noscript><p>JavaScript is disabled. The complete fixed scenario table remains available below.</p></noscript>
+  </section>
+
+  <section aria-labelledby="daily-heading">
+    <h2 id="daily-heading">Daily aggregate</h2>
+    <div class="table-wrap">{{ daily_table | safe }}</div>
+  </section>
+
+  <section aria-labelledby="workout-heading">
+    <h2 id="workout-heading">Workout aggregate</h2>
+    <div class="table-wrap">{{ workout_table | safe }}</div>
+  </section>
+
+  <section aria-labelledby="scenario-heading">
+    <h2 id="scenario-heading">Fixed sensitivity grid</h2>
+    <div class="table-wrap">{{ scenario_table | safe }}</div>
+  </section>
+</main>
+<footer>Generated locally by DeficitLens {{ summary.project_version }} · Raw rows written: no</footer>
+<script>
+  (() => {
+    const observed = {{ observed_energy }};
+    const slider = document.getElementById("error-rate");
+    const label = document.getElementById("rate-label");
+    const output = document.getElementById("calculator-output");
+    const render = () => {
+      const rate = Number(slider.value);
+      const corrected = observed / (1 + rate / 100);
+      label.textContent = String(rate);
+      output.textContent = `Scenario corrected total: ${corrected.toFixed(1)} kcal; difference: ${(observed - corrected).toFixed(1)} kcal`;
+    };
+    slider.addEventListener("input", render);
+    render();
+  })();
+</script>
+</body>
+</html>

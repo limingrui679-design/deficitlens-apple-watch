@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deficitlens"
-version = "1.0.0"
+version = "1.1.0"
 description = "Leakage-safe Apple Watch energy-expenditure auditing with uncertainty-aware fat-loss decision analysis."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -20,7 +20,7 @@ keywords = [
   "fat-loss",
 ]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
+  "Development Status :: 4 - Beta",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -28,6 +28,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 dependencies = [
+  "defusedxml>=0.7,<1",
   "jinja2>=3.1,<4",
   "joblib>=1.4,<2",
   "matplotlib>=3.9,<4",
@@ -45,19 +46,16 @@ dev = [
   "build>=1.2,<2",
   "mypy>=1.13,<2",
   "pandas-stubs>=2.2,<3",
+  "pip-audit>=2.9,<3",
   "pytest>=8,<10",
   "pytest-cov>=6,<8",
   "ruff>=0.9,<1",
+  "types-defusedxml>=0.7,<1",
   "types-PyYAML>=6,<7",
 ]
 
 [project.scripts]
 deficitlens = "deficitlens.cli:main"
-
-[project.urls]
-Documentation = "https://github.com/limingrui679-design/deficitlens"
-Issues = "https://github.com/limingrui679-design/deficitlens/issues"
-Source = "https://github.com/limingrui679-design/deficitlens"
 
 [tool.setuptools.packages.find]
 where = ["src"]

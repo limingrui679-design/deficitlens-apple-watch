@@ -11,12 +11,17 @@ def main() -> int:
     pairs = (
         (root / "configs/default.yml", root / "src/deficitlens/resources/default.yml"),
         (root / "data/registry.yml", root / "src/deficitlens/resources/registry.yml"),
+        (root / "cases/catalog.yml", root / "src/deficitlens/resources/case_catalog.yml"),
+        (
+            root / "evidence/external-evidence.json",
+            root / "src/deficitlens/resources/external_evidence.json",
+        ),
     )
     for public, bundled in pairs:
         if public.read_bytes() != bundled.read_bytes():
             print(f"Resource drift: {public.relative_to(root)} != {bundled.relative_to(root)}")
             return 1
-    print("Bundled config and registry are synchronized.")
+    print("Bundled config, registry, case catalog, and evidence ledger are synchronized.")
     return 0
 
 

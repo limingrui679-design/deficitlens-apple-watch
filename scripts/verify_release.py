@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -46,7 +47,18 @@ def main() -> int:
     python = sys.executable
     verification_dir = root / "artifacts" / "verification"
     verification_dir.mkdir(parents=True, exist_ok=True)
+    dist_dir = verification_dir / "dist"
+    demo_dir = verification_dir / "demo"
+    for generated in (dist_dir, demo_dir):
+        if generated.is_dir():
+            shutil.rmtree(generated)
     checks = {
+        "repo_safety": [python, "scripts/check_repository_safety.py"],
+        "docs_links": [python, "scripts/check_docs.py"],
+        "evidence_ledger": [python, "scripts/check_external_evidence.py"],
+        "resource_sync": [python, "scripts/check_resources.py"],
+        "case_catalog": [python, "scripts/check_cases.py"],
+        "version_consistency": [python, "scripts/check_version_consistency.py"],
         "lint": [python, "-m", "ruff", "check", "."],
         "format": [python, "-m", "ruff", "format", "--check", "."],
         "typecheck": [python, "-m", "mypy", "src", "scripts"],
@@ -65,15 +77,29 @@ def main() -> int:
             "deficitlens",
             "demo",
             "--output",
-            str(verification_dir / "demo"),
+            str(demo_dir),
         ],
-        "resource_sync": [python, "scripts/check_resources.py"],
+        "html_audit": [
+            python,
+            "scripts/check_html.py",
+            str(root / "artifacts/verified/report.html"),
+            str(demo_dir / "index.html"),
+        ],
+        "dependency_audit": [
+            python,
+            "-m",
+            "pip_audit",
+            "--requirement",
+            str(root / "requirements/verified-py312.txt"),
+            "--disable-pip",
+            "--no-deps",
+        ],
         "build": [
             python,
             "-m",
             "build",
             "--outdir",
-            str(verification_dir / "dist"),
+            str(dist_dir),
         ],
     }
     results: dict[str, dict[str, object]] = {}
@@ -82,7 +108,19 @@ def main() -> int:
         results[name] = result
         status = "PASS" if result["passed"] else "FAIL"
         print(f"{status:4} {name:10} {result['elapsed_seconds']:.2f}s")
-    wheels = sorted((verification_dir / "dist").glob("*.whl"))
+    archives = sorted(path for path in dist_dir.glob("*") if path.is_file())
+    distribution_command = (
+        [python, "scripts/check_distribution.py", *[str(path) for path in archives]]
+        if archives and bool(results["build"]["passed"])
+        else [python, "-c", "raise SystemExit('distribution build unavailable')"]
+    )
+    distribution_result = run_check(root, "distribution", distribution_command)
+    results["distribution"] = distribution_result
+    distribution_status = "PASS" if distribution_result["passed"] else "FAIL"
+    print(
+        f"{distribution_status:4} {'distribution':14} {distribution_result['elapsed_seconds']:.2f}s"
+    )
+    wheels = sorted(dist_dir.glob("*.whl"))
     wheel_command = (
         [python, "scripts/smoke_wheel.py", str(wheels[-1])]
         if wheels and bool(results["build"]["passed"])
@@ -91,7 +129,7 @@ def main() -> int:
     wheel_result = run_check(root, "wheel_smoke", wheel_command)
     results["wheel_smoke"] = wheel_result
     wheel_status = "PASS" if wheel_result["passed"] else "FAIL"
-    print(f"{wheel_status:4} {'wheel_smoke':10} {wheel_result['elapsed_seconds']:.2f}s")
+    print(f"{wheel_status:4} {'wheel_smoke':14} {wheel_result['elapsed_seconds']:.2f}s")
     payload = {
         "schema_version": 1,
         "generated_at": datetime.now(UTC).isoformat(),

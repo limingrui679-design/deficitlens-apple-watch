@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: install lint typecheck test coverage demo verify build
+.PHONY: install lint typecheck test coverage demo audit verify build
 
 install:
 	$(PYTHON) -m pip install -e ".[dev]"
@@ -20,6 +20,14 @@ coverage:
 
 demo:
 	$(PYTHON) -m deficitlens demo --output artifacts/demo
+
+audit:
+	$(PYTHON) scripts/check_repository_safety.py
+	$(PYTHON) scripts/check_docs.py
+	$(PYTHON) scripts/check_external_evidence.py
+	$(PYTHON) scripts/check_resources.py
+	$(PYTHON) scripts/check_cases.py
+	$(PYTHON) scripts/check_version_consistency.py
 
 verify:
 	$(PYTHON) scripts/verify_release.py

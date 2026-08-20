@@ -1,5 +1,5 @@
 """Verified artifact generation."""
 
-from deficitlens.reporting.report import render_report
+from deficitlens.reporting.report import accessible_table, render_report
 
-__all__ = ["render_report"]
+__all__ = ["accessible_table", "render_report"]

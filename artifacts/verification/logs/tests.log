@@ -4,18 +4,20 @@ rootdir: .
 configfile: pyproject.toml
 testpaths: tests
 plugins: cov-7.1.0
-collected 24 items
+collected 31 items
 
-tests/test_apple_health.py ...                                           [ 12%]
-tests/test_benchmark.py .                                                [ 16%]
+tests/test_apple_health.py .....                                         [ 16%]
+tests/test_benchmark.py .                                                [ 19%]
 tests/test_config_registry_cli.py ..                                     [ 25%]
-tests/test_data_adapters.py ...                                          [ 37%]
-tests/test_evaluation.py ..                                              [ 45%]
-tests/test_integration_real_data.py s                                    [ 50%]
-tests/test_models.py ....                                                [ 66%]
-tests/test_physiology.py .....                                           [ 87%]
-tests/test_pipeline_reporting.py .                                       [ 91%]
-tests/test_quality.py ..                                                 [100%]
+tests/test_data_adapters.py ...                                          [ 35%]
+tests/test_evaluation.py ..                                              [ 41%]
+tests/test_evidence.py .                                                 [ 45%]
+tests/test_integration_real_data.py s                                    [ 48%]
+tests/test_models.py ....                                                [ 61%]
+tests/test_physiology.py .....                                           [ 77%]
+tests/test_pipeline_reporting.py .                                       [ 80%]
+tests/test_quality.py ..                                                 [ 87%]
+tests/test_release_checks.py ....                                        [100%]
 
 ================================ tests coverage ================================
 ______________ coverage: platform darwin, python 3.12.13-final-0 _______________
@@ -23,27 +25,31 @@ ______________ coverage: platform darwin, python 3.12.13-final-0 _______________
 Name                                      Stmts   Miss Branch BrPart  Cover   Missing
 -------------------------------------------------------------------------------------
 src/deficitlens/__main__.py                   2      2      0      0     0%   3-5
-src/deficitlens/cli.py                       95     16     10      1    78%   27, 51-62, 66-79, 179
-src/deficitlens/data/apple_health.py        114     10     40     10    87%   41->40, 43, 101-102, 109-110, 139, 159, 160->162, 174, 176, 178
+src/deficitlens/cases.py                     42      3      6      3    88%   49, 53, 55
+src/deficitlens/cli.py                      142     22     22      2    80%   35, 59-70, 101-115, 119-132, 279
+src/deficitlens/data/apple_health.py        121     13     44     11    85%   42->41, 44, 102-103, 110-111, 140, 164, 165->167, 174-176, 183, 185, 187
 src/deficitlens/data/paee2026.py             36      1      6      1    95%   48
 src/deficitlens/data/registry.py             59     15     14      4    74%   19, 48-62, 78->87, 90->92, 93-94
 src/deficitlens/data/weee.py                182     14     44     12    88%   88, 121-122, 152->154, 165, 205-206, 220-221, 268, 276, 286, 308->360, 364, 373-374
 src/deficitlens/evaluation/benchmark.py      90      2     12      2    96%   71, 75
 src/deficitlens/evaluation/bootstrap.py      26      1      6      1    94%   31
+src/deficitlens/evaluation/decision.py       21      1     12      1    94%   36
 src/deficitlens/evaluation/fairness.py       25      1     12      1    95%   55
 src/deficitlens/evaluation/metrics.py        43      3      8      3    88%   37, 65, 86
+src/deficitlens/evidence.py                  35      0      6      1    98%   35->40
 src/deficitlens/models/conformal.py          56      2     20      5    91%   57->55, 63->82, 74, 78->76, 106
 src/deficitlens/models/ensemble.py           99      5     28      5    92%   73, 101, 162, 181, 200
+src/deficitlens/personal.py                  49      1     14      1    97%   95
 src/deficitlens/physiology.py                45      3     24      3    91%   37, 65, 67
-src/deficitlens/pipeline.py                 110     10     16      1    85%   36-44, 91
-src/deficitlens/quality.py                   82      8     34      6    88%   29, 53, 56, 78, 80, 99-100, 340
+src/deficitlens/pipeline.py                 120     10     16      1    86%   39-47, 94
+src/deficitlens/quality.py                   82      8     34      6    88%   29, 53, 56, 78, 80, 99-100, 454
 src/deficitlens/schemas.py                   35      1      0      0    97%   54
 -------------------------------------------------------------------------------------
-TOTAL                                      1367     94    302     55    90%
+TOTAL                                      1573    108    344     63    90%
 
 15 files skipped due to complete coverage.
 Coverage JSON written to file ./artifacts/verification/coverage.json
-Required test coverage of 85.0% reached. Total coverage: 90.23%
+Required test coverage of 85.0% reached. Total coverage: 90.25%
 =========================== short test summary info ============================
 SKIPPED [1] tests/test_integration_real_data.py:16: Set DEFICITLENS_WEEE_ARCHIVE for the 652 MB public-data integration test
-======================== 23 passed, 1 skipped in 13.01s ========================
+======================== 30 passed, 1 skipped in 8.24s =========================

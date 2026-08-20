@@ -13,7 +13,10 @@
 - model metrics include raw Apple, affine, protocol-MET, and ensemble comparators;
 - bootstrap resamples participant clusters;
 - external audit reports primary and restored-outlier sensitivity results separately;
+- external MAE and bias include participant-bootstrap intervals;
+- the transportability gate blocks correction-model transfer when required features are absent;
 - subgroup cells expose support warnings;
+- all four case paths resolve to their machine-readable outputs;
 - report and tables match their hashes in the run manifest.
 
 ## Release language
@@ -27,8 +30,9 @@ you,” or “the Series 8 external cohort validates the WEEE model.”
 ## Status
 
 The current numerical snapshot and executed checks live under `artifacts/verified/` and
-`artifacts/verification/`. See `docs/iteration-log.md` for defects found and fixed before the
-release score reached 100.
+`artifacts/verification/`. The external-evidence ledger separately records independent review,
+reproduction, usability, adoption, and impact counts; these cannot be inferred from internal
+checks. See `docs/iteration-log.md` for defects found and fixed before the current release gate.
 
 ### Verified 2026-08-20 snapshot
 
@@ -39,7 +43,10 @@ release score reached 100.
 - Primary participant-cluster interval: 96.42% coverage, 5.194 kcal/min mean width.
 - Compact row interval: 84.59% coverage, 3.926 kcal/min mean width; diagnostic only.
 - Independent Series 8 raw-device audit: 52 primary pairs, 33.63 kcal MAE, +21.60 kcal bias.
+- Participant-bootstrap 95% intervals: MAE 26.67–40.83 kcal; mean bias 12.38–31.64 kcal.
 - Restoring the paper-wide excluded participant increases external MAE to 36.34 kcal.
+- Correction-model transfer status: `blocked_model_transfer` because the cohort lacks required
+  window-level heart-rate and signal-quality features.
 
 Activity coverage ranges from 89.2% to 100.0%; therefore the 96.4% overall result is not described
 as a guarantee for every activity.

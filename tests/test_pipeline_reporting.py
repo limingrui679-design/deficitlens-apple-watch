@@ -135,3 +135,5 @@ def test_pipeline_builds_hashed_report_bundle(
     report = (output / "report.html").read_text(encoding="utf-8")
     assert "DeficitLens" in report
     assert "cluster-robust" in report
+    assert "External maturity boundary" in report
+    assert manifest["external_evidence"]["documented_real_users"] == 0

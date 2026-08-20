@@ -1,0 +1,95 @@
+schema_version: 1
+capabilities:
+  analytics-to-action: Translate measurement uncertainty into bounded, reviewable choices.
+  statistical-research: Define estimands, preserve participant dependence, and report uncertainty.
+  data-systems-governance: Preserve data meaning, provenance, access boundaries, and failure states.
+  ai-model-validation: Test models on unseen people and reject leakage or unsupported transfer.
+  risk-decision-analysis: Compare actions under uncertainty without turning scenarios into forecasts.
+  population-health-informatics: Separate individual-device records from population-level evidence.
+  privacy-engineering: Minimize sensitive outputs and keep personal Health exports local by default.
+  reproducible-research: Bind inputs, configurations, outputs, and claims to machine-checkable evidence.
+cases:
+  - id: series6-criterion-benchmark
+    title: Series 6 criterion benchmark
+    evidence_state: observed_benchmark
+    decision_status: participant_held_out_evidence
+    decision_question: How much does an Apple Watch-informed estimator miss criterion active energy for a person absent from all fitting and calibration?
+    user_task: Reproduce the nested benchmark, inspect errors and intervals, and decide whether a correction is supported for the registered protocol.
+    datasets: [weee]
+    methods:
+      - oxygen-uptake criterion alignment
+      - nested participant-group cross-fitting
+      - non-negative convex stacking
+      - participant-cluster conformal prediction
+      - participant-cluster bootstrap
+    capabilities:
+      - statistical-research
+      - ai-model-validation
+      - reproducible-research
+    outputs:
+      - artifacts/verified/tables/loso_predictions.csv
+      - artifacts/verified/tables/model_metrics.csv
+      - artifacts/verified/tables/cluster_bootstrap.csv
+    claim_boundary: Controlled Series 6 activities and 17 participants support a benchmark, not a universal calorie correction or clinical claim.
+  - id: series8-device-agreement
+    title: Series 8 independent device-agreement audit
+    evidence_state: observed_external_audit
+    decision_status: raw_device_audit_only
+    decision_question: Does raw Series 8 session energy agree with COSMED K5 in an independent mixed-intensity cycling cohort?
+    user_task: Inspect agreement, uncertainty, exclusions, and supported subgroup slices before making any device-validity claim.
+    datasets: [apple_watch_paee_2026]
+    methods:
+      - Bland-Altman agreement
+      - participant bootstrap intervals
+      - support-aware subgroup audit
+      - explicit all-paired sensitivity analysis
+    capabilities:
+      - statistical-research
+      - population-health-informatics
+      - ai-model-validation
+    outputs:
+      - artifacts/verified/tables/external_bootstrap.csv
+      - artifacts/verified/tables/external_subgroup_audit.csv
+      - artifacts/verified/tables/transferability_gate.json
+    claim_boundary: This cohort audits raw Watch totals; the WEEE correction model is not externally validated because its required feature contract is unavailable.
+  - id: local-apple-health-audit
+    title: Local Apple Health privacy audit
+    evidence_state: private_local_workflow
+    decision_status: descriptive_only
+    decision_question: What can a user safely learn from an Apple Health export without uploading it or writing row-level health records by default?
+    user_task: Generate daily and workout aggregates, inspect data-quality counts, and explore labeled measurement-error sensitivity scenarios.
+    datasets: [apple_health_export]
+    methods:
+      - streaming XML parsing
+      - unit normalization and de-duplication
+      - local-calendar-day aggregation
+      - source redaction and output minimization
+    capabilities:
+      - data-systems-governance
+      - privacy-engineering
+      - analytics-to-action
+    outputs:
+      - daily_summary.csv
+      - workout_summary.csv
+      - energy_uncertainty_scenarios.csv
+      - index.html
+    claim_boundary: Personal output is descriptive and scenario-based; it is not a learned correction, diagnosis, diet prescription, or proof of true energy balance.
+  - id: fat-loss-error-sensitivity
+    title: Exercise-energy decision sensitivity
+    evidence_state: modeled_scenario
+    decision_status: scenario_only
+    decision_question: Under which exercise schedules and arithmetic energy-density assumptions could persistent measurement error become decision-relevant?
+    user_task: Compare raw, affine, and ensemble measurement-error propagation across time, exercise frequency, and kcal-per-kg assumptions.
+    datasets: [weee]
+    methods:
+      - participant-level error aggregation
+      - multi-assumption scenario grid
+      - quantile-based heterogeneity summary
+      - explicit decision and physiology exclusions
+    capabilities:
+      - risk-decision-analysis
+      - analytics-to-action
+      - reproducible-research
+    outputs:
+      - artifacts/verified/tables/decision_impact_scenarios.csv
+    claim_boundary: Mass-equivalent values are arithmetic sensitivity outputs, not weight forecasts; intake, adaptation, water, adherence, and causal behavior effects remain outside scope.

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">DeficitLens evidence flow</title>
+  <desc id="desc">Wearable and criterion signals pass through participant-held-out validation, uncertainty, transfer checks, and bounded decisions.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071b2b"/>
+      <stop offset="1" stop-color="#123f46"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#001219" flood-opacity=".32"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#82d8c8"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#background)"/>
+  <g fill="none" stroke="#82d8c8" stroke-width="4" marker-end="url(#arrow)" opacity=".9">
+    <path d="M250 180H355"/>
+    <path d="M555 180H660"/>
+    <path d="M860 180H965"/>
+  </g>
+  <g filter="url(#shadow)" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+    <g transform="translate(45 82)">
+      <rect width="205" height="196" rx="22" fill="#f5fbf9"/>
+      <circle cx="102" cy="55" r="28" fill="#ff775e"/>
+      <path d="M91 55h22M102 44v22" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+      <text x="102" y="112" text-anchor="middle" font-size="20" font-weight="700" fill="#102a36">Signals</text>
+      <text x="102" y="143" text-anchor="middle" font-size="14" fill="#45616d">Watch · HR · VO₂</text>
+      <text x="102" y="166" text-anchor="middle" font-size="14" fill="#45616d">timestamps · units</text>
+    </g>
+    <g transform="translate(355 82)">
+      <rect width="200" height="196" rx="22" fill="#f5fbf9"/>
+      <path d="M58 71l25 25 58-60" fill="none" stroke="#087f73" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="100" y="112" text-anchor="middle" font-size="20" font-weight="700" fill="#102a36">Validate</text>
+      <text x="100" y="143" text-anchor="middle" font-size="14" fill="#45616d">unseen participants</text>
+      <text x="100" y="166" text-anchor="middle" font-size="14" fill="#45616d">cluster-aware splits</text>
+    </g>
+    <g transform="translate(660 82)">
+      <rect width="200" height="196" rx="22" fill="#f5fbf9"/>
+      <path d="M46 69h108M62 50v38M100 42v54M138 55v28" stroke="#3f64bb" stroke-width="8" stroke-linecap="round"/>
+      <text x="100" y="112" text-anchor="middle" font-size="20" font-weight="700" fill="#102a36">Bound</text>
+      <text x="100" y="143" text-anchor="middle" font-size="14" fill="#45616d">intervals · bootstrap</text>
+      <text x="100" y="166" text-anchor="middle" font-size="14" fill="#45616d">transfer refusal</text>
+    </g>
+    <g transform="translate(965 82)">
+      <rect width="190" height="196" rx="22" fill="#f5fbf9"/>
+      <path d="M54 78h82M95 37v82" stroke="#e29920" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="95" cy="78" r="31" fill="none" stroke="#e29920" stroke-width="8"/>
+      <text x="95" y="132" text-anchor="middle" font-size="20" font-weight="700" fill="#102a36">Decide</text>
+      <text x="95" y="160" text-anchor="middle" font-size="14" fill="#45616d">scenarios, not forecasts</text>
+    </g>
+  </g>
+  <text x="44" y="38" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#b8eee4" letter-spacing="2">MEASURE → VALIDATE → BOUND → DECIDE</text>
+</svg>

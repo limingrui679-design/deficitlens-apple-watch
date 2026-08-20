@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
@@ -44,8 +44,10 @@ class EvaluationConfig(BaseModel):
 
     bootstrap_repetitions: int = Field(default=1000, ge=100, le=10000)
     subgroup_columns: list[str]
-    decision_horizons_weeks: list[int]
-    kcal_per_kg_scenario: int = Field(default=7700, ge=6000, le=10000)
+    decision_horizons_weeks: list[Annotated[int, Field(ge=1, le=104)]]
+    decision_active_minutes_per_day: list[Annotated[int, Field(ge=1, le=240)]] = [30, 45, 60]
+    decision_active_days_per_week: list[Annotated[int, Field(ge=1, le=7)]] = [3, 5, 7]
+    kcal_per_kg_scenarios: list[Annotated[int, Field(ge=6000, le=10000)]] = [7000, 7700, 9000]
 
 
 class PrivacyConfig(BaseModel):

@@ -43,6 +43,8 @@ def main() -> int:
                 "(__import__('pathlib').Path.cwd() / 'installed').resolve())",
             ],
             [sys.executable, "-m", "deficitlens", "registry"],
+            [sys.executable, "-m", "deficitlens", "cases", "--json"],
+            [sys.executable, "-m", "deficitlens", "evidence", "--json"],
             [
                 sys.executable,
                 "-m",
@@ -57,7 +59,9 @@ def main() -> int:
         required = {
             root / "demo" / "summary.json",
             root / "demo" / "daily_summary.csv",
+            root / "demo" / "workout_summary.csv",
             root / "demo" / "energy_uncertainty_scenarios.csv",
+            root / "demo" / "index.html",
         }
         if not all(path.is_file() for path in required):
             raise SystemExit("Installed-wheel demo did not produce every expected artifact")

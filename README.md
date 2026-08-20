@@ -2,17 +2,21 @@
 
 **Measure the measurement before trusting the calorie deficit.**
 
+![DeficitLens maps wearable signals through validation, uncertainty, and claim boundaries before a decision scenario](docs/assets/deficitlens-hero.svg)
+
 DeficitLens is a reproducible Apple Watch energy-expenditure audit. It aligns Watch active
 energy and heart-rate signals with oxygen-uptake criterion data, predicts measurement error
 with a leakage-safe ensemble, wraps estimates in conformal uncertainty intervals, checks
 subgroup behavior, and translates remaining error into clearly labeled fat-loss planning
 scenarios.
 
-It is an analytics benchmark and local audit tool—not a medical device, diet prescription, or
-promise that a wearable can identify a person's true calorie deficit.
+It is measurement-audit research software and a local data-quality tool—not a medical device,
+diet prescription, production service, or promise that a wearable can identify a person's true
+calorie deficit.
 
 [Open the verified report](artifacts/verified/report.html) ·
 [Read the methodology](docs/methodology.md) ·
+[Explore the case paths](docs/case-paths.md) ·
 [Inspect the model card](docs/model-card.md) ·
 [中文概览](docs/README.zh-CN.md)
 
@@ -31,6 +35,22 @@ The project is deliberately Apple Watch-specific:
 - treats missing heart-rate samples as signal quality, not as silent zeros;
 - compares the learned correction with the raw Apple value and transparent baselines;
 - never converts a dashboard state, paper result, or model fit into an individual health claim.
+
+## Case paths
+
+One pipeline supports four genuinely different questions. The catalog is validated, included in
+the wheel, exposed by `deficitlens cases`, and rendered into the report.
+
+| Path | Question | Evidence state | Hard boundary |
+|---|---|---|---|
+| Series 6 criterion benchmark | Can a correction improve held-out error in the registered protocol? | Observed benchmark | 17 controlled-activity participants; no universal calibration |
+| Series 8 device-agreement audit | Does raw Watch session energy agree with COSMED K5? | Observed external audit | No correction-model transfer because required features are absent |
+| Local Apple Health audit | What can be learned without uploading or writing raw rows? | Private local workflow | Descriptive aggregates and scenarios only |
+| Exercise-energy sensitivity | When could persistent error matter to a planning calculation? | Modeled scenario | Arithmetic sensitivity, never a weight forecast |
+
+These paths cover statistical research, AI/model validation, privacy-preserving health
+informatics, data governance, and risk/decision analysis without pretending that one dataset
+supports every claim. See the [evidence-state contract](docs/evidence-levels.md).
 
 ## Verified snapshot
 
@@ -71,7 +91,9 @@ independent.
 
 In the independent Series 8 cohort, raw Apple session totals had MAE **33.63 kcal**, mean bias
 **+21.60 kcal**, and MAPE **35.7%** against COSMED K5 for 52 primary paired participants. This is
-an external *device audit*, not a transfer result for the WEEE-trained ensemble.
+an external *device audit*, not a transfer result for the WEEE-trained ensemble. Participant-
+bootstrap 95% intervals were **[26.67, 40.83] kcal** for MAE and **[12.38, 31.64] kcal** for mean
+bias; a machine-readable failed transfer gate is included in the report.
 
 ![Independent Series 8 agreement](artifacts/verified/figures/external_agreement.png)
 
@@ -93,6 +115,8 @@ flowchart LR
   K --> H
   H --> L[Error + coverage + subgroup audit]
   M[Series 8 + COSMED K5<br>independent cohort] --> N[External raw-device audit]
+  N --> P{Feature + endpoint<br>contract complete?}
+  P -->|No| Q[Block correction-model<br>transfer claim]
   L --> O[Bounded fat-loss scenarios]
   N --> O
 ```
@@ -112,6 +136,12 @@ python -m pip install -e ".[dev]"
 
 # Safe, tiny, synthetic Apple Health smoke test
 deficitlens demo --output artifacts/demo
+
+# Inspect evidence-bounded use cases and their claim limits
+deficitlens cases
+
+# Inspect external review, reproduction, user, deployment, adoption, and impact counts
+deficitlens evidence
 
 # Inspect registered public and restricted sources
 deficitlens registry
@@ -152,7 +182,8 @@ Defaults are intentionally conservative:
 - energy is normalized to dietary kcal;
 - source names are hashed in memory;
 - raw rows, record IDs, exact timestamps, and device strings are not written;
-- output contains daily aggregates and ±10%/±20% sensitivity scenarios only.
+- output contains an offline `index.html`, daily/workout aggregates, and labeled ±10%/±20%
+  sensitivity scenarios only.
 
 Apple's export steps are documented in the [iPhone User Guide](https://support.apple.com/guide/iphone/share-your-health-data-iph5ede58c3d/ios), and the modeled Watch field corresponds to HealthKit's [`activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned).
 
@@ -173,8 +204,9 @@ Apple's export steps are documented in the [iPhone User Guide](https://support.a
    genuine paired criterion session. It does not mistake scale change for sensor ground truth.
 6. **Participant-clustered inference.** Confidence intervals resample people, not correlated
    windows.
-7. **Decision-impact analysis.** Measurement error is propagated into fixed-assumption exercise
-   and mass-equivalent scenarios, with metabolic adaptation explicitly outside scope.
+7. **Decision-impact analysis.** Measurement error is propagated across 3/5/7 active days per
+   week, 30/45/60 minutes, 4/8/12 weeks, and 7,000/7,700/9,000 kcal/kg assumptions, with metabolic
+   adaptation explicitly outside scope.
 
 ## Repository map
 
@@ -182,10 +214,12 @@ Apple's export steps are documented in the [iPhone User Guide](https://support.a
 src/deficitlens/
   data/          # WEEE, 2026 PAEE, registry, Apple Health adapters
   models/        # baselines, grouped stack, conformal and Kalman calibration
-  evaluation/    # metrics, cluster bootstrap, fairness, decision impact
+  evaluation/    # metrics, cluster bootstrap, transfer gate, fairness, decisions
   reporting/     # figures and portable HTML evidence report bundle
+cases/           # validated school-neutral case and capability catalog
+evidence/        # explicit external review/adoption/impact ledger
 tests/           # unit, adversarial, CLI and optional real-data integration tests
-scripts/         # release verification and objective quality scoring
+scripts/         # release, safety, docs, archive, and quality verification
 artifacts/
   verified/      # committed aggregate evidence, figures, report and manifest
 docs/            # data cards, methodology, model card, privacy, validation
@@ -201,11 +235,32 @@ make build
 make verify
 ```
 
-`make verify` writes machine-readable command results. The quality scorer awards points only
-when the relevant file, evidence artifact, and executed release check exist. See
+`make verify` writes machine-readable command results. It checks lint, formatting, strict typing,
+branch coverage, dependency advisories, private-data/secret risks, local documentation links,
+HTML semantics, resource synchronization, distributions, and an isolated installed wheel. The
+quality scorer awards points only when the relevant file, evidence artifact, and executed release
+check exist. See
 [`docs/iteration-log.md`](docs/iteration-log.md) for the score progression and remediation log.
-The final rubric-v2 score is **100/100** after an installed-wheel smoke test; this describes
-release completeness, not perfect model accuracy.
+
+The rubric-v3 score is a **maintainer-controllable release score**, not a scientific accuracy,
+popularity, or ecosystem-maturity score. The current verified result is **100/100** with all 16
+executed release checks passing and 90.25% branch-aware coverage. External evidence is reported
+separately.
+
+## External evidence and publication status
+
+This checkout is a local release candidate. No public repository URL has been verified, so package
+metadata intentionally contains no repository, issue, release, or documentation URL. The current
+[external evidence ledger](evidence/external-evidence.json) records:
+
+- 0 independent method reviews and 0 independent reproductions;
+- 0 structured usability or accessibility-study participants;
+- 0 documented real users, production deployments, or organizational adoptions; and
+- 0 real-world impact evaluations; public stars are unobserved, not zero.
+
+Internal tests, self-audits, synthetic demos, and public-dataset analyses are valuable evidence,
+but they do not become external adoption or impact. Publication, protected CI, private security
+reporting, independent review, and user studies remain on the [roadmap](ROADMAP.md).
 
 ## Data provenance
 
@@ -225,7 +280,8 @@ hashes in the evidence bundle.
 - Seventeen development participants are enough for an honest benchmark, not a universal
   calibration claim.
 - WEEE uses Series 6 under controlled activities; the external Series 8 cohort audits raw device
-  error but cannot validate transfer of the WEEE-trained model because it lacks matching features.
+  error but cannot validate transfer of the WEEE-trained model because it lacks matching features;
+  the pipeline records this as `blocked_model_transfer` rather than leaving it to prose.
 - WEEE supplies VO₂ but not VCO₂, so 5 kcal/L O₂ is an approximation; RMR is estimated, not
   directly measured.
 - Skin-tone conclusions are not transferred across datasets. WEEE lacks Fitzpatrick labels; the

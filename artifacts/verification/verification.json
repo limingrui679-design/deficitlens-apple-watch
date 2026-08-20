@@ -9,9 +9,19 @@
         "--outdir",
         "./artifacts/verification/dist"
       ],
-      "elapsed_seconds": 4.145202125015203,
+      "elapsed_seconds": 2.784957540978212,
       "exit_code": 0,
       "log": "artifacts/verification/logs/build.log",
+      "passed": true
+    },
+    "case_catalog": {
+      "command": [
+        "python",
+        "scripts/check_cases.py"
+      ],
+      "elapsed_seconds": 0.14248233300168067,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/case_catalog.log",
       "passed": true
     },
     "cli_demo": {
@@ -23,9 +33,56 @@
         "--output",
         "./artifacts/verification/demo"
       ],
-      "elapsed_seconds": 2.578640833031386,
+      "elapsed_seconds": 2.1207310830359347,
       "exit_code": 0,
       "log": "artifacts/verification/logs/cli_demo.log",
+      "passed": true
+    },
+    "dependency_audit": {
+      "command": [
+        "python",
+        "-m",
+        "pip_audit",
+        "--requirement",
+        "./requirements/verified-py312.txt",
+        "--disable-pip",
+        "--no-deps"
+      ],
+      "elapsed_seconds": 0.49731754104141146,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/dependency_audit.log",
+      "passed": true
+    },
+    "distribution": {
+      "command": [
+        "python",
+        "scripts/check_distribution.py",
+        "./artifacts/verification/dist/deficitlens-1.1.0-py3-none-any.whl",
+        "./artifacts/verification/dist/deficitlens-1.1.0.tar.gz"
+      ],
+      "elapsed_seconds": 0.05415100004756823,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/distribution.log",
+      "passed": true
+    },
+    "docs_links": {
+      "command": [
+        "python",
+        "scripts/check_docs.py"
+      ],
+      "elapsed_seconds": 0.05630754097364843,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/docs_links.log",
+      "passed": true
+    },
+    "evidence_ledger": {
+      "command": [
+        "python",
+        "scripts/check_external_evidence.py"
+      ],
+      "elapsed_seconds": 0.034272083023097366,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/evidence_ledger.log",
       "passed": true
     },
     "format": {
@@ -37,9 +94,21 @@
         "--check",
         "."
       ],
-      "elapsed_seconds": 0.051598292018752545,
+      "elapsed_seconds": 0.04828241595532745,
       "exit_code": 0,
       "log": "artifacts/verification/logs/format.log",
+      "passed": true
+    },
+    "html_audit": {
+      "command": [
+        "python",
+        "scripts/check_html.py",
+        "./artifacts/verified/report.html",
+        "./artifacts/verification/demo/index.html"
+      ],
+      "elapsed_seconds": 0.062338832998648286,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/html_audit.log",
       "passed": true
     },
     "lint": {
@@ -50,9 +119,19 @@
         "check",
         "."
       ],
-      "elapsed_seconds": 0.052397207997273654,
+      "elapsed_seconds": 0.04788558295695111,
       "exit_code": 0,
       "log": "artifacts/verification/logs/lint.log",
+      "passed": true
+    },
+    "repo_safety": {
+      "command": [
+        "python",
+        "scripts/check_repository_safety.py"
+      ],
+      "elapsed_seconds": 0.10092045803321525,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/repo_safety.log",
       "passed": true
     },
     "resource_sync": {
@@ -60,7 +139,7 @@
         "python",
         "scripts/check_resources.py"
       ],
-      "elapsed_seconds": 0.03318649996072054,
+      "elapsed_seconds": 0.03335912502370775,
       "exit_code": 0,
       "log": "artifacts/verification/logs/resource_sync.log",
       "passed": true
@@ -75,7 +154,7 @@
         "--cov-report=term-missing",
         "--cov-report=json:./artifacts/verification/coverage.json"
       ],
-      "elapsed_seconds": 15.989243374962825,
+      "elapsed_seconds": 9.526786208967678,
       "exit_code": 0,
       "log": "artifacts/verification/logs/tests.log",
       "passed": true
@@ -88,24 +167,34 @@
         "src",
         "scripts"
       ],
-      "elapsed_seconds": 0.3152293750317767,
+      "elapsed_seconds": 0.21654533297987655,
       "exit_code": 0,
       "log": "artifacts/verification/logs/typecheck.log",
+      "passed": true
+    },
+    "version_consistency": {
+      "command": [
+        "python",
+        "scripts/check_version_consistency.py"
+      ],
+      "elapsed_seconds": 0.05617641698336229,
+      "exit_code": 0,
+      "log": "artifacts/verification/logs/version_consistency.log",
       "passed": true
     },
     "wheel_smoke": {
       "command": [
         "python",
         "scripts/smoke_wheel.py",
-        "./artifacts/verification/dist/deficitlens-1.0.0-py3-none-any.whl"
+        "./artifacts/verification/dist/deficitlens-1.1.0-py3-none-any.whl"
       ],
-      "elapsed_seconds": 5.342171291005798,
+      "elapsed_seconds": 8.881320125015918,
       "exit_code": 0,
       "log": "artifacts/verification/logs/wheel_smoke.log",
       "passed": true
     }
   },
-  "generated_at": "2026-08-19T20:15:42.008988+00:00",
+  "generated_at": "2026-08-20T02:57:11.573136+00:00",
   "python": "3.12.13 (main, Aug  7 2026, 02:15:23) [Clang 22.1.3 ]",
   "schema_version": 1
 }

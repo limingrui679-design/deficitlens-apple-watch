@@ -12,7 +12,9 @@ remain visible.
 | 4 — adversarial package audit | 98/100 | Wheel built, but first isolation strategy lacked runtime dependencies; the new build gate failed | Install the wheel into an isolated target while using the verified runtime dependencies; assert imports resolve from the wheel target; run bundled registry and demo |
 | 5 — first release candidate | 100/100 (superseded) | Lint, formatting, strict typing, 23 tests, 90.54% branch-aware coverage, CLI demo, wheel/sdist build, and installed-wheel smoke passed | Reopen the scientific audit instead of treating an engineering score as scientific completion |
 | 6 — deployability audit | 96/100 | Experimental low/high protocol labels were present in the feature contract, and exercise scenarios included rest windows; the committed artifact no longer matched the repaired contract | Collapse inputs to deployable activity families, restrict scenarios to exercise windows, and rerun every real-data prediction |
-| 7 — deployable-context release | **100/100** | The new 17-fold artifact contains `activity_family`; raw Apple MAE is 1.651 and ensemble MAE is 1.082 kcal/min; all release gates pass again | Release-ready under rubric v2, with the score explicitly limited to evidence and engineering completeness |
+| 7 — deployable-context release | 100/100 (superseded) | The new 17-fold artifact contains `activity_family`; raw Apple MAE is 1.651 and ensemble MAE is 1.082 kcal/min; then-current gates passed | Reopen against a broader rubric instead of treating rubric v2 as ecosystem maturity |
+| 8 — capability, privacy, and publication audit | 96/100 | The release commands passed, but the new scorer misread a line-wrapped “weight forecast” boundary; browser QA also found and fixed mobile SHA overflow | Preserve the failed score, make the semantic gate formatting-independent, and rerun every command |
+| 9 — v1.1.0 final local release audit | **100/100** | 30 tests pass plus one 652MB integration test is exercised through the full benchmark; 90.25% branch-aware coverage; all 16 safety, dependency, version, docs, HTML, distribution, and installed-wheel checks pass | Release-ready under rubric v3 for maintainer-controllable quality; external evidence remains explicitly zero/unobserved |
 
 ## Scientific comparison
 
@@ -48,3 +50,18 @@ Health deployment.
   and every real-data metric was rerun instead of carrying forward an optimistic snapshot.
 - Fat-loss scenarios initially averaged rest and exercise errors before multiplying by daily
   exercise minutes. The final pipeline restricts this propagation to cycling/running windows.
+- Package and citation metadata pointed at a repository URL that returned 404. Unverified URLs are
+  now omitted until publication and remote verification actually occur.
+- The external device audit initially had point estimates but no participant-bootstrap interval or
+  executable transfer refusal. Both are now generated, hashed, tested, and shown in the report.
+- A deterministic default source-hash salt and an easy row writer weakened personal-data defaults.
+  Hash salts are now random per run, and exact-timestamp export requires explicit acknowledgement.
+- The first polished report still overflowed to 778px on a 390px viewport because long checksums
+  escaped their section. Browser QA found it; code strings now wrap while data tables scroll within
+  their containers, and the final document width equals the viewport.
+- A security-scanner unit test embedded a complete AWS-shaped fake key and triggered the release
+  scan. The fixture is now assembled at runtime so detection remains tested without committing a
+  credential-shaped token.
+- A literal quality check treated a Markdown line break as missing evidence despite all release
+  commands passing. The failed 96/100 iteration is retained; the final gate checks stable semantic
+  phrases and the full verifier was rerun.

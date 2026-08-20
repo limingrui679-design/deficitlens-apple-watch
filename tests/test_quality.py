@@ -15,5 +15,6 @@ def test_quality_rubric_totals_100(tmp_path: Path) -> None:
 def test_quality_can_audit_checkout() -> None:
     root = Path(__file__).resolve().parents[1]
     result = evaluate_quality(root)
+    assert result["rubric_version"] == 3
     assert result["maximum"] == 100
-    assert len(result["checks"]) == 32
+    assert len(result["checks"]) == 42

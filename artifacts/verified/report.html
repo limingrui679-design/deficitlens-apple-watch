@@ -3,73 +3,137 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Verified Apple Watch energy-expenditure benchmark, agreement audit, uncertainty analysis, and evidence boundaries.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102a43'/%3E%3Cpath d='M18 18h18a10 10 0 010 20H18z' fill='none' stroke='%2382d8c8' stroke-width='6'/%3E%3C/svg%3E">
   <title>DeficitLens verified Apple Watch report</title>
   <style>
-    :root { --ink:#18202a; --muted:#5d6875; --blue:#4c78a8; --red:#e45756; --paper:#fff; --wash:#f4f7fa; }
+    :root { color-scheme:light; --ink:#17212b; --muted:#526170; --navy:#102a43; --navy2:#174f70; --blue:#286a9f; --teal:#16817a; --red:#a73535; --amber:#9a5b00; --paper:#fff; --wash:#eef4f7; --line:#d5e0e7; --focus:#f7b32b; }
     * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--wash); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    header { padding:56px max(24px,calc((100vw - 1120px)/2)); background:#122334; color:white; }
-    header p { max-width:760px; color:#d9e4ee; }
-    main { max-width:1120px; margin:0 auto; padding:30px 24px 70px; }
-    section { background:var(--paper); padding:26px; margin:18px 0; border-radius:14px; box-shadow:0 3px 16px #19324a12; }
-    h1,h2,h3 { line-height:1.2; }
-    h1 { margin:0; font-size:42px; }
-    h2 { margin-top:0; }
-    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
-    .card { padding:18px; border:1px solid #dce4eb; border-radius:10px; }
-    .number { display:block; color:var(--blue); font-size:29px; font-weight:750; }
-    .label { color:var(--muted); }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--wash); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:#125f92; }
+    a:focus-visible,button:focus-visible,select:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    .skip { position:absolute; left:-9999px; }
+    .skip:focus { left:16px; top:12px; z-index:20; color:var(--ink); background:white; padding:8px 12px; border-radius:7px; }
+    header { padding:52px max(22px,calc((100vw - 1120px)/2)) 30px; background:linear-gradient(135deg,var(--navy),var(--navy2)); color:white; }
+    header h1 { margin:4px 0 10px; font-size:clamp(2.35rem,7vw,4.4rem); line-height:1; letter-spacing:-.035em; }
+    header p { max-width:780px; color:#e2edf4; font-size:1.08rem; }
+    .eyebrow { color:#b9dbea; font-size:.8rem; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
+    nav { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; }
+    nav a { color:white; text-decoration:none; padding:6px 10px; border:1px solid #82aec7; border-radius:999px; font-size:.84rem; }
+    main { max-width:1120px; margin:0 auto; padding:26px 20px 70px; }
+    section { margin:18px 0; padding:26px; background:var(--paper); border:1px solid var(--line); border-radius:16px; box-shadow:0 8px 24px #17324a0b; scroll-margin-top:14px; }
+    h2 { margin-top:0; line-height:1.2; font-size:clamp(1.45rem,3vw,2rem); }
+    h3 { line-height:1.25; }
+    .cards,.case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px; }
+    .card,.case { padding:18px; border:1px solid var(--line); border-radius:12px; }
+    .case { display:flex; flex-direction:column; gap:8px; }
+    .case h3 { margin:0; }
+    .number { display:block; color:var(--blue); font-size:1.9rem; font-weight:820; }
+    .label,.muted { color:var(--muted); }
+    .tag { display:inline-block; width:max-content; padding:3px 8px; border-radius:999px; color:#16455f; background:#e3f1f6; font-size:.72rem; font-weight:750; text-transform:uppercase; letter-spacing:.04em; }
+    .boundary { margin-top:auto; padding-top:9px; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; }
     img { display:block; width:100%; height:auto; margin:18px auto; }
-    .table-wrap { overflow-x:auto; }
-    .data-table { border-collapse:collapse; width:100%; font-size:13px; }
+    .table-wrap { overflow:auto; max-height:560px; margin:12px 0 20px; border:1px solid var(--line); border-radius:10px; }
+    .data-table { border-collapse:collapse; width:100%; font-size:.82rem; background:white; }
     .data-table th,.data-table td { padding:8px 10px; border-bottom:1px solid #e3e8ed; text-align:right; white-space:nowrap; }
+    .data-table th { position:sticky; top:0; z-index:1; color:var(--navy); background:#f0f5f8; }
     .data-table th:first-child,.data-table td:first-child { text-align:left; }
-    .warning { border-left:5px solid var(--red); background:#fff5f4; padding:14px 18px; }
-    code { background:#edf1f5; padding:2px 5px; border-radius:4px; }
-    footer { color:var(--muted); text-align:center; padding-top:28px; }
+    .warning,.success { padding:14px 17px; border-left:5px solid var(--red); background:#fff3f2; }
+    .success { border-color:var(--teal); background:#edf9f5; }
+    details { margin:12px 0; padding:12px 15px; border:1px solid var(--line); border-radius:10px; }
+    summary { cursor:pointer; font-weight:730; }
+    code { background:#edf1f5; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere; word-break:break-word; }
+    .filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:14px 0; }
+    .filter { display:grid; gap:4px; }
+    .filters label { color:var(--muted); font-size:.82rem; }
+    select { width:100%; padding:8px; color:var(--ink); background:white; border:1px solid #aabac6; border-radius:8px; font:inherit; }
+    footer { color:var(--muted); text-align:center; padding:24px 10px 0; }
+    @media (max-width:700px) { section { padding:19px; } nav { gap:6px; } nav a { font-size:.76rem; } .table-wrap { max-height:420px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to report</a>
 <header>
+  <span class="eyebrow">verified evidence bundle · version 1.1.0</span>
   <h1>DeficitLens</h1>
-  <p>A leakage-safe Apple Watch energy-expenditure audit: criterion oxygen uptake, nested participant-level validation, conformal uncertainty, subgroup slices, and explicit fat-loss planning scenarios.</p>
+  <p>Measure the measurement before trusting the calorie deficit. This report joins criterion alignment, participant-safe model validation, uncertainty, subgroup evidence, transfer refusal, and bounded decision scenarios without converting any of them into medical advice.</p>
+  <nav aria-label="Report sections">
+    <a href="#result">Result</a><a href="#cases">Case paths</a><a href="#model">Model</a><a href="#external">External audit</a><a href="#subgroups">Subgroups</a><a href="#decisions">Scenarios</a><a href="#external-evidence">Evidence boundary</a><a href="#reproduce">Reproduce</a>
+  </nav>
 </header>
-<main>
-  <section>
+<main id="main">
+  <section id="result">
     <h2>Executive result</h2>
     <div class="cards">
       <div class="card"><span class="number">17</span><span class="label">WEEE participants held out once each</span></div>
       <div class="card"><span class="number">811</span><span class="label">non-overlapping 30-second windows</span></div>
-      <div class="card"><span class="number">4544</span><span class="label">5-second-stride sensitivity windows</span></div>
-      <div class="card"><span class="number">34.5%</span><span class="label">ensemble MAE change vs raw Apple</span></div>
+      <div class="card"><span class="number">4544</span><span class="label">overlapping density-sensitivity windows</span></div>
+      <div class="card"><span class="number">34.5%</span><span class="label">ensemble MAE reduction vs raw Apple</span></div>
       <div class="card"><span class="number">96.4%</span><span class="label">cluster-robust coverage (90% target)</span></div>
       <div class="card"><span class="number">52</span><span class="label">independent Series 8 paired sessions</span></div>
     </div>
-    <p>The best point estimator by held-out-participant MAE was <strong>ensemble</strong>. A more complex model is retained only when out-of-fold stacking assigns it weight.</p>
-    <div class="warning"><strong>Interpretation boundary:</strong> these are exercise-energy measurement audits, not a guarantee of individual calorie burn or a weight-loss prediction.</div>
+    <p>The best point estimator by held-out-participant MAE was <strong>ensemble</strong>. A complex learner is retained only when development-participant out-of-fold stacking gives it non-zero weight.</p>
+    <p class="warning"><strong>Interpretation boundary:</strong> this is an exercise-energy measurement audit, not a guarantee of individual calorie burn, energy balance, expected weight change, diagnosis, or treatment.</p>
   </section>
 
-  <section>
-    <h2>Model comparison</h2>
-    <img src="figures/model_error.png" alt="MAE and mean bias for all models">
+  <section id="cases">
+    <h2>Four complementary evidence paths</h2>
+    <p>Each path has a different evidence state and user task. They share infrastructure, but their claims are deliberately not interchangeable.</p>
+    <div class="case-grid">
+      <article class="case">
+        <span class="tag">observed benchmark</span>
+        <h3>Series 6 criterion benchmark</h3>
+        <p>How much does an Apple Watch-informed estimator miss criterion active energy for a person absent from all fitting and calibration?</p>
+        <p class="muted"><strong>Capabilities:</strong> statistical-research, ai-model-validation, reproducible-research</p>
+        <p class="boundary"><strong>Boundary:</strong> Controlled Series 6 activities and 17 participants support a benchmark, not a universal calorie correction or clinical claim.</p>
+      </article>
+      <article class="case">
+        <span class="tag">observed external audit</span>
+        <h3>Series 8 independent device-agreement audit</h3>
+        <p>Does raw Series 8 session energy agree with COSMED K5 in an independent mixed-intensity cycling cohort?</p>
+        <p class="muted"><strong>Capabilities:</strong> statistical-research, population-health-informatics, ai-model-validation</p>
+        <p class="boundary"><strong>Boundary:</strong> This cohort audits raw Watch totals; the WEEE correction model is not externally validated because its required feature contract is unavailable.</p>
+      </article>
+      <article class="case">
+        <span class="tag">private local workflow</span>
+        <h3>Local Apple Health privacy audit</h3>
+        <p>What can a user safely learn from an Apple Health export without uploading it or writing row-level health records by default?</p>
+        <p class="muted"><strong>Capabilities:</strong> data-systems-governance, privacy-engineering, analytics-to-action</p>
+        <p class="boundary"><strong>Boundary:</strong> Personal output is descriptive and scenario-based; it is not a learned correction, diagnosis, diet prescription, or proof of true energy balance.</p>
+      </article>
+      <article class="case">
+        <span class="tag">modeled scenario</span>
+        <h3>Exercise-energy decision sensitivity</h3>
+        <p>Under which exercise schedules and arithmetic energy-density assumptions could persistent measurement error become decision-relevant?</p>
+        <p class="muted"><strong>Capabilities:</strong> risk-decision-analysis, analytics-to-action, reproducible-research</p>
+        <p class="boundary"><strong>Boundary:</strong> Mass-equivalent values are arithmetic sensitivity outputs, not weight forecasts; intake, adaptation, water, adherence, and causal behavior effects remain outside scope.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="model">
+    <h2>Participant-held-out model comparison</h2>
+    <img src="figures/model_error.png" alt="Horizontal bars comparing held-out mean absolute error and mean bias for four estimators">
     <div class="table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>model</th>
-      <th>n</th>
-      <th>mae</th>
-      <th>rmse</th>
-      <th>mean_bias</th>
-      <th>median_absolute_error</th>
-      <th>mape</th>
-      <th>mape_n</th>
-      <th>r2</th>
-      <th>ccc</th>
-      <th>within_0_5_kcal_min</th>
-      <th>within_1_kcal_min</th>
-      <th>bland_altman_bias</th>
-      <th>bland_altman_lower_loa</th>
-      <th>bland_altman_upper_loa</th>
+      <th scope="col">model</th>
+      <th scope="col">n</th>
+      <th scope="col">mae</th>
+      <th scope="col">rmse</th>
+      <th scope="col">mean_bias</th>
+      <th scope="col">median_absolute_error</th>
+      <th scope="col">mape</th>
+      <th scope="col">mape_n</th>
+      <th scope="col">r2</th>
+      <th scope="col">ccc</th>
+      <th scope="col">within_0_5_kcal_min</th>
+      <th scope="col">within_1_kcal_min</th>
+      <th scope="col">bland_altman_bias</th>
+      <th scope="col">bland_altman_lower_loa</th>
+      <th scope="col">bland_altman_upper_loa</th>
     </tr>
   </thead>
   <tbody>
@@ -147,14 +211,14 @@
     <div class="table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>model</th>
-      <th>metric</th>
-      <th>estimate</th>
-      <th>lower</th>
-      <th>upper</th>
-      <th>confidence</th>
-      <th>repetitions</th>
-      <th>clusters</th>
+      <th scope="col">model</th>
+      <th scope="col">metric</th>
+      <th scope="col">estimate</th>
+      <th scope="col">lower</th>
+      <th scope="col">upper</th>
+      <th scope="col">confidence</th>
+      <th scope="col">repetitions</th>
+      <th scope="col">clusters</th>
     </tr>
   </thead>
   <tbody>
@@ -240,29 +304,68 @@
     </tr>
   </tbody>
 </table></div>
+    <h3>Predictions and calibrated uncertainty</h3>
+    <img loading="lazy" src="figures/observed_predicted.png" alt="Observed criterion active energy versus raw Apple and DeficitLens predictions, all from held-out participants">
+    <img loading="lazy" src="figures/coverage_by_activity.png" alt="Empirical participant-cluster conformal coverage for six controlled activities compared with the 90 percent target">
+    <p>The outer participant is absent from model fitting, stack-weight learning, and conformal calibration. The primary interval calibrates participant-level maximum residuals. The narrower row-level interval covered 84.6% and is retained only as a dependence diagnostic.</p>
   </section>
 
-  <section>
-    <h2>Held-out predictions and calibrated uncertainty</h2>
-    <img src="figures/observed_predicted.png" alt="Observed versus predicted active energy">
-    <img src="figures/coverage_by_activity.png" alt="Conformal coverage by activity">
-    <p>The outer test participant is absent from model fitting, stacking-weight learning, and conformal calibration. Calibration participants are also absent from base-model fitting. The primary interval calibrates participant-level maximum residuals; the more compact window-level interval covered 84.6% and is retained as a diagnostic, not promoted as the primary interval.</p>
-  </section>
-
-  <section>
-    <h2>Independent Apple Watch Series 8 audit</h2>
-    <img src="figures/external_agreement.png" alt="Apple Watch versus COSMED K5 agreement">
-    <p>Primary paired analysis: MAE <strong>33.63 kcal</strong>, mean bias <strong>21.60 kcal</strong>, MAPE <strong>35.7%</strong>. The all-paired sensitivity analysis, which restores the paper-wide excluded participant, has MAE 36.34 kcal.</p>
+  <section id="external">
+    <h2>Independent Series 8 raw-device audit</h2>
+    <img loading="lazy" src="figures/external_agreement.png" alt="Series 8 versus COSMED K5 paired totals and Bland-Altman agreement plot">
+    <p>Primary paired analysis: MAE <strong>33.63 kcal</strong>, mean bias <strong>21.60 kcal</strong>, and MAPE <strong>35.7%</strong>. Restoring the paper-wide excluded participant gives MAE 36.34 kcal.</p>
+    <h3>Participant-bootstrap uncertainty</h3>
     <div class="table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>subgroup_variable</th>
-      <th>subgroup</th>
-      <th>participants</th>
-      <th>mae_kcal</th>
-      <th>mean_bias_kcal</th>
-      <th>mape</th>
-      <th>low_support</th>
+      <th scope="col">metric</th>
+      <th scope="col">estimate</th>
+      <th scope="col">lower</th>
+      <th scope="col">upper</th>
+      <th scope="col">confidence</th>
+      <th scope="col">repetitions</th>
+      <th scope="col">clusters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mae</td>
+      <td>33.635</td>
+      <td>26.672</td>
+      <td>40.828</td>
+      <td>0.95</td>
+      <td>1000</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <td>mean_bias</td>
+      <td>21.596</td>
+      <td>12.383</td>
+      <td>31.637</td>
+      <td>0.95</td>
+      <td>1000</td>
+      <td>52</td>
+    </tr>
+  </tbody>
+</table></div>
+    <p class="warning"><strong>Transferability gate: blocked_model_transfer</strong>. Independent raw-device agreement audit against COSMED K5. <strong>Prohibited:</strong> External validation or deployment calibration of the WEEE-trained ensemble.</p>
+    <details>
+      <summary>Why model transfer is blocked</summary>
+      <ul>
+<li><strong>independent_participants — pass:</strong> The Series 8 participants are independent of the WEEE cohort.</li><li><strong>feature_contract_complete — fail:</strong> 10 required model features are unavailable.</li><li><strong>endpoint_granularity_aligned — fail:</strong> External data contain session totals; the model predicts 30-second rates.</li><li><strong>protocol_domain_aligned — fail:</strong> External testing is mixed-intensity recumbent cycling, not the full WEEE protocol.</li>      </ul>
+      <p><strong>Next evidence required:</strong> An independent cohort with the full time-aligned Watch feature contract, criterion active-energy rate, protocol metadata, and participant-level evaluation.</p>
+    </details>
+    <h3>Support-aware subgroup slices</h3>
+    <div class="table-wrap"><table border="1" class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th scope="col">subgroup_variable</th>
+      <th scope="col">subgroup</th>
+      <th scope="col">participants</th>
+      <th scope="col">mae_kcal</th>
+      <th scope="col">mean_bias_kcal</th>
+      <th scope="col">mape</th>
+      <th scope="col">low_support</th>
     </tr>
   </thead>
   <tbody>
@@ -340,7 +443,7 @@
     </tr>
     <tr>
       <td>body_fat_band</td>
-      <td>nan</td>
+      <td>Unknown</td>
       <td>1</td>
       <td>33.000</td>
       <td>-33.000</td>
@@ -378,23 +481,23 @@
 </table></div>
   </section>
 
-  <section>
-    <h2>Subgroup audit</h2>
+  <section id="subgroups">
+    <h2>WEEE subgroup audit</h2>
     <p>Cells with fewer than three participants are marked low-support and must not be read as stable fairness estimates. Activity slices contain repeated windows and are descriptive.</p>
     <div class="table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>model</th>
-      <th>subgroup_variable</th>
-      <th>subgroup</th>
-      <th>participants</th>
-      <th>windows</th>
-      <th>target_mean</th>
-      <th>mae</th>
-      <th>rmse</th>
-      <th>mean_bias</th>
-      <th>mape</th>
-      <th>low_support</th>
+      <th scope="col">model</th>
+      <th scope="col">subgroup_variable</th>
+      <th scope="col">subgroup</th>
+      <th scope="col">participants</th>
+      <th scope="col">windows</th>
+      <th scope="col">target_mean</th>
+      <th scope="col">mae</th>
+      <th scope="col">rmse</th>
+      <th scope="col">mean_bias</th>
+      <th scope="col">mape</th>
+      <th scope="col">low_support</th>
     </tr>
   </thead>
   <tbody>
@@ -768,12 +871,12 @@
     <div class="table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>model</th>
-      <th>subgroup_variable</th>
-      <th>mae_gap</th>
-      <th>mae_ratio</th>
-      <th>best_group</th>
-      <th>worst_group</th>
+      <th scope="col">model</th>
+      <th scope="col">subgroup_variable</th>
+      <th scope="col">mae_gap</th>
+      <th scope="col">mae_ratio</th>
+      <th scope="col">best_group</th>
+      <th scope="col">worst_group</th>
     </tr>
   </thead>
   <tbody>
@@ -845,26 +948,267 @@
 </table></div>
   </section>
 
-  <section>
-    <h2>Fat-loss planning impact</h2>
-    <p>This table asks a narrow counterfactual: if the participant-level mean rate error across cycling/running windows repeated for 30, 45, or 60 exercise minutes daily, what fixed 7,700 kcal/kg arithmetic difference would accumulate? Sit/stand windows are excluded. It does not model metabolic adaptation, intake error, water, or behavior.</p>
-    <div class="table-wrap"><table border="1" class="dataframe data-table">
+  <section id="decisions">
+    <h2>Exercise-energy decision sensitivity</h2>
+    <p>The table propagates participant-level cycling/running rate errors through explicit exercise minutes, days per week, horizons, and arithmetic kcal/kg assumptions. It excludes sit/stand windows and does not model intake, adaptation, water, adherence, or behavior.</p>
+    <div class="filters" aria-label="Decision scenario filters">
+      <div class="filter"><label for="filter-minutes">Minutes per active day</label><select id="filter-minutes"><option value="30" >30</option><option value="45" selected>45</option><option value="60" >60</option></select></div>
+      <div class="filter"><label for="filter-days">Active days per week</label><select id="filter-days"><option value="3" >3</option><option value="5" selected>5</option><option value="7" >7</option></select></div>
+      <div class="filter"><label for="filter-horizon">Horizon (weeks)</label><select id="filter-horizon"><option value="4" >4</option><option value="8" selected>8</option><option value="12" >12</option></select></div>
+      <div class="filter"><label for="filter-density">Arithmetic kcal/kg</label><select id="filter-density"><option value="7000" >7000</option><option value="7700" selected>7700</option><option value="9000" >9000</option></select></div>
+    </div>
+    <p id="visible-scenarios" class="muted" aria-live="polite"></p>
+    <div class="table-wrap" id="decision-table-wrap"><table border="1" class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
-      <th>model</th>
-      <th>active_minutes_per_day</th>
-      <th>horizon_weeks</th>
-      <th>median_projected_kg_error</th>
-      <th>median_absolute_projected_kg_error</th>
-      <th>p10_projected_kg_error</th>
-      <th>p90_projected_kg_error</th>
+      <th scope="col">model</th>
+      <th scope="col">active_minutes_per_day</th>
+      <th scope="col">active_days_per_week</th>
+      <th scope="col">horizon_weeks</th>
+      <th scope="col">kcal_per_kg_assumption</th>
+      <th scope="col">participant_count</th>
+      <th scope="col">median_projected_kg_error</th>
+      <th scope="col">median_absolute_projected_kg_error</th>
+      <th scope="col">p10_projected_kg_error</th>
+      <th scope="col">p90_projected_kg_error</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>apple_raw</td>
       <td>30</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0498</td>
+      <td>0.0658</td>
+      <td>-0.1443</td>
+      <td>0.0658</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0453</td>
+      <td>0.0598</td>
+      <td>-0.1311</td>
+      <td>0.0598</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0387</td>
+      <td>0.0512</td>
+      <td>-0.1122</td>
+      <td>0.0512</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0996</td>
+      <td>0.1315</td>
+      <td>-0.2885</td>
+      <td>0.1315</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0906</td>
+      <td>0.1196</td>
+      <td>-0.2623</td>
+      <td>0.1196</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0775</td>
+      <td>0.1023</td>
+      <td>-0.2244</td>
+      <td>0.1023</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1495</td>
+      <td>0.1973</td>
+      <td>-0.4328</td>
+      <td>0.1973</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1359</td>
+      <td>0.1794</td>
+      <td>-0.3934</td>
+      <td>0.1794</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1162</td>
+      <td>0.1535</td>
+      <td>-0.3366</td>
+      <td>0.1535</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0830</td>
+      <td>0.1096</td>
+      <td>-0.2404</td>
+      <td>0.1096</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0755</td>
+      <td>0.0997</td>
+      <td>-0.2186</td>
+      <td>0.0997</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0646</td>
+      <td>0.0853</td>
+      <td>-0.1870</td>
+      <td>0.0853</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1661</td>
+      <td>0.2192</td>
+      <td>-0.4808</td>
+      <td>0.2192</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1510</td>
+      <td>0.1993</td>
+      <td>-0.4371</td>
+      <td>0.1993</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1292</td>
+      <td>0.1705</td>
+      <td>-0.3740</td>
+      <td>0.1705</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2491</td>
+      <td>0.3289</td>
+      <td>-0.7213</td>
+      <td>0.3289</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2265</td>
+      <td>0.2990</td>
+      <td>-0.6557</td>
+      <td>0.2990</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1937</td>
+      <td>0.2558</td>
+      <td>-0.5610</td>
+      <td>0.2558</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1162</td>
+      <td>0.1535</td>
+      <td>-0.3366</td>
+      <td>0.1535</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1057</td>
       <td>0.1395</td>
       <td>-0.3060</td>
@@ -873,7 +1217,34 @@
     <tr>
       <td>apple_raw</td>
       <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0904</td>
+      <td>0.1194</td>
+      <td>-0.2618</td>
+      <td>0.1194</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2325</td>
+      <td>0.3069</td>
+      <td>-0.6732</td>
+      <td>0.3069</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.2114</td>
       <td>0.2790</td>
       <td>-0.6120</td>
@@ -882,7 +1253,34 @@
     <tr>
       <td>apple_raw</td>
       <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1808</td>
+      <td>0.2387</td>
+      <td>-0.5236</td>
+      <td>0.2387</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3487</td>
+      <td>0.4604</td>
+      <td>-1.0098</td>
+      <td>0.4604</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.3170</td>
       <td>0.4186</td>
       <td>-0.9180</td>
@@ -890,8 +1288,251 @@
     </tr>
     <tr>
       <td>apple_raw</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2712</td>
+      <td>0.3581</td>
+      <td>-0.7854</td>
+      <td>0.3581</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
       <td>45</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0747</td>
+      <td>0.0987</td>
+      <td>-0.2164</td>
+      <td>0.0987</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0679</td>
+      <td>0.0897</td>
+      <td>-0.1967</td>
+      <td>0.0897</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0581</td>
+      <td>0.0767</td>
+      <td>-0.1683</td>
+      <td>0.0767</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1495</td>
+      <td>0.1973</td>
+      <td>-0.4328</td>
+      <td>0.1973</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1359</td>
+      <td>0.1794</td>
+      <td>-0.3934</td>
+      <td>0.1794</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1162</td>
+      <td>0.1535</td>
+      <td>-0.3366</td>
+      <td>0.1535</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2242</td>
+      <td>0.2960</td>
+      <td>-0.6491</td>
+      <td>0.2960</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2038</td>
+      <td>0.2691</td>
+      <td>-0.5901</td>
+      <td>0.2691</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1744</td>
+      <td>0.2302</td>
+      <td>-0.5049</td>
+      <td>0.2302</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1246</td>
+      <td>0.1644</td>
+      <td>-0.3606</td>
+      <td>0.1644</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1132</td>
+      <td>0.1495</td>
+      <td>-0.3279</td>
+      <td>0.1495</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0969</td>
+      <td>0.1279</td>
+      <td>-0.2805</td>
+      <td>0.1279</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2491</td>
+      <td>0.3289</td>
+      <td>-0.7213</td>
+      <td>0.3289</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2265</td>
+      <td>0.2990</td>
+      <td>-0.6557</td>
+      <td>0.2990</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1937</td>
+      <td>0.2558</td>
+      <td>-0.5610</td>
+      <td>0.2558</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3737</td>
+      <td>0.4933</td>
+      <td>-1.0819</td>
+      <td>0.4933</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.3397</td>
+      <td>0.4485</td>
+      <td>-0.9836</td>
+      <td>0.4485</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2906</td>
+      <td>0.3837</td>
+      <td>-0.8415</td>
+      <td>0.3837</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1744</td>
+      <td>0.2302</td>
+      <td>-0.5049</td>
+      <td>0.2302</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1585</td>
       <td>0.2093</td>
       <td>-0.4590</td>
@@ -900,7 +1541,34 @@
     <tr>
       <td>apple_raw</td>
       <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1356</td>
+      <td>0.1790</td>
+      <td>-0.3927</td>
+      <td>0.1790</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3487</td>
+      <td>0.4604</td>
+      <td>-1.0098</td>
+      <td>0.4604</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.3170</td>
       <td>0.4186</td>
       <td>-0.9180</td>
@@ -909,7 +1577,34 @@
     <tr>
       <td>apple_raw</td>
       <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2712</td>
+      <td>0.3581</td>
+      <td>-0.7854</td>
+      <td>0.3581</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.5231</td>
+      <td>0.6906</td>
+      <td>-1.5147</td>
+      <td>0.6906</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.4756</td>
       <td>0.6278</td>
       <td>-1.3770</td>
@@ -917,8 +1612,251 @@
     </tr>
     <tr>
       <td>apple_raw</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.4069</td>
+      <td>0.5371</td>
+      <td>-1.1781</td>
+      <td>0.5371</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
       <td>60</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0996</td>
+      <td>0.1315</td>
+      <td>-0.2885</td>
+      <td>0.1315</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0906</td>
+      <td>0.1196</td>
+      <td>-0.2623</td>
+      <td>0.1196</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0775</td>
+      <td>0.1023</td>
+      <td>-0.2244</td>
+      <td>0.1023</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1993</td>
+      <td>0.2631</td>
+      <td>-0.5770</td>
+      <td>0.2631</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1812</td>
+      <td>0.2392</td>
+      <td>-0.5246</td>
+      <td>0.2392</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1550</td>
+      <td>0.2046</td>
+      <td>-0.4488</td>
+      <td>0.2046</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2989</td>
+      <td>0.3946</td>
+      <td>-0.8655</td>
+      <td>0.3946</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2717</td>
+      <td>0.3588</td>
+      <td>-0.7868</td>
+      <td>0.3588</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2325</td>
+      <td>0.3069</td>
+      <td>-0.6732</td>
+      <td>0.3069</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1661</td>
+      <td>0.2192</td>
+      <td>-0.4808</td>
+      <td>0.2192</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1510</td>
+      <td>0.1993</td>
+      <td>-0.4371</td>
+      <td>0.1993</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1292</td>
+      <td>0.1705</td>
+      <td>-0.3740</td>
+      <td>0.1705</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3321</td>
+      <td>0.4385</td>
+      <td>-0.9617</td>
+      <td>0.4385</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.3019</td>
+      <td>0.3986</td>
+      <td>-0.8743</td>
+      <td>0.3986</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2583</td>
+      <td>0.3410</td>
+      <td>-0.7480</td>
+      <td>0.3410</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.4982</td>
+      <td>0.6577</td>
+      <td>-1.4425</td>
+      <td>0.6577</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.4529</td>
+      <td>0.5979</td>
+      <td>-1.3114</td>
+      <td>0.5979</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.3875</td>
+      <td>0.5116</td>
+      <td>-1.1220</td>
+      <td>0.5116</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2325</td>
+      <td>0.3069</td>
+      <td>-0.6732</td>
+      <td>0.3069</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.2114</td>
       <td>0.2790</td>
       <td>-0.6120</td>
@@ -927,7 +1865,34 @@
     <tr>
       <td>apple_raw</td>
       <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1808</td>
+      <td>0.2387</td>
+      <td>-0.5236</td>
+      <td>0.2387</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.4650</td>
+      <td>0.6139</td>
+      <td>-1.3464</td>
+      <td>0.6139</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.4227</td>
       <td>0.5581</td>
       <td>-1.2240</td>
@@ -936,16 +1901,286 @@
     <tr>
       <td>apple_raw</td>
       <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.3617</td>
+      <td>0.4775</td>
+      <td>-1.0472</td>
+      <td>0.4775</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.6975</td>
+      <td>0.9208</td>
+      <td>-2.0196</td>
+      <td>0.9208</td>
+    </tr>
+    <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.6341</td>
       <td>0.8371</td>
       <td>-1.8360</td>
       <td>0.8371</td>
     </tr>
     <tr>
+      <td>apple_raw</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.5425</td>
+      <td>0.7162</td>
+      <td>-1.5708</td>
+      <td>0.7162</td>
+    </tr>
+    <tr>
       <td>cohort_affine</td>
       <td>30</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0434</td>
+      <td>0.0845</td>
+      <td>-0.1330</td>
+      <td>0.0685</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0394</td>
+      <td>0.0768</td>
+      <td>-0.1209</td>
+      <td>0.0623</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0337</td>
+      <td>0.0657</td>
+      <td>-0.1034</td>
+      <td>0.0533</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0867</td>
+      <td>0.1691</td>
+      <td>-0.2660</td>
+      <td>0.1371</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0788</td>
+      <td>0.1537</td>
+      <td>-0.2418</td>
+      <td>0.1246</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0675</td>
+      <td>0.1315</td>
+      <td>-0.2069</td>
+      <td>0.1066</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1301</td>
+      <td>0.2536</td>
+      <td>-0.3989</td>
+      <td>0.2056</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1183</td>
+      <td>0.2305</td>
+      <td>-0.3627</td>
+      <td>0.1869</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1012</td>
+      <td>0.1972</td>
+      <td>-0.3103</td>
+      <td>0.1599</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0723</td>
+      <td>0.1409</td>
+      <td>-0.2216</td>
+      <td>0.1142</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0657</td>
+      <td>0.1281</td>
+      <td>-0.2015</td>
+      <td>0.1038</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0562</td>
+      <td>0.1096</td>
+      <td>-0.1724</td>
+      <td>0.0888</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1445</td>
+      <td>0.2818</td>
+      <td>-0.4433</td>
+      <td>0.2284</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1314</td>
+      <td>0.2562</td>
+      <td>-0.4030</td>
+      <td>0.2077</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1124</td>
+      <td>0.2192</td>
+      <td>-0.3448</td>
+      <td>0.1777</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2168</td>
+      <td>0.4227</td>
+      <td>-0.6649</td>
+      <td>0.3426</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1971</td>
+      <td>0.3842</td>
+      <td>-0.6045</td>
+      <td>0.3115</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1686</td>
+      <td>0.3287</td>
+      <td>-0.5172</td>
+      <td>0.2665</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1012</td>
+      <td>0.1972</td>
+      <td>-0.3103</td>
+      <td>0.1599</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0920</td>
       <td>0.1793</td>
       <td>-0.2821</td>
@@ -954,7 +2189,34 @@
     <tr>
       <td>cohort_affine</td>
       <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0787</td>
+      <td>0.1534</td>
+      <td>-0.2413</td>
+      <td>0.1244</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2024</td>
+      <td>0.3945</td>
+      <td>-0.6206</td>
+      <td>0.3198</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1840</td>
       <td>0.3586</td>
       <td>-0.5642</td>
@@ -963,7 +2225,34 @@
     <tr>
       <td>cohort_affine</td>
       <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1574</td>
+      <td>0.3068</td>
+      <td>-0.4827</td>
+      <td>0.2487</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3035</td>
+      <td>0.5917</td>
+      <td>-0.9309</td>
+      <td>0.4797</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.2759</td>
       <td>0.5379</td>
       <td>-0.8463</td>
@@ -971,8 +2260,251 @@
     </tr>
     <tr>
       <td>cohort_affine</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2361</td>
+      <td>0.4602</td>
+      <td>-0.7240</td>
+      <td>0.3731</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
       <td>45</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0650</td>
+      <td>0.1268</td>
+      <td>-0.1995</td>
+      <td>0.1028</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0591</td>
+      <td>0.1153</td>
+      <td>-0.1813</td>
+      <td>0.0934</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0506</td>
+      <td>0.0986</td>
+      <td>-0.1551</td>
+      <td>0.0799</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1301</td>
+      <td>0.2536</td>
+      <td>-0.3989</td>
+      <td>0.2056</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1183</td>
+      <td>0.2305</td>
+      <td>-0.3627</td>
+      <td>0.1869</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1012</td>
+      <td>0.1972</td>
+      <td>-0.3103</td>
+      <td>0.1599</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1951</td>
+      <td>0.3804</td>
+      <td>-0.5984</td>
+      <td>0.3084</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1774</td>
+      <td>0.3458</td>
+      <td>-0.5440</td>
+      <td>0.2803</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1518</td>
+      <td>0.2959</td>
+      <td>-0.4654</td>
+      <td>0.2398</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1084</td>
+      <td>0.2113</td>
+      <td>-0.3325</td>
+      <td>0.1713</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0985</td>
+      <td>0.1921</td>
+      <td>-0.3022</td>
+      <td>0.1557</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0843</td>
+      <td>0.1644</td>
+      <td>-0.2586</td>
+      <td>0.1332</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2168</td>
+      <td>0.4227</td>
+      <td>-0.6649</td>
+      <td>0.3426</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1971</td>
+      <td>0.3842</td>
+      <td>-0.6045</td>
+      <td>0.3115</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1686</td>
+      <td>0.3287</td>
+      <td>-0.5172</td>
+      <td>0.2665</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3252</td>
+      <td>0.6340</td>
+      <td>-0.9974</td>
+      <td>0.5140</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2956</td>
+      <td>0.5764</td>
+      <td>-0.9067</td>
+      <td>0.4672</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2529</td>
+      <td>0.4931</td>
+      <td>-0.7757</td>
+      <td>0.3997</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1518</td>
+      <td>0.2959</td>
+      <td>-0.4654</td>
+      <td>0.2398</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1380</td>
       <td>0.2690</td>
       <td>-0.4231</td>
@@ -981,7 +2513,34 @@
     <tr>
       <td>cohort_affine</td>
       <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1180</td>
+      <td>0.2301</td>
+      <td>-0.3620</td>
+      <td>0.1865</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.3035</td>
+      <td>0.5917</td>
+      <td>-0.9309</td>
+      <td>0.4797</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.2759</td>
       <td>0.5379</td>
       <td>-0.8463</td>
@@ -990,7 +2549,34 @@
     <tr>
       <td>cohort_affine</td>
       <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2361</td>
+      <td>0.4602</td>
+      <td>-0.7240</td>
+      <td>0.3731</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.4553</td>
+      <td>0.8876</td>
+      <td>-1.3963</td>
+      <td>0.7195</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.4139</td>
       <td>0.8069</td>
       <td>-1.2694</td>
@@ -998,8 +2584,251 @@
     </tr>
     <tr>
       <td>cohort_affine</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.3541</td>
+      <td>0.6903</td>
+      <td>-1.0860</td>
+      <td>0.5596</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
       <td>60</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0867</td>
+      <td>0.1691</td>
+      <td>-0.2660</td>
+      <td>0.1371</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0788</td>
+      <td>0.1537</td>
+      <td>-0.2418</td>
+      <td>0.1246</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0675</td>
+      <td>0.1315</td>
+      <td>-0.2069</td>
+      <td>0.1066</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1734</td>
+      <td>0.3381</td>
+      <td>-0.5319</td>
+      <td>0.2741</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1577</td>
+      <td>0.3074</td>
+      <td>-0.4836</td>
+      <td>0.2492</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1349</td>
+      <td>0.2630</td>
+      <td>-0.4137</td>
+      <td>0.2132</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2602</td>
+      <td>0.5072</td>
+      <td>-0.7979</td>
+      <td>0.4112</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2365</td>
+      <td>0.4611</td>
+      <td>-0.7254</td>
+      <td>0.3738</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2024</td>
+      <td>0.3945</td>
+      <td>-0.6206</td>
+      <td>0.3198</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1445</td>
+      <td>0.2818</td>
+      <td>-0.4433</td>
+      <td>0.2284</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1314</td>
+      <td>0.2562</td>
+      <td>-0.4030</td>
+      <td>0.2077</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1124</td>
+      <td>0.2192</td>
+      <td>-0.3448</td>
+      <td>0.1777</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2891</td>
+      <td>0.5635</td>
+      <td>-0.8865</td>
+      <td>0.4568</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.2628</td>
+      <td>0.5123</td>
+      <td>-0.8060</td>
+      <td>0.4153</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.2248</td>
+      <td>0.4383</td>
+      <td>-0.6895</td>
+      <td>0.3553</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.4336</td>
+      <td>0.8453</td>
+      <td>-1.3298</td>
+      <td>0.6853</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.3942</td>
+      <td>0.7685</td>
+      <td>-1.2089</td>
+      <td>0.6230</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.3373</td>
+      <td>0.6575</td>
+      <td>-1.0343</td>
+      <td>0.5330</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.2024</td>
+      <td>0.3945</td>
+      <td>-0.6206</td>
+      <td>0.3198</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1840</td>
       <td>0.3586</td>
       <td>-0.5642</td>
@@ -1008,7 +2837,34 @@
     <tr>
       <td>cohort_affine</td>
       <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1574</td>
+      <td>0.3068</td>
+      <td>-0.4827</td>
+      <td>0.2487</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.4047</td>
+      <td>0.7890</td>
+      <td>-1.2412</td>
+      <td>0.6396</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.3679</td>
       <td>0.7172</td>
       <td>-1.1283</td>
@@ -1017,16 +2873,286 @@
     <tr>
       <td>cohort_affine</td>
       <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.3148</td>
+      <td>0.6136</td>
+      <td>-0.9654</td>
+      <td>0.4975</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.6071</td>
+      <td>1.1834</td>
+      <td>-1.8618</td>
+      <td>0.9594</td>
+    </tr>
+    <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.5519</td>
       <td>1.0759</td>
       <td>-1.6925</td>
       <td>0.8722</td>
     </tr>
     <tr>
+      <td>cohort_affine</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.4722</td>
+      <td>0.9205</td>
+      <td>-1.4480</td>
+      <td>0.7462</td>
+    </tr>
+    <tr>
       <td>ensemble</td>
       <td>30</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0117</td>
+      <td>0.0613</td>
+      <td>-0.0788</td>
+      <td>0.1102</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0106</td>
+      <td>0.0557</td>
+      <td>-0.0717</td>
+      <td>0.1001</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0091</td>
+      <td>0.0477</td>
+      <td>-0.0613</td>
+      <td>0.0857</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0233</td>
+      <td>0.1226</td>
+      <td>-0.1577</td>
+      <td>0.2203</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0212</td>
+      <td>0.1114</td>
+      <td>-0.1433</td>
+      <td>0.2003</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0181</td>
+      <td>0.0953</td>
+      <td>-0.1226</td>
+      <td>0.1713</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0350</td>
+      <td>0.1839</td>
+      <td>-0.2365</td>
+      <td>0.3305</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0318</td>
+      <td>0.1671</td>
+      <td>-0.2150</td>
+      <td>0.3004</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0272</td>
+      <td>0.1430</td>
+      <td>-0.1839</td>
+      <td>0.2570</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0194</td>
+      <td>0.1021</td>
+      <td>-0.1314</td>
+      <td>0.1836</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0177</td>
+      <td>0.0929</td>
+      <td>-0.1194</td>
+      <td>0.1669</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0151</td>
+      <td>0.0794</td>
+      <td>-0.1022</td>
+      <td>0.1428</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0389</td>
+      <td>0.2043</td>
+      <td>-0.2628</td>
+      <td>0.3672</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0354</td>
+      <td>0.1857</td>
+      <td>-0.2389</td>
+      <td>0.3338</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0302</td>
+      <td>0.1589</td>
+      <td>-0.2044</td>
+      <td>0.2856</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0583</td>
+      <td>0.3064</td>
+      <td>-0.3942</td>
+      <td>0.5508</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0530</td>
+      <td>0.2786</td>
+      <td>-0.3583</td>
+      <td>0.5007</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0454</td>
+      <td>0.2383</td>
+      <td>-0.3066</td>
+      <td>0.4284</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0272</td>
+      <td>0.1430</td>
+      <td>-0.1839</td>
+      <td>0.2570</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0247</td>
       <td>0.1300</td>
       <td>-0.1672</td>
@@ -1035,7 +3161,34 @@
     <tr>
       <td>ensemble</td>
       <td>30</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0212</td>
+      <td>0.1112</td>
+      <td>-0.1431</td>
+      <td>0.1999</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0544</td>
+      <td>0.2860</td>
+      <td>-0.3679</td>
+      <td>0.5140</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0495</td>
       <td>0.2600</td>
       <td>-0.3344</td>
@@ -1044,7 +3197,34 @@
     <tr>
       <td>ensemble</td>
       <td>30</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0423</td>
+      <td>0.2224</td>
+      <td>-0.2861</td>
+      <td>0.3998</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0817</td>
+      <td>0.4290</td>
+      <td>-0.5518</td>
+      <td>0.7711</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0742</td>
       <td>0.3900</td>
       <td>-0.5017</td>
@@ -1052,8 +3232,251 @@
     </tr>
     <tr>
       <td>ensemble</td>
+      <td>30</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0635</td>
+      <td>0.3337</td>
+      <td>-0.4292</td>
+      <td>0.5997</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
       <td>45</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0175</td>
+      <td>0.0919</td>
+      <td>-0.1182</td>
+      <td>0.1652</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0159</td>
+      <td>0.0836</td>
+      <td>-0.1075</td>
+      <td>0.1502</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0136</td>
+      <td>0.0715</td>
+      <td>-0.0920</td>
+      <td>0.1285</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0350</td>
+      <td>0.1839</td>
+      <td>-0.2365</td>
+      <td>0.3305</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0318</td>
+      <td>0.1671</td>
+      <td>-0.2150</td>
+      <td>0.3004</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0272</td>
+      <td>0.1430</td>
+      <td>-0.1839</td>
+      <td>0.2570</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0525</td>
+      <td>0.2758</td>
+      <td>-0.3547</td>
+      <td>0.4957</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0477</td>
+      <td>0.2507</td>
+      <td>-0.3225</td>
+      <td>0.4506</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0408</td>
+      <td>0.2145</td>
+      <td>-0.2759</td>
+      <td>0.3855</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0292</td>
+      <td>0.1532</td>
+      <td>-0.1971</td>
+      <td>0.2754</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0265</td>
+      <td>0.1393</td>
+      <td>-0.1792</td>
+      <td>0.2503</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0227</td>
+      <td>0.1192</td>
+      <td>-0.1533</td>
+      <td>0.2142</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0583</td>
+      <td>0.3064</td>
+      <td>-0.3942</td>
+      <td>0.5508</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0530</td>
+      <td>0.2786</td>
+      <td>-0.3583</td>
+      <td>0.5007</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0454</td>
+      <td>0.2383</td>
+      <td>-0.3066</td>
+      <td>0.4284</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0875</td>
+      <td>0.4596</td>
+      <td>-0.5912</td>
+      <td>0.8262</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0795</td>
+      <td>0.4179</td>
+      <td>-0.5375</td>
+      <td>0.7510</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0681</td>
+      <td>0.3575</td>
+      <td>-0.4599</td>
+      <td>0.6426</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0408</td>
+      <td>0.2145</td>
+      <td>-0.2759</td>
+      <td>0.3855</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0371</td>
       <td>0.1950</td>
       <td>-0.2508</td>
@@ -1062,7 +3485,34 @@
     <tr>
       <td>ensemble</td>
       <td>45</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0318</td>
+      <td>0.1668</td>
+      <td>-0.2146</td>
+      <td>0.2999</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0817</td>
+      <td>0.4290</td>
+      <td>-0.5518</td>
+      <td>0.7711</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0742</td>
       <td>0.3900</td>
       <td>-0.5017</td>
@@ -1071,7 +3521,34 @@
     <tr>
       <td>ensemble</td>
       <td>45</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0635</td>
+      <td>0.3337</td>
+      <td>-0.4292</td>
+      <td>0.5997</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1225</td>
+      <td>0.6435</td>
+      <td>-0.8277</td>
+      <td>1.1566</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1114</td>
       <td>0.5850</td>
       <td>-0.7525</td>
@@ -1079,8 +3556,251 @@
     </tr>
     <tr>
       <td>ensemble</td>
+      <td>45</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0953</td>
+      <td>0.5005</td>
+      <td>-0.6438</td>
+      <td>0.8996</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
       <td>60</td>
+      <td>3</td>
       <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0233</td>
+      <td>0.1226</td>
+      <td>-0.1577</td>
+      <td>0.2203</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0212</td>
+      <td>0.1114</td>
+      <td>-0.1433</td>
+      <td>0.2003</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0181</td>
+      <td>0.0953</td>
+      <td>-0.1226</td>
+      <td>0.1713</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0467</td>
+      <td>0.2451</td>
+      <td>-0.3153</td>
+      <td>0.4406</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0424</td>
+      <td>0.2229</td>
+      <td>-0.2867</td>
+      <td>0.4006</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0363</td>
+      <td>0.1907</td>
+      <td>-0.2453</td>
+      <td>0.3427</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0700</td>
+      <td>0.3677</td>
+      <td>-0.4730</td>
+      <td>0.6609</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0636</td>
+      <td>0.3343</td>
+      <td>-0.4300</td>
+      <td>0.6008</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>3</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0544</td>
+      <td>0.2860</td>
+      <td>-0.3679</td>
+      <td>0.5140</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0389</td>
+      <td>0.2043</td>
+      <td>-0.2628</td>
+      <td>0.3672</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0354</td>
+      <td>0.1857</td>
+      <td>-0.2389</td>
+      <td>0.3338</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0302</td>
+      <td>0.1589</td>
+      <td>-0.2044</td>
+      <td>0.2856</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0778</td>
+      <td>0.4086</td>
+      <td>-0.5255</td>
+      <td>0.7344</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.0707</td>
+      <td>0.3714</td>
+      <td>-0.4778</td>
+      <td>0.6676</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0605</td>
+      <td>0.3178</td>
+      <td>-0.4088</td>
+      <td>0.5712</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1167</td>
+      <td>0.6129</td>
+      <td>-0.7883</td>
+      <td>1.1015</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
+      <td>-0.1061</td>
+      <td>0.5571</td>
+      <td>-0.7167</td>
+      <td>1.0014</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>5</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0907</td>
+      <td>0.4767</td>
+      <td>-0.6131</td>
+      <td>0.8567</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.0544</td>
+      <td>0.2860</td>
+      <td>-0.3679</td>
+      <td>0.5140</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0495</td>
       <td>0.2600</td>
       <td>-0.3344</td>
@@ -1089,7 +3809,34 @@
     <tr>
       <td>ensemble</td>
       <td>60</td>
+      <td>7</td>
+      <td>4</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0423</td>
+      <td>0.2224</td>
+      <td>-0.2861</td>
+      <td>0.3998</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
       <td>8</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1089</td>
+      <td>0.5720</td>
+      <td>-0.7358</td>
+      <td>1.0281</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.0990</td>
       <td>0.5200</td>
       <td>-0.6689</td>
@@ -1098,26 +3845,105 @@
     <tr>
       <td>ensemble</td>
       <td>60</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.0847</td>
+      <td>0.4449</td>
+      <td>-0.5723</td>
+      <td>0.7996</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
       <td>12</td>
+      <td>7000</td>
+      <td>16</td>
+      <td>-0.1633</td>
+      <td>0.8580</td>
+      <td>-1.1037</td>
+      <td>1.5421</td>
+    </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>7700</td>
+      <td>16</td>
       <td>-0.1485</td>
       <td>0.7800</td>
       <td>-1.0033</td>
       <td>1.4020</td>
     </tr>
+    <tr>
+      <td>ensemble</td>
+      <td>60</td>
+      <td>7</td>
+      <td>12</td>
+      <td>9000</td>
+      <td>16</td>
+      <td>-0.1270</td>
+      <td>0.6673</td>
+      <td>-0.8584</td>
+      <td>1.1994</td>
+    </tr>
   </tbody>
 </table></div>
+    <noscript><p>JavaScript is disabled; the full scenario grid remains visible.</p></noscript>
   </section>
 
-  <section>
+  <section id="external-evidence">
+    <h2>External maturity boundary</h2>
+    <p>Publication and ecosystem evidence is recorded separately from this internally generated release bundle. A zero is not replaced with a proxy such as a passing test or a synthetic demo.</p>
+    <div class="cards">
+      <div class="card"><span class="number">0</span><span class="label">independent method reviews</span></div>
+      <div class="card"><span class="number">0</span><span class="label">independent reproductions</span></div>
+      <div class="card"><span class="number">0</span><span class="label">documented real users</span></div>
+      <div class="card"><span class="number">0</span><span class="label">production deployments</span></div>
+      <div class="card"><span class="number">0</span><span class="label">organizational adoptions</span></div>
+      <div class="card"><span class="number">0</span><span class="label">real-world impact evaluations</span></div>
+    </div>
+    <p class="warning"><strong>Status:</strong> local release candidate. No public repository is verified and public stars are <strong>unobserved</strong>, not reported as zero. Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact.</p>
+  </section>
+
+  <section id="reproduce">
     <h2>Data and reproducibility</h2>
     <ul>
-      <li>WEEE: md5:23e411c566f1c734e74e23fa76bd1ab0, Apple Watch Series 6, VO₂ criterion approximation, six protocol activities.</li>
-      <li>External PAEE 2026: sha256:7a9efa3df497f49d2fbace434f0e2a4987b61208933465de03560f255970a717, Apple Watch Series 8 versus COSMED K5.</li>
+      <li>WEEE: <code>md5:23e411c566f1c734e74e23fa76bd1ab0</code>, Series 6, oxygen-uptake criterion approximation, six protocol activities.</li>
+      <li>External PAEE 2026: <code>sha256:7a9efa3df497f49d2fbace434f0e2a4987b61208933465de03560f255970a717</code>, Series 8 versus COSMED K5.</li>
       <li>Known timestamp anomaly: P14:cycle_low:non_monotonic_start.</li>
-      <li>Runtime: 156.1 seconds; DeficitLens 1.0.0; deterministic seed recorded in <code>run_manifest.json</code>.</li>
+      <li>Runtime: 61.0 seconds; deterministic seed and dependency versions are recorded in <code>run_manifest.json</code>.</li>
     </ul>
+    <p class="success"><strong>Reproduction contract:</strong> input checksums, group splits, generated tables, figures, report, and claim boundaries are machine-addressed in the manifest. Raw third-party or personal data are not redistributed.</p>
   </section>
-  <footer>Generated 2026-08-19T20:05:09.350404+00:00 · See the repository model card and validation protocol before reuse.</footer>
+  <footer>Generated 2026-08-20T02:45:23.667735+00:00 · DeficitLens 1.1.0 · Read the model card and validation protocol before reuse.</footer>
 </main>
+<script>
+  (() => {
+    const selectors = [
+      [document.getElementById("filter-minutes"), 1],
+      [document.getElementById("filter-days"), 2],
+      [document.getElementById("filter-horizon"), 3],
+      [document.getElementById("filter-density"), 4],
+    ];
+    const rows = [...document.querySelectorAll("#decision-table-wrap tbody tr")];
+    const status = document.getElementById("visible-scenarios");
+    const render = () => {
+      let visible = 0;
+      for (const row of rows) {
+        const cells = row.querySelectorAll("td");
+        const match = selectors.every(([select, index]) => cells[index]?.textContent.trim() === select.value);
+        row.hidden = !match;
+        if (match) visible += 1;
+      }
+      status.textContent = `${visible} model scenarios shown; all assumptions remain available in the CSV.`;
+    };
+    for (const [select] of selectors) select.addEventListener("change", render);
+    render();
+  })();
+</script>
 </body>
 </html>

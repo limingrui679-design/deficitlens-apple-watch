@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+from defusedxml.common import DefusedXmlException
 
 from deficitlens.data.apple_health import (
     is_apple_watch_source,
@@ -13,7 +14,11 @@ from deficitlens.data.apple_health import (
     strip_healthkit_prefix,
     write_normalized_records_csv,
 )
-from deficitlens.personal import daily_apple_health_summary, energy_uncertainty_scenario
+from deficitlens.personal import (
+    daily_apple_health_summary,
+    daily_workout_summary,
+    energy_uncertainty_scenario,
+)
 
 
 def sample_xml() -> Path:
@@ -35,7 +40,11 @@ def test_apple_health_filter_units_redaction_and_local_day(tmp_path: Path) -> No
     assert scenarios["observed_active_energy_kcal"].eq(7.2).all()
 
     csv_path = tmp_path / "normalized.csv"
-    assert write_normalized_records_csv(sample_xml(), csv_path) == 6
+    with pytest.raises(PermissionError):
+        write_normalized_records_csv(sample_xml(), csv_path)
+    assert (
+        write_normalized_records_csv(sample_xml(), csv_path, acknowledge_sensitive_output=True) == 6
+    )
     assert len(pd.read_csv(csv_path)) == 6
 
 
@@ -45,11 +54,35 @@ def test_workout_and_helpers() -> None:
     assert workouts[0]["activity_type"] == "Running"
     assert workouts[0]["total_energy_kcal"] == 240.0
     assert workouts[0]["statistics"]["HeartRate_average"] == 142.0
+    summary = daily_workout_summary(workouts)
+    assert summary.loc[0, "activity_type"] == "Running"
+    assert summary.loc[0, "energy_kcal_per_minute"] == pytest.approx(8.0)
     assert strip_healthkit_prefix("HKQuantityTypeIdentifierHeartRate") == "HeartRate"
     assert is_apple_watch_source({"device": "Watch7,1"})
     assert not is_apple_watch_source({"sourceName": "Chest Strap"})
     with pytest.raises(ValueError):
         parse_health_date("20 August 2026")
+
+
+def test_default_source_hash_is_unlinkable_across_runs() -> None:
+    first = parse_apple_health_records(sample_xml())
+    second = parse_apple_health_records(sample_xml())
+    assert first["source"].tolist() != second["source"].tolist()
+    assert first["record_id"].tolist() == second["record_id"].tolist()
+
+
+def test_xml_entities_are_rejected(tmp_path: Path) -> None:
+    malicious = tmp_path / "malicious.xml"
+    malicious.write_text(
+        """<?xml version="1.0"?>
+<!DOCTYPE HealthData [<!ENTITY unsafe "118">]>
+<HealthData><Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Apple Watch"
+unit="count/min" startDate="2026-08-18 08:00:00 +0800"
+endDate="2026-08-18 08:00:00 +0800" value="&unsafe;"/></HealthData>""",
+        encoding="utf-8",
+    )
+    with pytest.raises(DefusedXmlException):
+        parse_apple_health_records(malicious)
 
 
 def test_empty_daily_and_missing_columns() -> None:
@@ -60,3 +93,4 @@ def test_empty_daily_and_missing_columns() -> None:
         daily_apple_health_summary(pd.DataFrame({"value": [1]}))
     with pytest.raises(ValueError):
         energy_uncertainty_scenario(pd.DataFrame({"steps": [1]}))
+    assert daily_workout_summary([]).empty

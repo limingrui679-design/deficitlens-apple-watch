@@ -3,98 +3,198 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Verified Apple Watch energy-expenditure benchmark, agreement audit, uncertainty analysis, and evidence boundaries.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102a43'/%3E%3Cpath d='M18 18h18a10 10 0 010 20H18z' fill='none' stroke='%2382d8c8' stroke-width='6'/%3E%3C/svg%3E">
   <title>DeficitLens verified Apple Watch report</title>
   <style>
-    :root { --ink:#18202a; --muted:#5d6875; --blue:#4c78a8; --red:#e45756; --paper:#fff; --wash:#f4f7fa; }
+    :root { color-scheme:light; --ink:#17212b; --muted:#526170; --navy:#102a43; --navy2:#174f70; --blue:#286a9f; --teal:#16817a; --red:#a73535; --amber:#9a5b00; --paper:#fff; --wash:#eef4f7; --line:#d5e0e7; --focus:#f7b32b; }
     * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--wash); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    header { padding:56px max(24px,calc((100vw - 1120px)/2)); background:#122334; color:white; }
-    header p { max-width:760px; color:#d9e4ee; }
-    main { max-width:1120px; margin:0 auto; padding:30px 24px 70px; }
-    section { background:var(--paper); padding:26px; margin:18px 0; border-radius:14px; box-shadow:0 3px 16px #19324a12; }
-    h1,h2,h3 { line-height:1.2; }
-    h1 { margin:0; font-size:42px; }
-    h2 { margin-top:0; }
-    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
-    .card { padding:18px; border:1px solid #dce4eb; border-radius:10px; }
-    .number { display:block; color:var(--blue); font-size:29px; font-weight:750; }
-    .label { color:var(--muted); }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--wash); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:#125f92; }
+    a:focus-visible,button:focus-visible,select:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    .skip { position:absolute; left:-9999px; }
+    .skip:focus { left:16px; top:12px; z-index:20; color:var(--ink); background:white; padding:8px 12px; border-radius:7px; }
+    header { padding:52px max(22px,calc((100vw - 1120px)/2)) 30px; background:linear-gradient(135deg,var(--navy),var(--navy2)); color:white; }
+    header h1 { margin:4px 0 10px; font-size:clamp(2.35rem,7vw,4.4rem); line-height:1; letter-spacing:-.035em; }
+    header p { max-width:780px; color:#e2edf4; font-size:1.08rem; }
+    .eyebrow { color:#b9dbea; font-size:.8rem; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
+    nav { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; }
+    nav a { color:white; text-decoration:none; padding:6px 10px; border:1px solid #82aec7; border-radius:999px; font-size:.84rem; }
+    main { max-width:1120px; margin:0 auto; padding:26px 20px 70px; }
+    section { margin:18px 0; padding:26px; background:var(--paper); border:1px solid var(--line); border-radius:16px; box-shadow:0 8px 24px #17324a0b; scroll-margin-top:14px; }
+    h2 { margin-top:0; line-height:1.2; font-size:clamp(1.45rem,3vw,2rem); }
+    h3 { line-height:1.25; }
+    .cards,.case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px; }
+    .card,.case { padding:18px; border:1px solid var(--line); border-radius:12px; }
+    .case { display:flex; flex-direction:column; gap:8px; }
+    .case h3 { margin:0; }
+    .number { display:block; color:var(--blue); font-size:1.9rem; font-weight:820; }
+    .label,.muted { color:var(--muted); }
+    .tag { display:inline-block; width:max-content; padding:3px 8px; border-radius:999px; color:#16455f; background:#e3f1f6; font-size:.72rem; font-weight:750; text-transform:uppercase; letter-spacing:.04em; }
+    .boundary { margin-top:auto; padding-top:9px; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; }
     img { display:block; width:100%; height:auto; margin:18px auto; }
-    .table-wrap { overflow-x:auto; }
-    .data-table { border-collapse:collapse; width:100%; font-size:13px; }
+    .table-wrap { overflow:auto; max-height:560px; margin:12px 0 20px; border:1px solid var(--line); border-radius:10px; }
+    .data-table { border-collapse:collapse; width:100%; font-size:.82rem; background:white; }
     .data-table th,.data-table td { padding:8px 10px; border-bottom:1px solid #e3e8ed; text-align:right; white-space:nowrap; }
+    .data-table th { position:sticky; top:0; z-index:1; color:var(--navy); background:#f0f5f8; }
     .data-table th:first-child,.data-table td:first-child { text-align:left; }
-    .warning { border-left:5px solid var(--red); background:#fff5f4; padding:14px 18px; }
-    code { background:#edf1f5; padding:2px 5px; border-radius:4px; }
-    footer { color:var(--muted); text-align:center; padding-top:28px; }
+    .warning,.success { padding:14px 17px; border-left:5px solid var(--red); background:#fff3f2; }
+    .success { border-color:var(--teal); background:#edf9f5; }
+    details { margin:12px 0; padding:12px 15px; border:1px solid var(--line); border-radius:10px; }
+    summary { cursor:pointer; font-weight:730; }
+    code { background:#edf1f5; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere; word-break:break-word; }
+    .filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:14px 0; }
+    .filter { display:grid; gap:4px; }
+    .filters label { color:var(--muted); font-size:.82rem; }
+    select { width:100%; padding:8px; color:var(--ink); background:white; border:1px solid #aabac6; border-radius:8px; font:inherit; }
+    footer { color:var(--muted); text-align:center; padding:24px 10px 0; }
+    @media (max-width:700px) { section { padding:19px; } nav { gap:6px; } nav a { font-size:.76rem; } .table-wrap { max-height:420px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to report</a>
 <header>
+  <span class="eyebrow">verified evidence bundle · version {{ version }}</span>
   <h1>DeficitLens</h1>
-  <p>A leakage-safe Apple Watch energy-expenditure audit: criterion oxygen uptake, nested participant-level validation, conformal uncertainty, subgroup slices, and explicit fat-loss planning scenarios.</p>
+  <p>Measure the measurement before trusting the calorie deficit. This report joins criterion alignment, participant-safe model validation, uncertainty, subgroup evidence, transfer refusal, and bounded decision scenarios without converting any of them into medical advice.</p>
+  <nav aria-label="Report sections">
+    <a href="#result">Result</a><a href="#cases">Case paths</a><a href="#model">Model</a><a href="#external">External audit</a><a href="#subgroups">Subgroups</a><a href="#decisions">Scenarios</a><a href="#external-evidence">Evidence boundary</a><a href="#reproduce">Reproduce</a>
+  </nav>
 </header>
-<main>
-  <section>
+<main id="main">
+  <section id="result">
     <h2>Executive result</h2>
     <div class="cards">
       <div class="card"><span class="number">{{ evidence.weee.participants }}</span><span class="label">WEEE participants held out once each</span></div>
       <div class="card"><span class="number">{{ evidence.weee.rows }}</span><span class="label">non-overlapping 30-second windows</span></div>
-      <div class="card"><span class="number">{{ high_resolution_rows }}</span><span class="label">5-second-stride sensitivity windows</span></div>
-      <div class="card"><span class="number">{{ "%.1f"|format(ensemble_improvement_pct) }}%</span><span class="label">ensemble MAE change vs raw Apple</span></div>
+      <div class="card"><span class="number">{{ high_resolution_rows }}</span><span class="label">overlapping density-sensitivity windows</span></div>
+      <div class="card"><span class="number">{{ "%.1f"|format(ensemble_improvement_pct) }}%</span><span class="label">ensemble MAE reduction vs raw Apple</span></div>
       <div class="card"><span class="number">{{ "%.1f"|format(interval.coverage * 100) }}%</span><span class="label">cluster-robust coverage (90% target)</span></div>
       <div class="card"><span class="number">{{ external_primary.participants }}</span><span class="label">independent Series 8 paired sessions</span></div>
     </div>
-    <p>The best point estimator by held-out-participant MAE was <strong>{{ best.model }}</strong>. A more complex model is retained only when out-of-fold stacking assigns it weight.</p>
-    <div class="warning"><strong>Interpretation boundary:</strong> these are exercise-energy measurement audits, not a guarantee of individual calorie burn or a weight-loss prediction.</div>
+    <p>The best point estimator by held-out-participant MAE was <strong>{{ best.model }}</strong>. A complex learner is retained only when development-participant out-of-fold stacking gives it non-zero weight.</p>
+    <p class="warning"><strong>Interpretation boundary:</strong> this is an exercise-energy measurement audit, not a guarantee of individual calorie burn, energy balance, expected weight change, diagnosis, or treatment.</p>
   </section>
 
-  <section>
-    <h2>Model comparison</h2>
-    <img src="figures/model_error.png" alt="MAE and mean bias for all models">
+  <section id="cases">
+    <h2>Four complementary evidence paths</h2>
+    <p>Each path has a different evidence state and user task. They share infrastructure, but their claims are deliberately not interchangeable.</p>
+    <div class="case-grid">
+      {% for case in case_paths %}
+      <article class="case">
+        <span class="tag">{{ case.evidence_state | replace('_', ' ') }}</span>
+        <h3>{{ case.title }}</h3>
+        <p>{{ case.decision_question }}</p>
+        <p class="muted"><strong>Capabilities:</strong> {{ case.capabilities | join(', ') }}</p>
+        <p class="boundary"><strong>Boundary:</strong> {{ case.claim_boundary }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="model">
+    <h2>Participant-held-out model comparison</h2>
+    <img src="figures/model_error.png" alt="Horizontal bars comparing held-out mean absolute error and mean bias for four estimators">
     <div class="table-wrap">{{ metrics_table | safe }}</div>
     <h3>Participant-clustered 95% intervals</h3>
     <div class="table-wrap">{{ bootstrap_table | safe }}</div>
+    <h3>Predictions and calibrated uncertainty</h3>
+    <img loading="lazy" src="figures/observed_predicted.png" alt="Observed criterion active energy versus raw Apple and DeficitLens predictions, all from held-out participants">
+    <img loading="lazy" src="figures/coverage_by_activity.png" alt="Empirical participant-cluster conformal coverage for six controlled activities compared with the 90 percent target">
+    <p>The outer participant is absent from model fitting, stack-weight learning, and conformal calibration. The primary interval calibrates participant-level maximum residuals. The narrower row-level interval covered {{ "%.1f"|format(compact_interval.coverage * 100) }}% and is retained only as a dependence diagnostic.</p>
   </section>
 
-  <section>
-    <h2>Held-out predictions and calibrated uncertainty</h2>
-    <img src="figures/observed_predicted.png" alt="Observed versus predicted active energy">
-    <img src="figures/coverage_by_activity.png" alt="Conformal coverage by activity">
-    <p>The outer test participant is absent from model fitting, stacking-weight learning, and conformal calibration. Calibration participants are also absent from base-model fitting. The primary interval calibrates participant-level maximum residuals; the more compact window-level interval covered {{ "%.1f"|format(compact_interval.coverage * 100) }}% and is retained as a diagnostic, not promoted as the primary interval.</p>
-  </section>
-
-  <section>
-    <h2>Independent Apple Watch Series 8 audit</h2>
-    <img src="figures/external_agreement.png" alt="Apple Watch versus COSMED K5 agreement">
-    <p>Primary paired analysis: MAE <strong>{{ "%.2f"|format(external_primary.mae) }} kcal</strong>, mean bias <strong>{{ "%.2f"|format(external_primary.mean_bias) }} kcal</strong>, MAPE <strong>{{ "%.1f"|format(external_primary.mape) }}%</strong>. The all-paired sensitivity analysis, which restores the paper-wide excluded participant, has MAE {{ "%.2f"|format(external_all.mae) }} kcal.</p>
+  <section id="external">
+    <h2>Independent Series 8 raw-device audit</h2>
+    <img loading="lazy" src="figures/external_agreement.png" alt="Series 8 versus COSMED K5 paired totals and Bland-Altman agreement plot">
+    <p>Primary paired analysis: MAE <strong>{{ "%.2f"|format(external_primary.mae) }} kcal</strong>, mean bias <strong>{{ "%.2f"|format(external_primary.mean_bias) }} kcal</strong>, and MAPE <strong>{{ "%.1f"|format(external_primary.mape) }}%</strong>. Restoring the paper-wide excluded participant gives MAE {{ "%.2f"|format(external_all.mae) }} kcal.</p>
+    <h3>Participant-bootstrap uncertainty</h3>
+    <div class="table-wrap">{{ external_bootstrap_table | safe }}</div>
+    <p class="warning"><strong>Transferability gate: {{ transferability_gate.status }}</strong>. {{ transferability_gate.allowed_claim }} <strong>Prohibited:</strong> {{ transferability_gate.prohibited_claim }}</p>
+    <details>
+      <summary>Why model transfer is blocked</summary>
+      <ul>
+        {% for check in transferability_gate.checks %}<li><strong>{{ check.check_id }} — {{ 'pass' if check.passed else 'fail' }}:</strong> {{ check.evidence }}</li>{% endfor %}
+      </ul>
+      <p><strong>Next evidence required:</strong> {{ transferability_gate.next_evidence_required }}</p>
+    </details>
+    <h3>Support-aware subgroup slices</h3>
     <div class="table-wrap">{{ external_subgroup_table | safe }}</div>
   </section>
 
-  <section>
-    <h2>Subgroup audit</h2>
+  <section id="subgroups">
+    <h2>WEEE subgroup audit</h2>
     <p>Cells with fewer than three participants are marked low-support and must not be read as stable fairness estimates. Activity slices contain repeated windows and are descriptive.</p>
     <div class="table-wrap">{{ subgroup_table | safe }}</div>
     <h3>Supported-cell disparities</h3>
     <div class="table-wrap">{{ disparity_table | safe }}</div>
   </section>
 
-  <section>
-    <h2>Fat-loss planning impact</h2>
-    <p>This table asks a narrow counterfactual: if the participant-level mean rate error across cycling/running windows repeated for 30, 45, or 60 exercise minutes daily, what fixed 7,700 kcal/kg arithmetic difference would accumulate? Sit/stand windows are excluded. It does not model metabolic adaptation, intake error, water, or behavior.</p>
-    <div class="table-wrap">{{ decision_table | safe }}</div>
+  <section id="decisions">
+    <h2>Exercise-energy decision sensitivity</h2>
+    <p>The table propagates participant-level cycling/running rate errors through explicit exercise minutes, days per week, horizons, and arithmetic kcal/kg assumptions. It excludes sit/stand windows and does not model intake, adaptation, water, adherence, or behavior.</p>
+    <div class="filters" aria-label="Decision scenario filters">
+      <div class="filter"><label for="filter-minutes">Minutes per active day</label><select id="filter-minutes">{% for value in decision_minutes %}<option value="{{ value }}" {% if value == 45 %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div class="filter"><label for="filter-days">Active days per week</label><select id="filter-days">{% for value in decision_days %}<option value="{{ value }}" {% if value == 5 %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div class="filter"><label for="filter-horizon">Horizon (weeks)</label><select id="filter-horizon">{% for value in decision_horizons %}<option value="{{ value }}" {% if value == 8 %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div class="filter"><label for="filter-density">Arithmetic kcal/kg</label><select id="filter-density">{% for value in decision_energy_density %}<option value="{{ value }}" {% if value == 7700 %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+    </div>
+    <p id="visible-scenarios" class="muted" aria-live="polite"></p>
+    <div class="table-wrap" id="decision-table-wrap">{{ decision_table | safe }}</div>
+    <noscript><p>JavaScript is disabled; the full scenario grid remains visible.</p></noscript>
   </section>
 
-  <section>
+  <section id="external-evidence">
+    <h2>External maturity boundary</h2>
+    <p>Publication and ecosystem evidence is recorded separately from this internally generated release bundle. A zero is not replaced with a proxy such as a passing test or a synthetic demo.</p>
+    <div class="cards">
+      <div class="card"><span class="number">{{ external_evidence.independent_method_reviews }}</span><span class="label">independent method reviews</span></div>
+      <div class="card"><span class="number">{{ external_evidence.independent_reproductions }}</span><span class="label">independent reproductions</span></div>
+      <div class="card"><span class="number">{{ external_evidence.documented_real_users }}</span><span class="label">documented real users</span></div>
+      <div class="card"><span class="number">{{ external_evidence.production_deployments }}</span><span class="label">production deployments</span></div>
+      <div class="card"><span class="number">{{ external_evidence.organizational_adoptions }}</span><span class="label">organizational adoptions</span></div>
+      <div class="card"><span class="number">{{ external_evidence.real_world_impact_evaluations }}</span><span class="label">real-world impact evaluations</span></div>
+    </div>
+    <p class="warning"><strong>Status:</strong> {{ external_evidence.publication_status | replace('_', ' ') }}. No public repository is verified and public stars are <strong>unobserved</strong>, not reported as zero. {{ external_evidence.boundary }}</p>
+  </section>
+
+  <section id="reproduce">
     <h2>Data and reproducibility</h2>
     <ul>
-      <li>WEEE: {{ evidence.weee.checksum }}, Apple Watch Series 6, VO₂ criterion approximation, six protocol activities.</li>
-      <li>External PAEE 2026: {{ evidence.apple_watch_paee_2026.checksum }}, Apple Watch Series 8 versus COSMED K5.</li>
+      <li>WEEE: <code>{{ evidence.weee.checksum }}</code>, Series 6, oxygen-uptake criterion approximation, six protocol activities.</li>
+      <li>External PAEE 2026: <code>{{ evidence.apple_watch_paee_2026.checksum }}</code>, Series 8 versus COSMED K5.</li>
       <li>Known timestamp anomaly: {{ evidence.weee.notes | join('; ') }}.</li>
-      <li>Runtime: {{ "%.1f"|format(elapsed_seconds) }} seconds; DeficitLens {{ version }}; deterministic seed recorded in <code>run_manifest.json</code>.</li>
+      <li>Runtime: {{ "%.1f"|format(elapsed_seconds) }} seconds; deterministic seed and dependency versions are recorded in <code>run_manifest.json</code>.</li>
     </ul>
+    <p class="success"><strong>Reproduction contract:</strong> input checksums, group splits, generated tables, figures, report, and claim boundaries are machine-addressed in the manifest. Raw third-party or personal data are not redistributed.</p>
   </section>
-  <footer>Generated {{ generated_at }} · See the repository model card and validation protocol before reuse.</footer>
+  <footer>Generated {{ generated_at }} · DeficitLens {{ version }} · Read the model card and validation protocol before reuse.</footer>
 </main>
+<script>
+  (() => {
+    const selectors = [
+      [document.getElementById("filter-minutes"), 1],
+      [document.getElementById("filter-days"), 2],
+      [document.getElementById("filter-horizon"), 3],
+      [document.getElementById("filter-density"), 4],
+    ];
+    const rows = [...document.querySelectorAll("#decision-table-wrap tbody tr")];
+    const status = document.getElementById("visible-scenarios");
+    const render = () => {
+      let visible = 0;
+      for (const row of rows) {
+        const cells = row.querySelectorAll("td");
+        const match = selectors.every(([select, index]) => cells[index]?.textContent.trim() === select.value);
+        row.hidden = !match;
+        if (match) visible += 1;
+      }
+      status.textContent = `${visible} model scenarios shown; all assumptions remain available in the CSV.`;
+    };
+    for (const [select] of selectors) select.addEventListener("change", render);
+    render();
+  })();
+</script>
 </body>
 </html>

@@ -75,18 +75,26 @@ def load_paee2026(
     frame["absolute_percentage_error"] = (
         100.0 * frame["absolute_error_kcal"] / frame["criterion_kcal"]
     )
-    frame["body_fat_band"] = pd.cut(
-        frame["body_fat_pct"],
-        bins=[-np.inf, 20.0, 30.0, np.inf],
-        labels=["<20", "20-29.9", ">=30"],
-        right=False,
-    ).astype(str)
-    frame["bmi_band"] = pd.cut(
-        frame["bmi"],
-        bins=[-np.inf, 25.0, 30.0, np.inf],
-        labels=["<25", "25-29.9", ">=30"],
-        right=False,
-    ).astype(str)
+    frame["body_fat_band"] = (
+        pd.cut(
+            frame["body_fat_pct"],
+            bins=[-np.inf, 20.0, 30.0, np.inf],
+            labels=["<20", "20-29.9", ">=30"],
+            right=False,
+        )
+        .astype("string")
+        .fillna("Unknown")
+    )
+    frame["bmi_band"] = (
+        pd.cut(
+            frame["bmi"],
+            bins=[-np.inf, 25.0, 30.0, np.inf],
+            labels=["<25", "25-29.9", ">=30"],
+            right=False,
+        )
+        .astype("string")
+        .fillna("Unknown")
+    )
 
     notes = ["Primary analysis excludes participant OSF058 across devices, per paper code."]
     if primary_analysis:

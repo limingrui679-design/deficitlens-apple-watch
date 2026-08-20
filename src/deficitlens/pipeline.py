@@ -13,6 +13,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from deficitlens.cases import CaseCatalog, load_case_catalog
 from deficitlens.config import Settings
 from deficitlens.data.paee2026 import load_paee2026
 from deficitlens.data.registry import checksum
@@ -21,13 +22,15 @@ from deficitlens.evaluation.benchmark import BenchmarkResult, run_loso_benchmark
 from deficitlens.evaluation.decision import projected_mass_error_scenarios
 from deficitlens.evaluation.external import audit_paee2026
 from deficitlens.evaluation.fairness import disparity_summary, subgroup_audit
+from deficitlens.evaluation.transportability import build_transferability_gate
+from deficitlens.evidence import ExternalEvidenceLedger, load_external_evidence
 from deficitlens.reporting.plots import (
     coverage_by_activity_figure,
     external_agreement_figure,
     model_error_figure,
     observed_predicted_figure,
 )
-from deficitlens.reporting.report import render_report
+from deficitlens.reporting.report import accessible_table, render_report
 from deficitlens.schemas import GROUP_COLUMN, DatasetEvidence
 from deficitlens.version import __version__
 
@@ -96,7 +99,9 @@ def _decision_tables(predictions: pd.DataFrame, settings: Settings) -> pd.DataFr
             - exercise_predictions["y_true"].to_numpy(dtype=float),
             exercise_predictions[GROUP_COLUMN].astype(str).to_numpy(),
             horizons_weeks=settings.evaluation.decision_horizons_weeks,
-            kcal_per_kg=settings.evaluation.kcal_per_kg_scenario,
+            kcal_per_kg_values=tuple(settings.evaluation.kcal_per_kg_scenarios),
+            active_minutes_per_day=tuple(settings.evaluation.decision_active_minutes_per_day),
+            active_days_per_week=tuple(settings.evaluation.decision_active_days_per_week),
         )
         scenario.insert(0, "model", model_name)
         outputs.append(scenario)
@@ -110,10 +115,14 @@ def _report_context(
     high_resolution_rows: int,
     external_primary: dict[str, object],
     external_all: dict[str, object],
+    external_bootstrap: pd.DataFrame,
+    transferability_gate: dict[str, object],
     subgroup: pd.DataFrame,
     disparities: pd.DataFrame,
     external_subgroups: pd.DataFrame,
     decisions: pd.DataFrame,
+    case_catalog: CaseCatalog,
+    external_evidence: ExternalEvidenceLedger,
     elapsed_seconds: float,
 ) -> dict[str, Any]:
     metrics = benchmark.metrics.copy()
@@ -132,15 +141,35 @@ def _report_context(
         "compact_interval": benchmark.compact_interval,
         "external_primary": external_primary,
         "external_all": external_all,
-        "elapsed_seconds": elapsed_seconds,
-        "metrics_table": metrics.round(4).to_html(index=False, classes="data-table"),
-        "bootstrap_table": benchmark.bootstrap.round(4).to_html(index=False, classes="data-table"),
-        "subgroup_table": subgroup.round(4).to_html(index=False, classes="data-table"),
-        "disparity_table": disparities.round(4).to_html(index=False, classes="data-table"),
-        "external_subgroup_table": external_subgroups.round(3).to_html(
-            index=False, classes="data-table"
+        "external_bootstrap_table": accessible_table(
+            external_bootstrap.round(3).to_html(index=False, classes="data-table")
         ),
-        "decision_table": decisions.round(4).to_html(index=False, classes="data-table"),
+        "transferability_gate": transferability_gate,
+        "elapsed_seconds": elapsed_seconds,
+        "metrics_table": accessible_table(
+            metrics.round(4).to_html(index=False, classes="data-table")
+        ),
+        "bootstrap_table": accessible_table(
+            benchmark.bootstrap.round(4).to_html(index=False, classes="data-table")
+        ),
+        "subgroup_table": accessible_table(
+            subgroup.round(4).to_html(index=False, classes="data-table")
+        ),
+        "disparity_table": accessible_table(
+            disparities.round(4).to_html(index=False, classes="data-table")
+        ),
+        "external_subgroup_table": accessible_table(
+            external_subgroups.round(3).to_html(index=False, classes="data-table")
+        ),
+        "decision_table": accessible_table(
+            decisions.round(4).to_html(index=False, classes="data-table")
+        ),
+        "decision_minutes": sorted(decisions["active_minutes_per_day"].unique().tolist()),
+        "decision_days": sorted(decisions["active_days_per_week"].unique().tolist()),
+        "decision_horizons": sorted(decisions["horizon_weeks"].unique().tolist()),
+        "decision_energy_density": sorted(decisions["kcal_per_kg_assumption"].unique().tolist()),
+        "case_paths": [case.model_dump(mode="json") for case in case_catalog.cases],
+        "external_evidence": external_evidence.model_dump(mode="json"),
     }
 
 
@@ -159,6 +188,8 @@ def run_verified_pipeline(
     figures = output / "figures"
     tables.mkdir(parents=True, exist_ok=True)
     figures.mkdir(parents=True, exist_ok=True)
+    case_catalog = load_case_catalog()
+    external_evidence_ledger = load_external_evidence()
 
     windows, weee_evidence = build_weee_windows(weee_archive, settings.data)
     high_resolution_config = settings.data.model_copy(update={"stride_seconds": 5})
@@ -170,8 +201,17 @@ def run_verified_pipeline(
         ~external_all_frame["analysis_code_global_exclusion"]
         & ~external_all_frame["implausible_device_value"]
     ].copy()
-    external_primary, external_subgroups = audit_paee2026(external_primary_frame)
-    external_all, _ = audit_paee2026(external_all_frame)
+    external_primary_result = audit_paee2026(
+        external_primary_frame,
+        repetitions=settings.evaluation.bootstrap_repetitions,
+        seed=settings.seed + 70_001,
+    )
+    external_all_result = audit_paee2026(
+        external_all_frame,
+        repetitions=settings.evaluation.bootstrap_repetitions,
+        seed=settings.seed + 70_101,
+    )
+    transferability_gate = build_transferability_gate(external_primary_frame.columns)
     subgroup, disparities = _fairness_tables(benchmark.predictions, settings)
     decisions = _decision_tables(benchmark.predictions, settings)
 
@@ -196,9 +236,13 @@ def run_verified_pipeline(
     benchmark.bootstrap.to_csv(tables / "cluster_bootstrap.csv", index=False)
     subgroup.to_csv(tables / "subgroup_audit.csv", index=False)
     disparities.to_csv(tables / "subgroup_disparities.csv", index=False)
-    external_subgroups.to_csv(tables / "external_subgroup_audit.csv", index=False)
+    external_primary_result.bootstrap.to_csv(tables / "external_bootstrap.csv", index=False)
+    external_primary_result.subgroups.to_csv(tables / "external_subgroup_audit.csv", index=False)
     decisions.to_csv(tables / "decision_impact_scenarios.csv", index=False)
     _write_json(tables / "fold_diagnostics.json", benchmark.fold_diagnostics)
+    _write_json(tables / "transferability_gate.json", transferability_gate)
+    _write_json(tables / "case_catalog.json", case_catalog.model_dump(mode="json"))
+    _write_json(tables / "external_evidence.json", external_evidence_ledger.model_dump(mode="json"))
 
     model_error_figure(benchmark.metrics, figures / "model_error.png")
     observed_predicted_figure(benchmark.predictions, figures / "observed_predicted.png")
@@ -213,12 +257,16 @@ def run_verified_pipeline(
         benchmark=benchmark,
         evidence=evidence,
         high_resolution_rows=len(high_resolution),
-        external_primary=external_primary,
-        external_all=external_all,
+        external_primary=external_primary_result.summary,
+        external_all=external_all_result.summary,
+        external_bootstrap=external_primary_result.bootstrap,
+        transferability_gate=transferability_gate,
         subgroup=subgroup,
         disparities=disparities,
-        external_subgroups=external_subgroups,
+        external_subgroups=external_primary_result.subgroups,
         decisions=decisions,
+        case_catalog=case_catalog,
+        external_evidence=external_evidence_ledger,
         elapsed_seconds=perf_counter() - started,
     )
     render_report(context, output / "report.html")
@@ -243,6 +291,16 @@ def run_verified_pipeline(
         "high_resolution_overlapping_windows": len(high_resolution),
         "outer_test_participants": windows[GROUP_COLUMN].nunique(),
         "external_primary_participants": len(external_primary_frame),
+        "external_transferability": {
+            "status": transferability_gate["status"],
+            "passed": transferability_gate["passed"],
+        },
+        "case_catalog": {
+            "case_count": len(case_catalog.cases),
+            "capability_count": len(case_catalog.capabilities),
+            "case_ids": [case.id for case in case_catalog.cases],
+        },
+        "external_evidence": external_evidence_ledger.model_dump(mode="json"),
         "interval": benchmark.interval,
         "compact_interval": benchmark.compact_interval,
         "elapsed_seconds": context["elapsed_seconds"],

@@ -5,9 +5,12 @@ from __future__ import annotations
 import math
 
 import numpy as np
+from numpy.typing import NDArray
 
 
-def concordance_correlation_coefficient(target: np.ndarray, prediction: np.ndarray) -> float:
+def concordance_correlation_coefficient(
+    target: NDArray[np.float64], prediction: NDArray[np.float64]
+) -> float:
     """Return Lin's concordance correlation coefficient."""
 
     y = np.asarray(target, dtype=float)
@@ -20,7 +23,10 @@ def concordance_correlation_coefficient(target: np.ndarray, prediction: np.ndarr
 
 
 def regression_metrics(
-    target: np.ndarray, prediction: np.ndarray, *, mape_floor: float = 0.5
+    target: NDArray[np.float64],
+    prediction: NDArray[np.float64],
+    *,
+    mape_floor: float = 0.5,
 ) -> dict[str, float | int]:
     """Compute error, agreement, and threshold metrics.
 
@@ -56,7 +62,9 @@ def regression_metrics(
     }
 
 
-def agreement_metrics(target: np.ndarray, prediction: np.ndarray) -> dict[str, float]:
+def agreement_metrics(
+    target: NDArray[np.float64], prediction: NDArray[np.float64]
+) -> dict[str, float]:
     """Return Bland-Altman bias and 95% limits of agreement."""
 
     difference = np.asarray(prediction, dtype=float) - np.asarray(target, dtype=float)
@@ -73,7 +81,9 @@ def agreement_metrics(target: np.ndarray, prediction: np.ndarray) -> dict[str, f
 
 
 def interval_metrics(
-    target: np.ndarray, lower: np.ndarray, upper: np.ndarray
+    target: NDArray[np.float64],
+    lower: NDArray[np.float64],
+    upper: NDArray[np.float64],
 ) -> dict[str, float | int]:
     """Compute marginal coverage, width, and one-sided miss rates."""
 

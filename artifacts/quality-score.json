@@ -321,8 +321,8 @@
       "points": 1
     }
   ],
-  "evaluated_at": "2026-08-23T14:49:49.319229+00:00",
-  "label": "v1.1.1 verified public-release audit",
+  "evaluated_at": "2026-08-23T15:24:58.489239+00:00",
+  "label": "v1.1.2 remote-compatibility release audit",
   "maximum": 100,
   "rubric_version": 3,
   "score": 100,

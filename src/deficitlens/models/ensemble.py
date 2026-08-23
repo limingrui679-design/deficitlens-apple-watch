@@ -79,13 +79,15 @@ def _estimator(
     )
 
 
-def _simplex_weights(predictions: np.ndarray, target: np.ndarray) -> NDArray[np.float64]:
+def _simplex_weights(
+    predictions: NDArray[np.float64], target: NDArray[np.float64]
+) -> NDArray[np.float64]:
     """Find non-negative stacking weights that sum to one."""
 
     n_models = predictions.shape[1]
     initial = np.full(n_models, 1.0 / n_models)
 
-    def objective(weights: np.ndarray) -> float:
+    def objective(weights: NDArray[np.float64]) -> float:
         residual = predictions @ weights - target
         return float(np.mean(np.square(residual)))
 
@@ -122,7 +124,7 @@ class GroupStackedRegressor:
         if len(self.model_names) < 2:
             raise ValueError("Stacking requires at least two base models")
         self.models_: dict[str, Pipeline] = {}
-        self.weights_: np.ndarray | None = None
+        self.weights_: NDArray[np.float64] | None = None
         self.oof_rmse_: float | None = None
 
     @property
@@ -132,7 +134,7 @@ class GroupStackedRegressor:
         return [*self.numeric_features, *self.categorical_features]
 
     def fit(
-        self, frame: pd.DataFrame, target: np.ndarray, groups: np.ndarray
+        self, frame: pd.DataFrame, target: NDArray[np.float64], groups: NDArray[Any]
     ) -> GroupStackedRegressor:
         """Fit group-cross-fitted weights and final base estimators."""
 

@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 import pandas as pd
+from numpy.typing import NDArray
 
 from deficitlens.config import Settings
 from deficitlens.evaluation.bootstrap import (
@@ -47,7 +49,7 @@ class BenchmarkResult:
     fold_diagnostics: list[dict[str, object]]
 
 
-def _calibration_groups(candidate_groups: np.ndarray, fraction: float, *, seed: int) -> set[str]:
+def _calibration_groups(candidate_groups: NDArray[Any], fraction: float, *, seed: int) -> set[str]:
     unique = np.unique(candidate_groups.astype(str))
     count = max(1, math.ceil(len(unique) * fraction))
     count = min(count, len(unique) - 2)

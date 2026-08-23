@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 - 2026-08-23
+
+- Replaced bare NumPy array annotations with explicit typed arrays after the first Python 3.10
+  remote Mypy run exposed a cross-version typing gap.
+- Preserved the published `v1.1.1` tag and its CI record instead of rewriting release history.
+
 ## 1.1.1 - 2026-08-23
 
 - Published the verified project at its canonical GitHub repository and restored only URLs that

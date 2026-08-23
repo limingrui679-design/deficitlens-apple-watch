@@ -6,9 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
+from numpy.typing import NDArray
 
 
-def conformal_quantile(scores: np.ndarray, alpha: float) -> float:
+def conformal_quantile(scores: NDArray[np.float64], alpha: float) -> float:
     """Return the split-conformal finite-sample absolute-residual quantile."""
 
     finite = np.sort(np.asarray(scores, dtype=float)[np.isfinite(scores)])
@@ -37,8 +38,8 @@ class MondrianConformalRegressor:
     def fit(
         cls,
         frame: pd.DataFrame,
-        target: np.ndarray,
-        prediction: np.ndarray,
+        target: NDArray[np.float64],
+        prediction: NDArray[np.float64],
         *,
         alpha: float,
         group_column: str,
@@ -93,10 +94,10 @@ class MondrianConformalRegressor:
     def predict_interval(
         self,
         frame: pd.DataFrame,
-        prediction: np.ndarray,
+        prediction: NDArray[np.float64],
         *,
         cluster_robust: bool = False,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
         """Return lower/upper bounds plus the radius used for each row."""
 
         point = np.asarray(prediction, dtype=float)

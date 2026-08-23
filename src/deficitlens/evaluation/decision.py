@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 import numpy as np
 import pandas as pd
+from numpy.typing import NDArray
 
 
 def projected_mass_error_scenarios(
-    prediction_error_kcal_min: np.ndarray,
-    groups: np.ndarray,
+    prediction_error_kcal_min: NDArray[np.float64],
+    groups: NDArray[Any],
     *,
     horizons_weeks: list[int],
     kcal_per_kg: float | None = None,

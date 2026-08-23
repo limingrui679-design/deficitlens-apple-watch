@@ -15,7 +15,8 @@ remain visible.
 | 7 — deployable-context release | 100/100 (superseded) | The new 17-fold artifact contains `activity_family`; raw Apple MAE is 1.651 and ensemble MAE is 1.082 kcal/min; then-current gates passed | Reopen against a broader rubric instead of treating rubric v2 as ecosystem maturity |
 | 8 — capability, privacy, and publication audit | 96/100 | The release commands passed, but the new scorer misread a line-wrapped “weight forecast” boundary; browser QA also found and fixed mobile SHA overflow | Preserve the failed score, make the semantic gate formatting-independent, and rerun every command |
 | 9 — v1.1.0 final local release audit | **100/100** | 30 tests pass plus one 652MB integration test is exercised through the full benchmark; 90.25% branch-aware coverage; all 16 safety, dependency, version, docs, HTML, distribution, and installed-wheel checks pass | Release-ready under rubric v3 for maintainer-controllable quality; external evidence remains explicitly zero/unobserved |
-| 10 — v1.1.1 publication-state audit | **100/100** | Canonical public GitHub URL, default branch, and observed zero-Star state verified; real-data metrics reproduced; all 16 local release checks pass while review, reproduction, usability, deployment, adoption, and impact remain zero | Push the exact tested commit and tag, then verify remote SHA and Actions independently |
+| 10 — v1.1.1 publication-state audit | **100/100** | Canonical public GitHub URL, default branch, and observed zero-Star state verified; real-data metrics reproduced; all 16 local release checks pass while review, reproduction, usability, deployment, adoption, and impact remain zero | First remote Python 3.10 Mypy run exposed bare NumPy array annotations; type the arrays explicitly, rerun all gates, and require green remote Actions before Release creation |
+| 11 — v1.1.2 remote-compatibility repair | **100/100** | All 23 Python 3.10 Mypy failures were traced to unparameterized NumPy arrays; explicit dtype annotations pass strict typing, the real-data metrics remain unchanged, and all 16 local release gates pass | Push without rewriting v1.1.1, then require green CI/security runs before creating the GitHub Release |
 
 ## Scientific comparison
 
@@ -67,3 +68,6 @@ Health deployment.
 - A literal quality check treated a Markdown line break as missing evidence despite all release
   commands passing. The failed 96/100 iteration is retained; the final gate checks stable semantic
   phrases and the full verifier was rerun.
+- The first public CI run found that bare `np.ndarray` annotations accepted in the verified Python
+  3.12 environment were rejected by NumPy's Python 3.10 typing surface. The annotations now carry
+  explicit dtypes instead of weakening or removing the 3.10 type-check job.

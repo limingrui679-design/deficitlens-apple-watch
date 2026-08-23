@@ -3,16 +3,18 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import Any
 
 import numpy as np
+from numpy.typing import NDArray
 
-Metric = Callable[[np.ndarray, np.ndarray], float]
+Metric = Callable[[NDArray[np.float64], NDArray[np.float64]], float]
 
 
 def clustered_bootstrap_interval(
-    target: np.ndarray,
-    prediction: np.ndarray,
-    groups: np.ndarray,
+    target: NDArray[np.float64],
+    prediction: NDArray[np.float64],
+    groups: NDArray[Any],
     metric: Metric,
     *,
     repetitions: int,
@@ -47,13 +49,13 @@ def clustered_bootstrap_interval(
     }
 
 
-def mae(target: np.ndarray, prediction: np.ndarray) -> float:
+def mae(target: NDArray[np.float64], prediction: NDArray[np.float64]) -> float:
     """Mean absolute error helper for bootstrap calls."""
 
     return float(np.mean(np.abs(np.asarray(prediction) - np.asarray(target))))
 
 
-def mean_bias(target: np.ndarray, prediction: np.ndarray) -> float:
+def mean_bias(target: NDArray[np.float64], prediction: NDArray[np.float64]) -> float:
     """Mean prediction-minus-criterion bias helper for bootstrap calls."""
 
     return float(np.mean(np.asarray(prediction) - np.asarray(target)))

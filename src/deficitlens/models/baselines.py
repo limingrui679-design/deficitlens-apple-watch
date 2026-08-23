@@ -35,7 +35,7 @@ def protocol_met(frame: pd.DataFrame) -> NDArray[np.float64]:
 
 
 def cohort_affine_fit(
-    frame: pd.DataFrame, target: np.ndarray, *, ridge: float = 1e-6
+    frame: pd.DataFrame, target: NDArray[np.float64], *, ridge: float = 1e-6
 ) -> tuple[float, float]:
     """Fit a stable affine correction to Apple energy on training participants only."""
 

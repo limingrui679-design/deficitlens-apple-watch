@@ -321,8 +321,8 @@
       "points": 1
     }
   ],
-  "evaluated_at": "2026-08-20T02:57:11.688545+00:00",
-  "label": "v1.1.0 final documented rubric-v3 audit",
+  "evaluated_at": "2026-08-23T14:49:49.319229+00:00",
+  "label": "v1.1.1 verified public-release audit",
   "maximum": 100,
   "rubric_version": 3,
   "score": 100,

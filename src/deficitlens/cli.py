@@ -100,6 +100,7 @@ def _evidence_command(args: argparse.Namespace) -> int:
         return 0
     print(f"publication_status             {ledger.publication_status}")
     print(f"public_repository_verified     {str(ledger.public_repository_verified).lower()}")
+    print(f"public_repository_url          {ledger.public_repository_url or 'unavailable'}")
     for field in (
         "independent_method_reviews",
         "independent_reproductions",
@@ -111,7 +112,10 @@ def _evidence_command(args: argparse.Namespace) -> int:
         "real_world_impact_evaluations",
     ):
         print(f"{field:32} {payload[field]}")
-    print("observed_public_stars            unobserved")
+    stars = (
+        "unobserved" if ledger.observed_public_stars is None else str(ledger.observed_public_stars)
+    )
+    print(f"observed_public_stars           {stars}")
     return 0
 
 

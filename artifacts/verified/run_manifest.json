@@ -55,20 +55,21 @@
       "source_file": "dataset.zip"
     }
   },
-  "elapsed_seconds": 61.030767625023145,
+  "elapsed_seconds": 167.22607670805883,
   "external_evidence": {
-    "as_of": "2026-08-20",
-    "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
+    "as_of": "2026-08-23",
+    "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, repository publication, and release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
     "documented_real_users": 0,
     "independent_method_reviews": 0,
     "independent_reproductions": 0,
-    "observed_public_stars": null,
+    "observed_public_stars": 0,
     "organizational_adoptions": 0,
     "production_deployments": 0,
-    "public_repository_verified": false,
-    "publication_status": "local_release_candidate",
+    "public_repository_url": "https://github.com/limingrui679-design/deficitlens-apple-watch",
+    "public_repository_verified": true,
+    "publication_status": "published",
     "real_world_impact_evaluations": 0,
-    "schema_version": 1,
+    "schema_version": 2,
     "structured_accessibility_reviews": 0,
     "structured_usability_participants": 0
   },
@@ -77,7 +78,7 @@
     "passed": false,
     "status": "blocked_model_transfer"
   },
-  "generated_at": "2026-08-20T02:45:23.667735+00:00",
+  "generated_at": "2026-08-23T14:35:47.355161+00:00",
   "high_resolution_overlapping_windows": 4544,
   "interval": {
     "above_interval": 0.004932182490752158,
@@ -92,12 +93,12 @@
     "figures/external_agreement.png": "sha256:4f25f5d9f54d58da9aa2bca2370c4c9f353853872c01a2f66a0e81b7660cfc3c",
     "figures/model_error.png": "sha256:cac81017e77f47dc446f8478a702603ade7fe7356edea3aa1f9ca49e9d9e6a31",
     "figures/observed_predicted.png": "sha256:07859f145edde9c7b5f3438ef07df101d270dfaaf91a513d238cbb79b8fbe495",
-    "report.html": "sha256:bf2b59bba2e2f6d5e6f271d4f5a8a7e327a39db11d09569e52351436a3369b56",
+    "report.html": "sha256:e1e58559938e1209a260738940a4411f3b9184e7640a0387a814d542c4533049",
     "tables/case_catalog.json": "sha256:ed2f55b140073bd620eaa757efee369662df0aef3c1ae7be059ed8a527860e87",
     "tables/cluster_bootstrap.csv": "sha256:95080b7c16435284f8bf3549b83110d89f8c7c7097c63f7acd2e3e4cfbf5310c",
     "tables/decision_impact_scenarios.csv": "sha256:8c7f577c059c54458e423913c344198efc3c94fa4ae7508051918f586a5a05ec",
     "tables/external_bootstrap.csv": "sha256:12b992cb320e29e5d67e224a07c8b6c1b7694cf598ffe93c88728631735185f5",
-    "tables/external_evidence.json": "sha256:a60589cbf1021797d981c48d97ecad5845af110972342c9a94e6beabbb2d04e8",
+    "tables/external_evidence.json": "sha256:1951220754fcda24d3fe1aeccf6c8480c553a2b9b1f83296484da0b3c7194118",
     "tables/external_subgroup_audit.csv": "sha256:eba3ebfb45f6936d0f5c6d7ea5d45a2d2a18cd2cb630b2d850b76993d0a14700",
     "tables/fold_diagnostics.json": "sha256:dfeb632be60064feae6341c5bb3e914ebfa5ca19d0595a20ee9ca8266edff4e9",
     "tables/loso_predictions.csv": "sha256:e5fa5c9014cd59eed859a47b63cd9a856a617f5ae8060f47a60c5cdfcece9cd1",
@@ -107,7 +108,7 @@
     "tables/transferability_gate.json": "sha256:56f8d0ab4b95a53b2431c5c4e9ce94d32166aa1dce80a513e109b8cbfbf0417d"
   },
   "primary_non_overlapping_windows": 811,
-  "project_version": "1.1.0",
+  "project_version": "1.1.1",
   "runtime": {
     "numpy": "2.5.2",
     "pandas": "2.3.3",

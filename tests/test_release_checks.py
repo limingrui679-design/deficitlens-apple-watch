@@ -49,9 +49,10 @@ def test_external_ledger_and_archive_checks(tmp_path: Path) -> None:
     ledger.write_text(
         json.dumps(
             {
-                "schema_version": 1,
+                "schema_version": 2,
                 "publication_status": "local_release_candidate",
                 "public_repository_verified": False,
+                "public_repository_url": None,
                 "observed_public_stars": None,
                 "boundary": "Tests and synthetic demos are not adoption or impact.",
                 "independent_method_reviews": 0,

@@ -1,4 +1,4 @@
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-y9dnwbrj/installed/deficitlens/__init__.py
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-zoz8z0zo/installed/deficitlens/__init__.py
 weee                     public                                               second-level model development and Apple Watch Series 6 audit
 apple_watch_paee_2026    public                                               Apple Watch Series 8 external and body-composition fairness audit
 bigideaslab_step         restricted; account and signed data-use agreement required optional heart-rate measurement fairness validation
@@ -131,19 +131,20 @@ apple_health_export      private local input; never downloaded or uploaded    lo
   "schema_version": 1
 }
 {
-  "as_of": "2026-08-20",
-  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
+  "as_of": "2026-08-23",
+  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, repository publication, and release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
   "documented_real_users": 0,
   "independent_method_reviews": 0,
   "independent_reproductions": 0,
-  "observed_public_stars": null,
+  "observed_public_stars": 0,
   "organizational_adoptions": 0,
   "production_deployments": 0,
-  "public_repository_verified": false,
-  "publication_status": "local_release_candidate",
+  "public_repository_url": "https://github.com/limingrui679-design/deficitlens-apple-watch",
+  "public_repository_verified": true,
+  "publication_status": "published",
   "real_world_impact_evaluations": 0,
-  "schema_version": 1,
+  "schema_version": 2,
   "structured_accessibility_reviews": 0,
   "structured_usability_participants": 0
 }
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-y9dnwbrj/demo
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-zoz8z0zo/demo

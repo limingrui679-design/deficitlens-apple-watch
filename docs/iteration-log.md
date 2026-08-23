@@ -15,6 +15,7 @@ remain visible.
 | 7 — deployable-context release | 100/100 (superseded) | The new 17-fold artifact contains `activity_family`; raw Apple MAE is 1.651 and ensemble MAE is 1.082 kcal/min; then-current gates passed | Reopen against a broader rubric instead of treating rubric v2 as ecosystem maturity |
 | 8 — capability, privacy, and publication audit | 96/100 | The release commands passed, but the new scorer misread a line-wrapped “weight forecast” boundary; browser QA also found and fixed mobile SHA overflow | Preserve the failed score, make the semantic gate formatting-independent, and rerun every command |
 | 9 — v1.1.0 final local release audit | **100/100** | 30 tests pass plus one 652MB integration test is exercised through the full benchmark; 90.25% branch-aware coverage; all 16 safety, dependency, version, docs, HTML, distribution, and installed-wheel checks pass | Release-ready under rubric v3 for maintainer-controllable quality; external evidence remains explicitly zero/unobserved |
+| 10 — v1.1.1 publication-state audit | **100/100** | Canonical public GitHub URL, default branch, and observed zero-Star state verified; real-data metrics reproduced; all 16 local release checks pass while review, reproduction, usability, deployment, adoption, and impact remain zero | Push the exact tested commit and tag, then verify remote SHA and Actions independently |
 
 ## Scientific comparison
 
@@ -51,7 +52,8 @@ Health deployment.
 - Fat-loss scenarios initially averaged rest and exercise errors before multiplying by daily
   exercise minutes. The final pipeline restricts this propagation to cycling/running windows.
 - Package and citation metadata pointed at a repository URL that returned 404. Unverified URLs are
-  now omitted until publication and remote verification actually occur.
+  omitted until publication and remote verification actually occur; v1.1.1 restores the URL only
+  after the repository exists and its public state is checked through GitHub.
 - The external device audit initially had point estimates but no participant-bootstrap interval or
   executable transfer refusal. Both are now generated, hashed, tested, and shown in the report.
 - A deterministic default source-hash salt and an easy row writer weakened personal-data defaults.

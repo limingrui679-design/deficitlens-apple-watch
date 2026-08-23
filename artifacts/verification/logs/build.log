@@ -26,84 +26,84 @@ adding license file 'LICENSE'
 adding license file 'NOTICE'
 writing manifest file 'src/deficitlens.egg-info/SOURCES.txt'
 running check
-creating deficitlens-1.1.0
-creating deficitlens-1.1.0/src/deficitlens
-creating deficitlens-1.1.0/src/deficitlens.egg-info
-creating deficitlens-1.1.0/src/deficitlens/data
-creating deficitlens-1.1.0/src/deficitlens/evaluation
-creating deficitlens-1.1.0/src/deficitlens/models
-creating deficitlens-1.1.0/src/deficitlens/reporting
-creating deficitlens-1.1.0/src/deficitlens/reporting/templates
-creating deficitlens-1.1.0/src/deficitlens/resources
-creating deficitlens-1.1.0/tests
-copying files to deficitlens-1.1.0...
-copying LICENSE -> deficitlens-1.1.0
-copying NOTICE -> deficitlens-1.1.0
-copying README.md -> deficitlens-1.1.0
-copying pyproject.toml -> deficitlens-1.1.0
-copying src/deficitlens/__init__.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/__main__.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/cases.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/cli.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/config.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/evidence.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/personal.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/physiology.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/pipeline.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/quality.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/schemas.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens/version.py -> deficitlens-1.1.0/src/deficitlens
-copying src/deficitlens.egg-info/PKG-INFO -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens.egg-info/SOURCES.txt -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens.egg-info/dependency_links.txt -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens.egg-info/entry_points.txt -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens.egg-info/requires.txt -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens.egg-info/top_level.txt -> deficitlens-1.1.0/src/deficitlens.egg-info
-copying src/deficitlens/data/__init__.py -> deficitlens-1.1.0/src/deficitlens/data
-copying src/deficitlens/data/apple_health.py -> deficitlens-1.1.0/src/deficitlens/data
-copying src/deficitlens/data/paee2026.py -> deficitlens-1.1.0/src/deficitlens/data
-copying src/deficitlens/data/registry.py -> deficitlens-1.1.0/src/deficitlens/data
-copying src/deficitlens/data/weee.py -> deficitlens-1.1.0/src/deficitlens/data
-copying src/deficitlens/evaluation/__init__.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/benchmark.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/bootstrap.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/decision.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/external.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/fairness.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/metrics.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/evaluation/transportability.py -> deficitlens-1.1.0/src/deficitlens/evaluation
-copying src/deficitlens/models/__init__.py -> deficitlens-1.1.0/src/deficitlens/models
-copying src/deficitlens/models/adaptive.py -> deficitlens-1.1.0/src/deficitlens/models
-copying src/deficitlens/models/baselines.py -> deficitlens-1.1.0/src/deficitlens/models
-copying src/deficitlens/models/conformal.py -> deficitlens-1.1.0/src/deficitlens/models
-copying src/deficitlens/models/ensemble.py -> deficitlens-1.1.0/src/deficitlens/models
-copying src/deficitlens/reporting/__init__.py -> deficitlens-1.1.0/src/deficitlens/reporting
-copying src/deficitlens/reporting/personal_report.py -> deficitlens-1.1.0/src/deficitlens/reporting
-copying src/deficitlens/reporting/plots.py -> deficitlens-1.1.0/src/deficitlens/reporting
-copying src/deficitlens/reporting/report.py -> deficitlens-1.1.0/src/deficitlens/reporting
-copying src/deficitlens/reporting/templates/personal_audit.html.j2 -> deficitlens-1.1.0/src/deficitlens/reporting/templates
-copying src/deficitlens/reporting/templates/report.html.j2 -> deficitlens-1.1.0/src/deficitlens/reporting/templates
-copying src/deficitlens/resources/__init__.py -> deficitlens-1.1.0/src/deficitlens/resources
-copying src/deficitlens/resources/apple_health_sample.xml -> deficitlens-1.1.0/src/deficitlens/resources
-copying src/deficitlens/resources/case_catalog.yml -> deficitlens-1.1.0/src/deficitlens/resources
-copying src/deficitlens/resources/default.yml -> deficitlens-1.1.0/src/deficitlens/resources
-copying src/deficitlens/resources/external_evidence.json -> deficitlens-1.1.0/src/deficitlens/resources
-copying src/deficitlens/resources/registry.yml -> deficitlens-1.1.0/src/deficitlens/resources
-copying tests/test_apple_health.py -> deficitlens-1.1.0/tests
-copying tests/test_benchmark.py -> deficitlens-1.1.0/tests
-copying tests/test_config_registry_cli.py -> deficitlens-1.1.0/tests
-copying tests/test_data_adapters.py -> deficitlens-1.1.0/tests
-copying tests/test_evaluation.py -> deficitlens-1.1.0/tests
-copying tests/test_evidence.py -> deficitlens-1.1.0/tests
-copying tests/test_integration_real_data.py -> deficitlens-1.1.0/tests
-copying tests/test_models.py -> deficitlens-1.1.0/tests
-copying tests/test_physiology.py -> deficitlens-1.1.0/tests
-copying tests/test_pipeline_reporting.py -> deficitlens-1.1.0/tests
-copying tests/test_quality.py -> deficitlens-1.1.0/tests
-copying tests/test_release_checks.py -> deficitlens-1.1.0/tests
-Writing deficitlens-1.1.0/setup.cfg
+creating deficitlens-1.1.1
+creating deficitlens-1.1.1/src/deficitlens
+creating deficitlens-1.1.1/src/deficitlens.egg-info
+creating deficitlens-1.1.1/src/deficitlens/data
+creating deficitlens-1.1.1/src/deficitlens/evaluation
+creating deficitlens-1.1.1/src/deficitlens/models
+creating deficitlens-1.1.1/src/deficitlens/reporting
+creating deficitlens-1.1.1/src/deficitlens/reporting/templates
+creating deficitlens-1.1.1/src/deficitlens/resources
+creating deficitlens-1.1.1/tests
+copying files to deficitlens-1.1.1...
+copying LICENSE -> deficitlens-1.1.1
+copying NOTICE -> deficitlens-1.1.1
+copying README.md -> deficitlens-1.1.1
+copying pyproject.toml -> deficitlens-1.1.1
+copying src/deficitlens/__init__.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/__main__.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/cases.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/cli.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/config.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/evidence.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/personal.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/physiology.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/pipeline.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/quality.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/schemas.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens/version.py -> deficitlens-1.1.1/src/deficitlens
+copying src/deficitlens.egg-info/PKG-INFO -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens.egg-info/SOURCES.txt -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens.egg-info/dependency_links.txt -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens.egg-info/entry_points.txt -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens.egg-info/requires.txt -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens.egg-info/top_level.txt -> deficitlens-1.1.1/src/deficitlens.egg-info
+copying src/deficitlens/data/__init__.py -> deficitlens-1.1.1/src/deficitlens/data
+copying src/deficitlens/data/apple_health.py -> deficitlens-1.1.1/src/deficitlens/data
+copying src/deficitlens/data/paee2026.py -> deficitlens-1.1.1/src/deficitlens/data
+copying src/deficitlens/data/registry.py -> deficitlens-1.1.1/src/deficitlens/data
+copying src/deficitlens/data/weee.py -> deficitlens-1.1.1/src/deficitlens/data
+copying src/deficitlens/evaluation/__init__.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/benchmark.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/bootstrap.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/decision.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/external.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/fairness.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/metrics.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/evaluation/transportability.py -> deficitlens-1.1.1/src/deficitlens/evaluation
+copying src/deficitlens/models/__init__.py -> deficitlens-1.1.1/src/deficitlens/models
+copying src/deficitlens/models/adaptive.py -> deficitlens-1.1.1/src/deficitlens/models
+copying src/deficitlens/models/baselines.py -> deficitlens-1.1.1/src/deficitlens/models
+copying src/deficitlens/models/conformal.py -> deficitlens-1.1.1/src/deficitlens/models
+copying src/deficitlens/models/ensemble.py -> deficitlens-1.1.1/src/deficitlens/models
+copying src/deficitlens/reporting/__init__.py -> deficitlens-1.1.1/src/deficitlens/reporting
+copying src/deficitlens/reporting/personal_report.py -> deficitlens-1.1.1/src/deficitlens/reporting
+copying src/deficitlens/reporting/plots.py -> deficitlens-1.1.1/src/deficitlens/reporting
+copying src/deficitlens/reporting/report.py -> deficitlens-1.1.1/src/deficitlens/reporting
+copying src/deficitlens/reporting/templates/personal_audit.html.j2 -> deficitlens-1.1.1/src/deficitlens/reporting/templates
+copying src/deficitlens/reporting/templates/report.html.j2 -> deficitlens-1.1.1/src/deficitlens/reporting/templates
+copying src/deficitlens/resources/__init__.py -> deficitlens-1.1.1/src/deficitlens/resources
+copying src/deficitlens/resources/apple_health_sample.xml -> deficitlens-1.1.1/src/deficitlens/resources
+copying src/deficitlens/resources/case_catalog.yml -> deficitlens-1.1.1/src/deficitlens/resources
+copying src/deficitlens/resources/default.yml -> deficitlens-1.1.1/src/deficitlens/resources
+copying src/deficitlens/resources/external_evidence.json -> deficitlens-1.1.1/src/deficitlens/resources
+copying src/deficitlens/resources/registry.yml -> deficitlens-1.1.1/src/deficitlens/resources
+copying tests/test_apple_health.py -> deficitlens-1.1.1/tests
+copying tests/test_benchmark.py -> deficitlens-1.1.1/tests
+copying tests/test_config_registry_cli.py -> deficitlens-1.1.1/tests
+copying tests/test_data_adapters.py -> deficitlens-1.1.1/tests
+copying tests/test_evaluation.py -> deficitlens-1.1.1/tests
+copying tests/test_evidence.py -> deficitlens-1.1.1/tests
+copying tests/test_integration_real_data.py -> deficitlens-1.1.1/tests
+copying tests/test_models.py -> deficitlens-1.1.1/tests
+copying tests/test_physiology.py -> deficitlens-1.1.1/tests
+copying tests/test_pipeline_reporting.py -> deficitlens-1.1.1/tests
+copying tests/test_quality.py -> deficitlens-1.1.1/tests
+copying tests/test_release_checks.py -> deficitlens-1.1.1/tests
+Writing deficitlens-1.1.1/setup.cfg
 Creating tar archive
-removing 'deficitlens-1.1.0' (and everything under it)
+removing 'deficitlens-1.1.1' (and everything under it)
 * Building wheel from sdist
 * Creating isolated environment: venv+pip...
 * Installing packages in isolated environment:
@@ -237,10 +237,10 @@ copying build/lib/deficitlens/evidence.py -> build/bdist.macosx-11.0-arm64/wheel
 copying build/lib/deficitlens/__main__.py -> build/bdist.macosx-11.0-arm64/wheel/./deficitlens
 copying build/lib/deficitlens/personal.py -> build/bdist.macosx-11.0-arm64/wheel/./deficitlens
 running install_egg_info
-Copying src/deficitlens.egg-info to build/bdist.macosx-11.0-arm64/wheel/./deficitlens-1.1.0-py3.12.egg-info
+Copying src/deficitlens.egg-info to build/bdist.macosx-11.0-arm64/wheel/./deficitlens-1.1.1-py3.12.egg-info
 running install_scripts
-creating build/bdist.macosx-11.0-arm64/wheel/deficitlens-1.1.0.dist-info/WHEEL
-creating './artifacts/verification/dist/.tmp-zm_t7n1y/deficitlens-1.1.0-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
+creating build/bdist.macosx-11.0-arm64/wheel/deficitlens-1.1.1.dist-info/WHEEL
+creating './artifacts/verification/dist/.tmp-p9s7vgfm/deficitlens-1.1.1-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
 adding 'deficitlens/__init__.py'
 adding 'deficitlens/__main__.py'
 adding 'deficitlens/cases.py'
@@ -283,12 +283,12 @@ adding 'deficitlens/resources/case_catalog.yml'
 adding 'deficitlens/resources/default.yml'
 adding 'deficitlens/resources/external_evidence.json'
 adding 'deficitlens/resources/registry.yml'
-adding 'deficitlens-1.1.0.dist-info/licenses/LICENSE'
-adding 'deficitlens-1.1.0.dist-info/licenses/NOTICE'
-adding 'deficitlens-1.1.0.dist-info/METADATA'
-adding 'deficitlens-1.1.0.dist-info/WHEEL'
-adding 'deficitlens-1.1.0.dist-info/entry_points.txt'
-adding 'deficitlens-1.1.0.dist-info/top_level.txt'
-adding 'deficitlens-1.1.0.dist-info/RECORD'
+adding 'deficitlens-1.1.1.dist-info/licenses/LICENSE'
+adding 'deficitlens-1.1.1.dist-info/licenses/NOTICE'
+adding 'deficitlens-1.1.1.dist-info/METADATA'
+adding 'deficitlens-1.1.1.dist-info/WHEEL'
+adding 'deficitlens-1.1.1.dist-info/entry_points.txt'
+adding 'deficitlens-1.1.1.dist-info/top_level.txt'
+adding 'deficitlens-1.1.1.dist-info/RECORD'
 removing build/bdist.macosx-11.0-arm64/wheel
-Successfully built deficitlens-1.1.0.tar.gz and deficitlens-1.1.0-py3-none-any.whl
+Successfully built deficitlens-1.1.1.tar.gz and deficitlens-1.1.1-py3-none-any.whl

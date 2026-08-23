@@ -1,8 +1,9 @@
 {
-  "schema_version": 1,
-  "as_of": "2026-08-20",
-  "publication_status": "local_release_candidate",
-  "public_repository_verified": false,
+  "schema_version": 2,
+  "as_of": "2026-08-23",
+  "publication_status": "published",
+  "public_repository_verified": true,
+  "public_repository_url": "https://github.com/limingrui679-design/deficitlens-apple-watch",
   "independent_method_reviews": 0,
   "independent_reproductions": 0,
   "structured_usability_participants": 0,
@@ -11,6 +12,6 @@
   "organizational_adoptions": 0,
   "documented_real_users": 0,
   "real_world_impact_evaluations": 0,
-  "observed_public_stars": null,
-  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, and local release artifacts do not count as independent review, adoption, deployment, real users, or impact."
+  "observed_public_stars": 0,
+  "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, repository publication, and release artifacts do not count as independent review, adoption, deployment, real users, or impact."
 }

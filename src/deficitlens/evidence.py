@@ -15,10 +15,11 @@ class ExternalEvidenceLedger(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal[1]
+    schema_version: Literal[2]
     as_of: str
     publication_status: Literal["local_release_candidate", "published"]
     public_repository_verified: bool
+    public_repository_url: str | None = None
     independent_method_reviews: int = Field(ge=0)
     independent_reproductions: int = Field(ge=0)
     structured_usability_participants: int = Field(ge=0)
@@ -37,6 +38,17 @@ class ExternalEvidenceLedger(BaseModel):
                 raise ValueError("local release candidate cannot verify a public repository")
             if self.observed_public_stars is not None:
                 raise ValueError("public stars are unobserved before repository publication")
+            if self.public_repository_url is not None:
+                raise ValueError("local release candidate cannot declare a public repository URL")
+        else:
+            if not self.public_repository_verified:
+                raise ValueError("published ledger requires a verified public repository")
+            if not self.public_repository_url or not self.public_repository_url.startswith(
+                "https://github.com/"
+            ):
+                raise ValueError("published ledger requires a canonical GitHub repository URL")
+            if self.observed_public_stars is None:
+                raise ValueError("published ledger requires an observed public Star count")
         return self
 
 

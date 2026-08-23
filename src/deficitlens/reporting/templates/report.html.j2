@@ -157,7 +157,11 @@
       <div class="card"><span class="number">{{ external_evidence.organizational_adoptions }}</span><span class="label">organizational adoptions</span></div>
       <div class="card"><span class="number">{{ external_evidence.real_world_impact_evaluations }}</span><span class="label">real-world impact evaluations</span></div>
     </div>
+    {% if external_evidence.public_repository_verified %}
+    <p class="warning"><strong>Status:</strong> {{ external_evidence.publication_status | replace('_', ' ') }} at <a href="{{ external_evidence.public_repository_url }}">the verified public repository</a>. The observed Star count was <strong>{{ external_evidence.observed_public_stars }}</strong> on {{ external_evidence.as_of }}. {{ external_evidence.boundary }}</p>
+    {% else %}
     <p class="warning"><strong>Status:</strong> {{ external_evidence.publication_status | replace('_', ' ') }}. No public repository is verified and public stars are <strong>unobserved</strong>, not reported as zero. {{ external_evidence.boundary }}</p>
+    {% endif %}
   </section>
 
   <section id="reproduce">

@@ -2,6 +2,10 @@
 
 **Measure the measurement before trusting the calorie deficit.**
 
+[![CI](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/ci.yml/badge.svg)](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/ci.yml)
+[![Security](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/security.yml/badge.svg)](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/security.yml)
+[![Release](https://img.shields.io/github/v/release/limingrui679-design/deficitlens-apple-watch?display_name=tag)](https://github.com/limingrui679-design/deficitlens-apple-watch/releases)
+
 ![DeficitLens maps wearable signals through validation, uncertainty, and claim boundaries before a decision scenario](docs/assets/deficitlens-hero.svg)
 
 DeficitLens is a reproducible Apple Watch energy-expenditure audit. It aligns Watch active
@@ -249,18 +253,19 @@ separately.
 
 ## External evidence and publication status
 
-This checkout is a local release candidate. No public repository URL has been verified, so package
-metadata intentionally contains no repository, issue, release, or documentation URL. The current
-[external evidence ledger](evidence/external-evidence.json) records:
+The canonical public repository is
+[`limingrui679-design/deficitlens-apple-watch`](https://github.com/limingrui679-design/deficitlens-apple-watch).
+Its URL and default branch were verified before being added to package and citation metadata. As of
+2026-08-23, the [external evidence ledger](evidence/external-evidence.json) records:
 
 - 0 independent method reviews and 0 independent reproductions;
 - 0 structured usability or accessibility-study participants;
 - 0 documented real users, production deployments, or organizational adoptions; and
-- 0 real-world impact evaluations; public stars are unobserved, not zero.
+- 0 real-world impact evaluations; the observed public Star count is 0.
 
 Internal tests, self-audits, synthetic demos, and public-dataset analyses are valuable evidence,
-but they do not become external adoption or impact. Publication, protected CI, private security
-reporting, independent review, and user studies remain on the [roadmap](ROADMAP.md).
+but they do not become external adoption or impact. Remote CI, repository security settings,
+independent review, and user studies remain separately verifiable on the [roadmap](ROADMAP.md).
 
 ## Data provenance
 

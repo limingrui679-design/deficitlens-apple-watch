@@ -15,6 +15,7 @@ def version_failures(root: Path) -> list[str]:
 
     pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     expected = str(pyproject["project"]["version"])
+    repository_url = str(pyproject["project"].get("urls", {}).get("Repository", ""))
     citation = yaml.safe_load((root / "CITATION.cff").read_text(encoding="utf-8"))
     manifest = json.loads(
         (root / "artifacts/verified/run_manifest.json").read_text(encoding="utf-8")
@@ -22,6 +23,10 @@ def version_failures(root: Path) -> list[str]:
     version_source = (root / "src/deficitlens/version.py").read_text(encoding="utf-8")
     changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
     report = (root / "artifacts/verified/report.html").read_text(encoding="utf-8")
+    readme = (root / "README.md").read_text(encoding="utf-8")
+    external_evidence = json.loads(
+        (root / "evidence/external-evidence.json").read_text(encoding="utf-8")
+    )
     observed = {
         "version module": f'__version__ = "{expected}"' in version_source,
         "CITATION.cff": str(citation.get("version")) == expected,
@@ -30,6 +35,11 @@ def version_failures(root: Path) -> list[str]:
         "verified manifest": str(manifest.get("project_version")) == expected,
         "changelog": f"## {expected} " in changelog,
         "verified report": f"version {expected}" in report.lower(),
+        "canonical repository URL": repository_url.startswith("https://github.com/"),
+        "CITATION repository": citation.get("repository-code") == repository_url,
+        "external evidence repository": external_evidence.get("public_repository_url")
+        == repository_url,
+        "README repository": repository_url in readme,
     }
     return [
         f"{surface} does not match {expected}" for surface, passed in observed.items() if not passed

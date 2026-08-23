@@ -28,7 +28,9 @@ def test_default_config_and_cli(tmp_path: Path, capsys: pytest.CaptureFixture[st
     assert main(["evidence", "--json"]) == 0
     evidence_payload = capsys.readouterr().out
     assert '"documented_real_users": 0' in evidence_payload
-    assert '"observed_public_stars": null' in evidence_payload
+    assert '"observed_public_stars": 0' in evidence_payload
+    assert '"public_repository_verified": true' in evidence_payload
+    assert "https://github.com/limingrui679-design/deficitlens-apple-watch" in evidence_payload
     output = tmp_path / "demo"
     assert main(["demo", "--output", str(output)]) == 0
     assert (output / "summary.json").exists()

@@ -23,17 +23,33 @@ def validate_ledger(path: Path) -> list[str]:
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     failures: list[str] = []
-    if payload.get("schema_version") != 1:
-        failures.append("schema_version must be 1")
+    if payload.get("schema_version") != 2:
+        failures.append("schema_version must be 2")
     for field in sorted(COUNT_FIELDS):
         value = payload.get(field)
         if not isinstance(value, int) or isinstance(value, bool) or value < 0:
             failures.append(f"{field} must be a non-negative integer")
-    if payload.get("publication_status") == "local_release_candidate":
+    status = payload.get("publication_status")
+    if status == "local_release_candidate":
         if payload.get("public_repository_verified") is not False:
             failures.append("local release candidate cannot claim a verified public repository")
         if payload.get("observed_public_stars") is not None:
             failures.append("public stars must be null before a verified public repository exists")
+        if payload.get("public_repository_url") is not None:
+            failures.append("public repository URL must be null before publication")
+    elif status == "published":
+        if payload.get("public_repository_verified") is not True:
+            failures.append("published ledger requires a verified public repository")
+        repository_url = payload.get("public_repository_url")
+        if not isinstance(repository_url, str) or not repository_url.startswith(
+            "https://github.com/"
+        ):
+            failures.append("published ledger requires a canonical GitHub repository URL")
+        stars = payload.get("observed_public_stars")
+        if not isinstance(stars, int) or isinstance(stars, bool) or stars < 0:
+            failures.append("published ledger requires an observed non-negative Star count")
+    else:
+        failures.append("publication_status must be local_release_candidate or published")
     boundary = str(payload.get("boundary", "")).lower()
     for term in ("tests", "synthetic", "adoption", "impact"):
         if term not in boundary:

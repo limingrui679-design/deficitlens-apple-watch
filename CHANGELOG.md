@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.1 - 2026-08-23
+
+- Published the verified project at its canonical GitHub repository and restored only URLs that
+  were confirmed after remote creation.
+- Upgraded the external-evidence ledger to distinguish a verified public repository from still-zero
+  independent review, reproduction, usability, deployment, adoption, and impact evidence.
+- Made the CLI and verified report render the observed publication URL and Star count instead of a
+  hard-coded pre-publication message.
+- Regenerated the evidence bundle and release artifacts under the unchanged registered analysis
+  configuration.
+
 ## 1.1.0 - 2026-08-20
 
 - Added a validated four-path case catalog shared by the CLI, report, source checkout, and wheel.

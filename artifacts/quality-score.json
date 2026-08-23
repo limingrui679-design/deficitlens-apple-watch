@@ -321,8 +321,8 @@
       "points": 1
     }
   ],
-  "evaluated_at": "2026-08-23T15:24:58.489239+00:00",
-  "label": "v1.1.2 remote-compatibility release audit",
+  "evaluated_at": "2026-08-23T15:52:47.135910+00:00",
+  "label": "v1.1.3 Python 3.10 runtime-compatibility audit",
   "maximum": 100,
   "rubric_version": 3,
   "score": 100,

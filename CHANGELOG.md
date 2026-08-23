@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.3 - 2026-08-23
+
+- Replaced Python 3.11-only `datetime.UTC` with `timezone.utc` and conditionally installed the
+  `tomli` compatibility parser for Python 3.10 release checks.
+- Upgraded official checkout/setup actions to their Node 24 releases, disabled matrix fail-fast,
+  and limited push CI to `main` so publishing a tested tag does not duplicate the branch run.
+- Preserved the published `v1.1.2` tag and its failed compatibility run rather than rewriting it.
+
 ## 1.1.2 - 2026-08-23
 
 - Replaced bare NumPy array annotations with explicit typed arrays after the first Python 3.10

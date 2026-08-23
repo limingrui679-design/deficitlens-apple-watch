@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import platform
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from importlib.metadata import version
 from pathlib import Path
 from time import perf_counter
@@ -131,7 +131,7 @@ def _report_context(
     ensemble = metrics.loc[metrics["model"] == "ensemble"].iloc[0]
     improvement = 100.0 * (float(raw["mae"]) - float(ensemble["mae"])) / float(raw["mae"])
     return {
-        "generated_at": datetime.now(UTC).isoformat(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "version": __version__,
         "evidence": evidence,
         "high_resolution_rows": high_resolution_rows,

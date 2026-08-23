@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from deficitlens.quality import evaluate_quality
@@ -19,7 +19,7 @@ def main() -> int:
     parser.add_argument("--append-log", action="store_true")
     args = parser.parse_args()
     result = evaluate_quality(args.root)
-    result["evaluated_at"] = datetime.now(UTC).isoformat()
+    result["evaluated_at"] = datetime.now(timezone.utc).isoformat()
     result["label"] = args.label
     output = args.output or args.root / "artifacts" / "quality-score.json"
     output.parent.mkdir(parents=True, exist_ok=True)

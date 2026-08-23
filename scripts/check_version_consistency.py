@@ -4,10 +4,15 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
-import tomllib
 import yaml
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 
 def version_failures(root: Path) -> list[str]:

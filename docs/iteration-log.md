@@ -17,6 +17,7 @@ remain visible.
 | 9 — v1.1.0 final local release audit | **100/100** | 30 tests pass plus one 652MB integration test is exercised through the full benchmark; 90.25% branch-aware coverage; all 16 safety, dependency, version, docs, HTML, distribution, and installed-wheel checks pass | Release-ready under rubric v3 for maintainer-controllable quality; external evidence remains explicitly zero/unobserved |
 | 10 — v1.1.1 publication-state audit | **100/100** | Canonical public GitHub URL, default branch, and observed zero-Star state verified; real-data metrics reproduced; all 16 local release checks pass while review, reproduction, usability, deployment, adoption, and impact remain zero | First remote Python 3.10 Mypy run exposed bare NumPy array annotations; type the arrays explicitly, rerun all gates, and require green remote Actions before Release creation |
 | 11 — v1.1.2 remote-compatibility repair | **100/100** | All 23 Python 3.10 Mypy failures were traced to unparameterized NumPy arrays; explicit dtype annotations pass strict typing, the real-data metrics remain unchanged, and all 16 local release gates pass | Push without rewriting v1.1.1, then require green CI/security runs before creating the GitHub Release |
+| 12 — v1.1.3 Python 3.10 runtime repair | **100/100** | The second remote run passed Python 3.10 Mypy but exposed `datetime.UTC` and `tomllib` imports unavailable at runtime on 3.10; compatibility fallbacks now pass all 16 local release gates with unchanged real-data metrics | Push the branch without a tag, require green Python 3.10–3.12 CI and security runs, then tag and release that exact SHA |
 
 ## Scientific comparison
 
@@ -71,3 +72,6 @@ Health deployment.
 - The first public CI run found that bare `np.ndarray` annotations accepted in the verified Python
   3.12 environment were rejected by NumPy's Python 3.10 typing surface. The annotations now carry
   explicit dtypes instead of weakening or removing the 3.10 type-check job.
+- The next public CI run then reached test collection and exposed two Python 3.11-only standard
+  library imports despite the declared 3.10 floor. The runtime now uses `timezone.utc` and a
+  conditional `tomli` fallback; the matrix remains intact so compatibility is executable evidence.

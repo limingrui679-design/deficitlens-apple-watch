@@ -52,4 +52,4 @@ Coverage JSON written to file ./artifacts/verification/coverage.json
 Required test coverage of 85.0% reached. Total coverage: 90.12%
 =========================== short test summary info ============================
 SKIPPED [1] tests/test_integration_real_data.py:16: Set DEFICITLENS_WEEE_ARCHIVE for the 652 MB public-data integration test
-================== 30 passed, 1 skipped in 168.37s (0:02:48) ===================
+================== 30 passed, 1 skipped in 192.39s (0:03:12) ===================

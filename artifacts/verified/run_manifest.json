@@ -55,7 +55,7 @@
       "source_file": "dataset.zip"
     }
   },
-  "elapsed_seconds": 365.54134995804634,
+  "elapsed_seconds": 642.0948901249794,
   "external_evidence": {
     "as_of": "2026-08-23",
     "boundary": "Internal tests, self-audits, synthetic demos, public-dataset analyses, repository publication, and release artifacts do not count as independent review, adoption, deployment, real users, or impact.",
@@ -78,7 +78,7 @@
     "passed": false,
     "status": "blocked_model_transfer"
   },
-  "generated_at": "2026-08-23T15:14:07.999217+00:00",
+  "generated_at": "2026-08-23T15:43:59.344253+00:00",
   "high_resolution_overlapping_windows": 4544,
   "interval": {
     "above_interval": 0.004932182490752158,
@@ -93,7 +93,7 @@
     "figures/external_agreement.png": "sha256:4f25f5d9f54d58da9aa2bca2370c4c9f353853872c01a2f66a0e81b7660cfc3c",
     "figures/model_error.png": "sha256:cac81017e77f47dc446f8478a702603ade7fe7356edea3aa1f9ca49e9d9e6a31",
     "figures/observed_predicted.png": "sha256:07859f145edde9c7b5f3438ef07df101d270dfaaf91a513d238cbb79b8fbe495",
-    "report.html": "sha256:3bbe06bc14924708d6163a3363ca2b2e0beb592fcb94ffd35aaa195390c33422",
+    "report.html": "sha256:6ed72e8e8f2187763bb7a115e7e2ff03bcb5d68711fa1594b86e1194a81038eb",
     "tables/case_catalog.json": "sha256:ed2f55b140073bd620eaa757efee369662df0aef3c1ae7be059ed8a527860e87",
     "tables/cluster_bootstrap.csv": "sha256:95080b7c16435284f8bf3549b83110d89f8c7c7097c63f7acd2e3e4cfbf5310c",
     "tables/decision_impact_scenarios.csv": "sha256:8c7f577c059c54458e423913c344198efc3c94fa4ae7508051918f586a5a05ec",
@@ -108,7 +108,7 @@
     "tables/transferability_gate.json": "sha256:56f8d0ab4b95a53b2431c5c4e9ce94d32166aa1dce80a513e109b8cbfbf0417d"
   },
   "primary_non_overlapping_windows": 811,
-  "project_version": "1.1.2",
+  "project_version": "1.1.3",
   "runtime": {
     "numpy": "2.5.2",
     "pandas": "2.3.3",

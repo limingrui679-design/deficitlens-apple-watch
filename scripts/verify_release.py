@@ -7,7 +7,7 @@ import json
 import shutil
 import subprocess
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from time import perf_counter
 
@@ -132,7 +132,7 @@ def main() -> int:
     print(f"{wheel_status:4} {'wheel_smoke':14} {wheel_result['elapsed_seconds']:.2f}s")
     payload = {
         "schema_version": 1,
-        "generated_at": datetime.now(UTC).isoformat(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "python": sys.version,
         "checks": results,
         "all_passed": all(bool(result["passed"]) for result in results.values()),

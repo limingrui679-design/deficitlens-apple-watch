@@ -23,3 +23,5 @@ Health 隐私审计，以及多假设减脂误差敏感性分析。案例目录�
 当前状态是本地发布候选版，尚无已核验的公开仓库、独立复现、真实用户、部署、采用或影响
 证据；这些项目在 [`external-evidence.json`](../evidence/external-evidence.json) 中按零值或
 “未观测”如实记录。
+
+在 WEEE 17 名参与者的 811 个窗口上，逐人等权时，组合模型相对原始手表的平均绝对误差降低 0.5533 千卡/分钟。在同一组参与者之间重新分配 25% 的权重，最低改善仍为 0.2053 千卡/分钟；达到平局需要重新分配约 45.29% 的权重。[计算方法和原始预测](methodology.md#how-much-can-the-mix-of-people-change-a-model-comparison)

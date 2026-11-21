@@ -21,6 +21,7 @@ from deficitlens.evaluation.metrics import (
     interval_metrics,
     regression_metrics,
 )
+from deficitlens.evaluation.mixture import participant_mix_sensitivity
 from deficitlens.models.baselines import (
     apple_raw,
     cohort_affine_fit,
@@ -190,6 +191,12 @@ def run_loso_benchmark(frame: pd.DataFrame, settings: Settings) -> BenchmarkResu
                 "model": model_name,
                 **regression_metrics(target, values),
                 **agreement_metrics(target, values),
+                **participant_mix_sensitivity(
+                    target,
+                    values,
+                    predictions["apple_raw"].to_numpy(dtype=float),
+                    prediction_groups,
+                ),
             }
         )
         for metric_name, function in (("mae", mae), ("mean_bias", mean_bias)):

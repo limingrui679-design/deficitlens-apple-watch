@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 
 def concordance_correlation_coefficient(
@@ -85,7 +85,7 @@ def interval_metrics(
     lower: NDArray[np.float64],
     upper: NDArray[np.float64],
     *,
-    participants: NDArray[np.str_] | None = None,
+    participants: ArrayLike | None = None,
 ) -> dict[str, float | int]:
     """Compute marginal coverage, width, and one-sided miss rates."""
 

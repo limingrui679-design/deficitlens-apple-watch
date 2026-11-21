@@ -161,6 +161,20 @@ def run_loso_benchmark(frame: pd.DataFrame, settings: Settings) -> BenchmarkResu
             "affine_slope": slope,
             **model.diagnostics(),
         }
+        radius = conformal.simultaneous_radius
+        abs_error = np.abs(test[TARGET_COLUMN].to_numpy(dtype=float) - ensemble_prediction)
+        fold_diagnostic["simultaneous_participant_band"] = {
+            "alpha": conformal.alpha,
+            "calibration_people": conformal.calibration_clusters,
+            "required_order": conformal.simultaneous_order,
+            "max_finite_nominal_coverage": conformal.calibration_clusters
+            / (conformal.calibration_clusters + 1),
+            "radius": radius,
+            "status": "finite" if radius is not None else "insufficient_calibration_people",
+            "held_out_all_windows_covered": bool(np.all(abs_error <= radius))
+            if radius is not None
+            else None,
+        }
         diagnostics.append(fold_diagnostic)
 
     predictions = pd.concat(fold_outputs).sort_index()

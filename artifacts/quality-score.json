@@ -321,8 +321,8 @@
       "points": 1
     }
   ],
-  "evaluated_at": "2026-08-23T15:52:47.135910+00:00",
-  "label": "v1.1.3 Python 3.10 runtime-compatibility audit",
+  "evaluated_at": "2026-11-21T09:49:10.082876+00:00",
+  "label": "Participant-level interval verification",
   "maximum": 100,
   "rubric_version": 3,
   "score": 100,

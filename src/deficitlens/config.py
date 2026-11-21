@@ -29,7 +29,7 @@ class ModelConfig(BaseModel):
 
     outer_split: Literal["leave_one_subject_out"] = "leave_one_subject_out"
     inner_group_folds: int = Field(default=5, ge=2, le=10)
-    calibration_group_fraction: float = Field(default=0.20, gt=0, lt=0.5)
+    calibration_group_fraction: float = Field(default=0.20, gt=0, lt=1.0)
     conformal_alpha: float = Field(default=0.10, gt=0, lt=0.5)
     mondrian_column: str = "activity_family"
     minimum_mondrian_samples: int = Field(default=25, ge=5)

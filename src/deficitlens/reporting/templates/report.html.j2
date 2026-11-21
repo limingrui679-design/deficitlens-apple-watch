@@ -103,6 +103,9 @@
     <h3>Predictions and calibrated uncertainty</h3>
     <img loading="lazy" src="figures/observed_predicted.png" alt="Observed criterion active energy versus raw Apple and DeficitLens predictions, all from held-out participants">
     <img loading="lazy" src="figures/coverage_by_activity.png" alt="Empirical participant-cluster conformal coverage for six controlled activities compared with the 90 percent target">
+    {% if interval.simultaneous_participant_coverage is defined %}
+    <p>Across {{ interval.participants }} held-out participants, all evaluated windows were covered for {{ interval.participants_all_windows_covered }}. Giving each participant equal weight, average within-person coverage was {{ "%.1f"|format(interval.participant_balanced_coverage * 100) }}%. These empirical rates answer different questions from pooled window coverage.</p>
+    {% endif %}
     <p>The outer participant is absent from model fitting, stack-weight learning, and conformal calibration. The primary interval calibrates participant-level maximum residuals. The narrower row-level interval covered {{ "%.1f"|format(compact_interval.coverage * 100) }}% and is retained only as a dependence diagnostic.</p>
   </section>
 

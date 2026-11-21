@@ -302,3 +302,9 @@ Read the full [model card](docs/model-card.md) before reuse.
 Code is Apache-2.0. Dataset licenses remain with their creators. Cite DeficitLens via
 [`CITATION.cff`](CITATION.cff) and cite each dataset you use. Contributions are welcome under
 [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+### Coverage per window and per person
+
+The benchmark reports pooled window coverage, the mean of each participant's coverage (one vote per person), and the fraction of held-out participants whose every evaluable interval covers the observed value. The last quantity evaluates the simultaneous target of the participant-maximum calibration. It depends on the number and mix of windows observed for each participant. The report supplies both the numerator and the participant count; these are empirical results on the held-out sample.
+
+On the [archived held-out predictions](artifacts/verified/tables/loso_predictions.csv), the primary intervals covered 782 of 811 windows (96.4%). The average within-person coverage was 96.8%, but only 8 of 17 participants had **all** their observed windows covered (47.1%). These denominators are different: a single missed window changes the all-windows result for that person.

@@ -193,11 +193,13 @@ def run_loso_benchmark(frame: pd.DataFrame, settings: Settings) -> BenchmarkResu
         target,
         predictions["interval_lower"].to_numpy(dtype=float),
         predictions["interval_upper"].to_numpy(dtype=float),
+        participants=prediction_groups,
     )
     compact_intervals = interval_metrics(
         target,
         predictions["compact_interval_lower"].to_numpy(dtype=float),
         predictions["compact_interval_upper"].to_numpy(dtype=float),
+        participants=prediction_groups,
     )
     return BenchmarkResult(
         predictions=predictions.reset_index(drop=True),

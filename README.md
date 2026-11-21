@@ -1,6 +1,6 @@
 # DeficitLens for Apple Watch
 
-**Measure the measurement before trusting the calorie deficit.**
+**How accurately does an Apple Watch estimate energy use for someone new?**
 
 [![CI](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/ci.yml/badge.svg)](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/ci.yml)
 [![Security](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/security.yml/badge.svg)](https://github.com/limingrui679-design/deficitlens-apple-watch/actions/workflows/security.yml)
@@ -8,15 +8,9 @@
 
 ![DeficitLens maps wearable signals through validation, uncertainty, and claim boundaries before a decision scenario](docs/assets/deficitlens-hero.svg)
 
-DeficitLens is a reproducible Apple Watch energy-expenditure audit. It aligns Watch active
-energy and heart-rate signals with oxygen-uptake criterion data, predicts measurement error
-with a leakage-safe ensemble, wraps estimates in conformal uncertainty intervals, checks
-subgroup behavior, and translates remaining error into clearly labeled fat-loss planning
-scenarios.
+Two people can record the same active calories on a watch and expend different amounts of energy. DeficitLens lets wearable-data researchers compare the watch reading with a laboratory reference. It aligns Apple Watch signals with oxygen uptake, trains correction models on other participants, and evaluates each person in turn.
 
-It is measurement-audit research software and a local data-quality tool—not a medical device,
-diet prescription, production service, or promise that a wearable can identify a person's true
-calorie deficit.
+Across 17 participants and six activities in the WEEE dataset, the raw Series 6 readings had a mean absolute error of 1.651 kcal/min. The model brought that to 1.082 kcal/min. The report breaks error down by activity and shows how the remaining uncertainty changes a planning scenario. [Explore the held-out results](artifacts/verified/report.html)
 
 [Open the verified report](artifacts/verified/report.html) ·
 [Read the methodology](docs/methodology.md) ·
@@ -26,11 +20,7 @@ calorie deficit.
 
 ## Why this project exists
 
-Most fitness repositories visualize a wearable's calorie field as if it were ground truth.
-DeficitLens asks the more useful question: **how wrong might that number be for an unseen
-person, and does the error matter for a decision?**
-
-The project is deliberately Apple Watch-specific:
+Researchers can follow the calculation from an Apple Health export to a participant-level comparison. The workflow
 
 - parses Apple Health `export.xml` with unit normalization, de-duplication, source filtering,
   local-day preservation, and privacy-safe aggregation;
@@ -38,7 +28,7 @@ The project is deliberately Apple Watch-specific:
 - audits Series 8 session totals against COSMED K5 in an independent 2026 cohort;
 - treats missing heart-rate samples as signal quality, not as silent zeros;
 - compares the learned correction with the raw Apple value and transparent baselines;
-- never converts a dashboard state, paper result, or model fit into an individual health claim.
+- propagates measurement error through explicit energy-balance scenarios.
 
 ## Case paths
 

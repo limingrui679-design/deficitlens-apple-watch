@@ -51,7 +51,7 @@ Changelog = "https://github.com/limingrui679-design/deficitlens-apple-watch/blob
 [project.optional-dependencies]
 dev = [
   "build>=1.2,<2",
-  "mypy>=1.13,<2",
+  "mypy>=1.13,<3",
   "pandas-stubs>=2.2,<3",
   "pip-audit>=2.9,<3",
   "pytest>=8,<10",

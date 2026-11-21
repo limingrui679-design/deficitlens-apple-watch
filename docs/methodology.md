@@ -134,3 +134,19 @@ weight forecast.
 updates, but state updates require an actual paired criterion observation. This prevents the
 common circular error of calibrating a wearable against weight change that is itself affected by
 unknown intake and fluid shifts.
+
+### How much can the mix of people change a model comparison?
+
+For each held-out participant, take the raw watch MAE minus the corrected model MAE on exactly the same windows. Start with equal weight for each person. A total variation (TV) budget of 0.25 permits redistributing up to one quarter of the probability mass across the observed participants. To find the worst attainable mean gain, move mass from the largest gain to the smallest until the budget runs out. Reversing the order gives the best attainable gain. The same piecewise linear path gives the minimum mass needed to tie the raw watch; an empty tie field means every observed mixture favors the same side.
+
+The archived WEEE predictions (811 windows, 17 people; SHA-256 `e5fa5c9014cd59eed859a47b63cd9a856a617f5ae8060f47a60c5cdfcece9cd1`) give an equal-person ensemble gain of **0.5533 kcal/min**. At TV 0.25, the attainable gain spans **0.2053 to 0.9306 kcal/min**. Breaking even requires moving about 45.29% of the mass. The affine comparator starts at −0.0054 kcal/min and can tie with just 0.29% of the mass moved. This sensitivity analysis conditions on the observed participant errors and excludes sampling uncertainty and new device populations.
+
+The standard WEEE benchmark exports these fields in `tables/model_metrics.csv`. To audit the archived predictions separately:
+
+```python
+import pandas as pd
+from deficitlens.evaluation.mixture import participant_mix_sensitivity
+
+rows = pd.read_csv("artifacts/verified/tables/loso_predictions.csv")
+print(participant_mix_sensitivity(rows.y_true, rows.ensemble, rows.apple_raw, rows.participant_id))
+```

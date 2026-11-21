@@ -18,6 +18,8 @@ Across 17 participants and six activities in the WEEE dataset, the raw Series 6 
 [Inspect the model card](docs/model-card.md) ·
 [中文概览](docs/README.zh-CN.md)
 
+How sensitive is the result to who contributes the data? In 17 held-out WEEE participants, reversing the ensemble’s average advantage over the raw watch required reallocating 45.29% of the participant weight. [Explore the mixture audit](docs/methodology.md#how-much-can-the-mix-of-people-change-a-model-comparison).
+
 ## Why this project exists
 
 Researchers can follow the calculation from an Apple Health export to a participant-level comparison. The workflow

@@ -106,3 +106,18 @@ def test_subgroup_and_external_audits() -> None:
     assert transfer["status"] == "blocked_model_transfer"
     assert transfer["passed"] is False
     assert "apple_hr_mean" in transfer["missing_required_features"]
+
+
+def test_coverage_estimands_retain_the_person_as_the_sampling_unit() -> None:
+    from deficitlens.evaluation.metrics import interval_metrics
+
+    result = interval_metrics(
+        np.array([1.0, 1.0, 1.0, 2.0]),
+        np.zeros(4),
+        np.ones(4),
+        participants=np.array(["a", "a", "a", "b"]),
+    )
+    assert result["coverage"] == 0.75
+    assert result["participant_balanced_coverage"] == 0.5
+    assert result["participants_all_windows_covered"] == 1
+    assert result["simultaneous_participant_coverage"] == 0.5

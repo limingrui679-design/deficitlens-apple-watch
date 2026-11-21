@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 
 def concordance_correlation_coefficient(
@@ -84,20 +84,45 @@ def interval_metrics(
     target: NDArray[np.float64],
     lower: NDArray[np.float64],
     upper: NDArray[np.float64],
+    *,
+    participants: ArrayLike | None = None,
 ) -> dict[str, float | int]:
     """Compute marginal coverage, width, and one-sided miss rates."""
 
     y = np.asarray(target, dtype=float)
     lo = np.asarray(lower, dtype=float)
     hi = np.asarray(upper, dtype=float)
+    if y.ndim != 1 or lo.shape != y.shape or hi.shape != y.shape:
+        raise ValueError("Target and interval bounds must be aligned vectors")
     finite = np.isfinite(y) & np.isfinite(lo) & np.isfinite(hi)
     y, lo, hi = y[finite], lo[finite], hi[finite]
     if len(y) == 0:
         raise ValueError("No finite intervals")
-    return {
+    if np.any(lo > hi):
+        raise ValueError("Lower bound exceeds upper bound")
+    covered = (y >= lo) & (y <= hi)
+    result: dict[str, float | int] = {
         "n": len(y),
-        "coverage": float(np.mean((y >= lo) & (y <= hi))),
+        "coverage": float(np.mean(covered)),
         "mean_width": float(np.mean(hi - lo)),
         "below_interval": float(np.mean(y < lo)),
         "above_interval": float(np.mean(y > hi)),
     }
+    if participants is not None:
+        ids = np.asarray(participants)
+        if ids.shape != finite.shape or ids.dtype.kind not in {"U", "S", "O"}:
+            raise ValueError("Participant identifiers must align with interval rows")
+        if any(not isinstance(value, (str, np.str_)) or not value.strip() for value in ids[finite]):
+            raise ValueError("Each evaluated interval needs a participant identifier")
+        names, index = np.unique(ids[finite], return_inverse=True)
+        counts = np.bincount(index)
+        hits = np.bincount(index, weights=covered)
+        result.update(
+            {
+                "participants": len(names),
+                "participant_balanced_coverage": float(np.mean(hits / counts)),
+                "participants_all_windows_covered": int(np.sum(hits == counts)),
+                "simultaneous_participant_coverage": float(np.mean(hits == counts)),
+            }
+        )
+    return result

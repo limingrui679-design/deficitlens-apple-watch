@@ -105,3 +105,28 @@ def test_baselines_and_adaptive_calibrator(synthetic_windows: pd.DataFrame) -> N
     assert new_uncertainty < uncertainty
     with pytest.raises(ValueError):
         KalmanBiasCalibrator(observation_variance=0)
+
+
+def test_simultaneous_radius_requires_enough_independent_people():
+    frame = pd.DataFrame({"activity": ["run", "sit"] * 9, "pid": np.repeat(np.arange(9), 2)})
+    y = np.arange(len(frame), dtype=float)
+
+    def fit(n: int) -> MondrianConformalRegressor:
+        return MondrianConformalRegressor.fit(
+            frame.iloc[:n],
+            y[:n],
+            np.zeros(n),
+            alpha=0.1,
+            group_column="activity",
+            minimum_group_samples=2,
+            cluster_column="pid",
+        )
+
+    assert fit(16).simultaneous_radius is None
+    assert fit(18).simultaneous_order == 9
+    assert fit(18).simultaneous_radius == 17
+    assert fit(16).predict_simultaneous_interval(np.array([1.0])) is None
+    finite = fit(18).predict_simultaneous_interval(np.array([1.0, 18.0]))
+    assert finite is not None
+    np.testing.assert_array_equal(finite[0], [0.0, 1.0])
+    np.testing.assert_array_equal(finite[1], [18.0, 35.0])

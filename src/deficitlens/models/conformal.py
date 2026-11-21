@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import ROUND_CEILING, Decimal
 
 import numpy as np
 import pandas as pd
@@ -10,7 +11,7 @@ from numpy.typing import NDArray
 
 
 def conformal_quantile(scores: NDArray[np.float64], alpha: float) -> float:
-    """Return the split-conformal finite-sample absolute-residual quantile."""
+    """Return the capped empirical radius used by the historical benchmark."""
 
     finite = np.sort(np.asarray(scores, dtype=float)[np.isfinite(scores)])
     if len(finite) == 0:
@@ -34,6 +35,29 @@ class MondrianConformalRegressor:
     calibration_size: int
     calibration_clusters: int
 
+    @property
+    def simultaneous_order(self) -> int:
+        """Order statistic for one exchangeable new participant's maximum residual."""
+        rank = Decimal(self.calibration_clusters + 1) * (1 - Decimal(str(self.alpha)))
+        return int(rank.to_integral_value(rounding=ROUND_CEILING))
+
+    @property
+    def simultaneous_radius(self) -> float | None:
+        """No finite distribution-free radius is supported when the order exceeds n."""
+        if self.simultaneous_order > self.calibration_clusters:
+            return None
+        return self.cluster_global_radius
+
+    def predict_simultaneous_interval(
+        self, prediction: NDArray[np.float64]
+    ) -> tuple[NDArray[np.float64], NDArray[np.float64]] | None:
+        """Apply one participant-wide radius to every predicted window, if supported."""
+        radius = self.simultaneous_radius
+        if radius is None:
+            return None
+        point = np.asarray(prediction, dtype=float)
+        return np.maximum(0.0, point - radius), point + radius
+
     @classmethod
     def fit(
         cls,
@@ -49,7 +73,13 @@ class MondrianConformalRegressor:
     ) -> MondrianConformalRegressor:
         """Calibrate absolute-residual intervals on participant-disjoint data."""
 
+        if np.shape(target) != np.shape(prediction):
+            raise ValueError("Targets and predictions must have the same shape")
         scores = np.abs(np.asarray(target, dtype=float) - np.asarray(prediction, dtype=float))
+        if scores.ndim != 1 or len(scores) != len(frame) or not np.isfinite(scores).all():
+            raise ValueError("Calibration requires one finite residual per row")
+        if cluster_column is not None and frame[cluster_column].isna().any():
+            raise ValueError("Participant IDs are required for every calibration window")
         global_radius = conformal_quantile(scores, alpha)
         group_radii: dict[str, float] = {}
         labels = frame[group_column].astype(str).to_numpy()
@@ -73,7 +103,9 @@ class MondrianConformalRegressor:
             calibration_clusters = len(per_cluster_max)
             if calibration_clusters < 2:
                 raise ValueError("Cluster conformal requires at least two calibration clusters")
-            cluster_global_radius = conformal_quantile(per_cluster_max.to_numpy(), alpha)
+            rank = Decimal(calibration_clusters + 1) * (1 - Decimal(str(alpha)))
+            order = min(int(rank.to_integral_value(rounding=ROUND_CEILING)), calibration_clusters)
+            cluster_global_radius = float(np.sort(per_cluster_max.to_numpy())[order - 1])
             for label, subset in calibration.groupby("mondrian"):
                 cluster_scores = subset.groupby("cluster")["score"].max()
                 if len(cluster_scores) >= minimum_group_clusters:

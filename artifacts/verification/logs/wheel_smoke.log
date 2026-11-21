@@ -1,4 +1,7 @@
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-nknw6p0o/installed/deficitlens/__init__.py
+
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: ~/Documents/Codex/2026-08-20/w-x/outputs/deficitlens-apple-watch/.venv/bin/python -m pip install --upgrade pip
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-00bu9xy9/installed/deficitlens/__init__.py
 weee                     public                                               second-level model development and Apple Watch Series 6 audit
 apple_watch_paee_2026    public                                               Apple Watch Series 8 external and body-composition fairness audit
 bigideaslab_step         restricted; account and signed data-use agreement required optional heart-rate measurement fairness validation
@@ -147,4 +150,4 @@ apple_health_export      private local input; never downloaded or uploaded    lo
   "structured_accessibility_reviews": 0,
   "structured_usability_participants": 0
 }
-/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-nknw6p0o/demo
+/var/folders/3v/r7kf44xn3gj9xg2tv31mq_mh0000gn/T/deficitlens-wheel-00bu9xy9/demo
